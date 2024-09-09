@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
     <title>嘟嘟嘟</title>
-    <meta name="description" content="虹ヶ咲学園購買部は、『ラブライブ！虹ヶ咲スクールアイドル同好会』のスペシャルなアイテムをお届けする公式通販サイトです！">
+    <meta name="description" content="晚安通贩的事件提示页">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -197,55 +197,72 @@
         setInterval(updateTime, 1000); // 每秒更新一次时间
         const date = new Date();
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+    // 示例数据
+    const exampleData = {
+        "2024-09-09": ["Meeting with team at 10:00 AM", "Lunch with Sarah at 1:00 PM"],
+        "2024-09-10": ["Doctor's appointment at 3:00 PM"],
+        "2024-09-15": ["Project deadline", "Dinner with friends at 7:00 PM"]
+    };
+
+    // 将示例数据保存到 localStorage 中
+    localStorage.setItem('schedule', JSON.stringify(exampleData));
+
+    // 从 localStorage 获取事件数据
+    
     const schedule = JSON.parse(localStorage.getItem('schedule')) || {};
+
 
    
     function drawCalendar() {
+    // 获取更新后的事件数据
+    const schedule = JSON.parse(localStorage.getItem('schedule')) || {};
+
     // 中文月份名字
     const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
-
-    // Clear the calendar
+    
+    // 清空日历
     for (let i = 0; i < 6; i++) {
         document.getElementById("week" + (i + 1)).innerHTML = "";
     }
 
-    // Get the first day of the current month
+    // 获取当前月的第一天
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    let dayOfWeek = firstDay.getDay();  // Determine which day of the week the month begins on
+    let dayOfWeek = firstDay.getDay();  // 确定月初是星期几
 
-    // If dayOfWeek is 0 (Sunday), change it to 7 (make week start from Monday)
+    // 如果 dayOfWeek 为 0（星期日），将其改为 7（使周从星期一开始）
     dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
-    // Reduce dayOfWeek by 1 as our calendar grid starts from Monday (index 1)
+    // 将 dayOfWeek 减去 1，因为我们的日历网格从星期一（索引 1）开始
     dayOfWeek--;
 
-    // Get the last day of the current month
+    // 获取当前月的最后一天
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    // Calculate the total number of days in the month
+    // 计算当前月的总天数
     let totalDays = lastDay.getDate();
 
-    // Calculate which week the first day of the month is in
+    // 计算月初所在的周
     let currentWeek = 1;
 
-    // Fill the initial days of the first week as empty
-    for(let i = 0; i < dayOfWeek; i++){
+    // 填充第一周的初始空白天
+    for (let i = 0; i < dayOfWeek; i++) {
         const weekRow = document.getElementById("week" + currentWeek);
         const emptyCell = document.createElement("td");
         weekRow.appendChild(emptyCell);
     }
 
-    // Fill the calendar with dates
+    // 填充日历的日期
     for (let currentDay = 1; currentDay <= totalDays; currentDay++) {
-        // Create a new cell with the current day
+        // 创建一个新的单元格并添加当前日期
         const cell = document.createElement("td");
         cell.innerText = currentDay;
 
-        // Highlight today's date
+        // 高亮显示今天的日期
         if (new Date(date.getFullYear(), date.getMonth(), currentDay).toDateString() === new Date().toDateString()) {
             cell.className = "today";
         }
 
-        // Check if there are events for the current date
+        // 检查当前日期是否有事件
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = currentDay.toString().padStart(2, '0');
         const eventDate = `${date.getFullYear()}-${month}-${day}`;
@@ -262,22 +279,23 @@
             }
         }
 
-        // Add the cell to the correct week row
+        // 将单元格添加到相应的周
         const weekRow = document.getElementById("week" + currentWeek);
         weekRow.appendChild(cell);
 
-        // Move to the next day
+        // 移动到下一天
         dayOfWeek++;
         if (dayOfWeek >= 7) {
-            dayOfWeek = 0;  // Reset to Monday
-            currentWeek++;  // Move to next week
+            dayOfWeek = 0;  // 重置为星期一
+            currentWeek++;  // 移动到下一周
         }
     }
 
-    // Update the calendar caption
+    // 更新日历标题
     const caption = document.getElementById("monthYear");
     caption.innerText = monthNames[date.getMonth()] + " " + date.getFullYear();
 }
+
 
     function previousMonth() {
         date.setMonth(date.getMonth() - 1);

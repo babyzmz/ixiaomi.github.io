@@ -31,7 +31,7 @@
             </a>
             <div class="title"></div>
             <div class="menu">
-                <a href="heart.html">
+                 <!-- <a href="heart.html">
                     <div class="item">
                         <div class="light"></div>
                         <div class="licon">
@@ -42,8 +42,8 @@
                         <div class="con">心心纪念日</div>
                         <div class="ricon"></div>
                     </div>
-                </a>
-                <a href="calendar.html">
+                </a>-->
+               <a href="calendar.html">
                     <div class="item">
                         <div class="light"></div>
                         <div class="licon">
@@ -55,7 +55,7 @@
                         <div class="ricon"></div>
                     </div>
                 </a>
-                <a href="order.html">
+                <!--  <a href="order.html">
                     <div class="item">
                         <div class="light"></div>
                         <div class="licon">
@@ -115,10 +115,30 @@
                             <div class="con">Settings</div>
                             <div class="ricon"></div>
                         </div>
-                    </a>
+                    </a>-->
                 </div>
             </div>
         </div>
+
+        <div class="existing-events-container">
+            <h3>已有事件</h3>
+            <!-- 显示已有事件的区域 -->
+            <div id="existing-events"></div>
+
+            <a href="index.html">
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/calendar.png" alt="" class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="existing-eventsfont">前往日历事件页</div>
+                    <div class="ricon"></div>
+                </div>
+            </a>
+        </div>
+        
         
           
         <div class="reminder-container">
@@ -137,7 +157,110 @@
             </div>
         </div>
     </div>
-
+    
+    <script>
+        // 获取表单和事件列表的元素
+        const reminderForm = document.getElementById('reminder-form');
+        const eventNameInput = document.getElementById('event-name');
+        const eventDateInput = document.getElementById('event-date');
+        const existingEventsContainer = document.getElementById('existing-events');
+        const eventList = document.getElementById('event-list'); // 获取eventlist元素
+        
+        // 从 localStorage 获取现有的事件数据或初始化为空对象
+        let schedule = JSON.parse(localStorage.getItem('schedule')) || {};
+        
+        // 添加事件到 localStorage
+        function addEventToCalendar(eventName, eventDate) {
+            if (!schedule[eventDate]) {
+                schedule[eventDate] = [];
+            }
+            schedule[eventDate].push(eventName);
+            localStorage.setItem('schedule', JSON.stringify(schedule));  // 更新 localStorage
+            displayExistingEvents(); // 更新已有事件显示
+            updateEventList(); // 更新eventlist显示
+        }
+        
+        // 处理表单提交事件
+        reminderForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表单的默认提交行为
+            
+            const eventName = eventNameInput.value.trim();
+            const eventDate = eventDateInput.value;
+            
+            if (eventName && eventDate) {
+                addEventToCalendar(eventName, eventDate);
+                eventNameInput.value = ''; // 清空输入框
+                eventDateInput.value = ''; // 清空日期输入框
+            }
+        });
+        
+        // 显示已有事件
+        function displayExistingEvents() {
+            existingEventsContainer.innerHTML = ''; // 清空已有事件的显示区域
+        
+            const sortedDates = Object.keys(schedule).sort(); // 对事件日期进行排序
+        
+            for (const date of sortedDates) {
+                const events = schedule[date];
+                events.forEach((event, index) => {
+                    const eventElement = document.createElement('div');
+                    eventElement.className = 'event-item';
+                    eventElement.style.margin = '10px 0';
+                    eventElement.innerHTML = `
+                        <span>${date}: ${event}</span>
+                        <button onclick="editEvent('${date}', ${index})">编辑</button>
+                        <button onclick="deleteEvent('${date}', ${index})">删除</button>
+                    `;
+                    existingEventsContainer.appendChild(eventElement);
+                });
+            }
+        }
+        
+        // 更新eventlist显示
+        function updateEventList() {
+            eventList.innerHTML = '<h3>即将到来的事件：</h3>'; // 重置标题
+        
+            const sortedDates = Object.keys(schedule).sort(); // 对事件日期进行排序
+        
+            for (const date of sortedDates) {
+                const events = schedule[date];
+                events.forEach(event => {
+                    const eventElement = document.createElement('div');
+                    eventElement.innerText = `${date}: ${event}`;
+                    eventList.appendChild(eventElement);
+                });
+            }
+        }
+        
+        // 编辑事件
+        function editEvent(date, index) {
+            const newEventName = prompt("编辑事件名称：", schedule[date][index]);
+            if (newEventName !== null && newEventName.trim() !== "") {
+                schedule[date][index] = newEventName.trim();
+                localStorage.setItem('schedule', JSON.stringify(schedule));
+                displayExistingEvents(); // 更新已有事件显示
+                updateEventList(); // 更新eventlist显示
+            }
+        }
+        
+        // 删除事件
+        function deleteEvent(date, index) {
+            if (confirm("您确定要删除这个事件吗？")) {
+                schedule[date].splice(index, 1); // 删除事件
+                if (schedule[date].length === 0) {
+                    delete schedule[date];  // 如果没有事件了，删除该日期
+                }
+                localStorage.setItem('schedule', JSON.stringify(schedule)); // 更新 localStorage
+                displayExistingEvents(); // 更新已有事件显示
+                updateEventList(); // 更新eventlist显示
+            }
+        }
+        
+        // 初始化时显示已有事件和eventlist
+        displayExistingEvents();
+        updateEventList();
+        </script>
+        
     
 
 </body>
