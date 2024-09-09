@@ -222,14 +222,23 @@
         function updateEventList() {
             eventList.innerHTML = '<h3>即将到来的事件：</h3>'; // 重置标题
         
-            const sortedDates = Object.keys(schedule).sort(); // 对事件日期进行排序
+            const today = new Date();
+            const sortedDates = Object.keys(schedule)
+                .sort((a, b) => new Date(a) - new Date(b))
+                .filter(date => new Date(date) >= today);
         
+            let eventCount = 0;
             for (const date of sortedDates) {
+                if (eventCount >= 3) break; // 只显示最近的三个事件
+                
                 const events = schedule[date];
                 events.forEach(event => {
-                    const eventElement = document.createElement('div');
-                    eventElement.innerText = `${date}: ${event}`;
-                    eventList.appendChild(eventElement);
+                    if (eventCount < 3) {
+                        const eventElement = document.createElement('div');
+                        eventElement.innerText = `${date}: ${event}`;
+                        eventList.appendChild(eventElement);
+                        eventCount++;
+                    }
                 });
             }
         }
