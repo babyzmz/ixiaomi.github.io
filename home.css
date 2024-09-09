@@ -706,89 +706,86 @@ opacity: 1;
   from {top:-300px; opacity:0}
   to {top:0; opacity:1}
 }
-/*手机效果*/
-@media (max-width: 1170px) {
+/* 手机效果 */
+@media (max-width: 887px) {
   .nav {
-    
-    width: 96px;
-    height: 572px;
-    background: rgba(0, 0, 0, 8);
-    border-radius: 2px;
+    width: 82px;
+    height: 122px;
+    background: rgba(0, 0, 0, 0.8); /* 修正透明度设置 */
+    border-radius: 12px;
     overflow: hidden;
     transition: 0.5s;
     padding: 0px;
-    border-radius: 12px;
-    backdrop-filter: blur(18px);
-    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(230, 235, 240, 0.7);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-    margin-left: 20px; /* Adjust the value as needed */
-}
-.nav:hover{
-   
+    margin-left: 20px; /* 调整位置 */
+    z-index: 10; /* 提升z-index以确保在其他元素上方 */
+    position: relative; /* 相对定位确保正确显示 */
+  }
+
+  .nav:hover,
+  .nav.expanded {
     width: 230px;
     height: 572px;
-    background: rgba(0, 0, 0, 8);
-    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
     overflow: hidden;
     transition: 0.5s;
     padding: 0px;
-    border-radius: 12px;
-    backdrop-filter: blur(18px);
-    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(230, 235, 240, 0.7);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-    margin-left: 20px; /* Adjust the value as needed */
-    z-index: 4;
-}
-.nav.expanded {
-  width: 450px;
-  height: 1050px;
-  background: rgba(0, 0, 0, 8);
-  border-radius: 2px;
-  overflow: hidden;
-  transition: 0.5s;
-  padding: 1px;
-  border-radius: 12px;
-  backdrop-filter: blur(18px);
-  background-color: rgb(41, 18, 18);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(230, 235, 240, 0.7);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-  margin-left: 20px; /* Adjust the value as needed */
-  z-index: 4;
-}
+    margin-left: 20px;
+    z-index: 10; /* 确保在其他元素上方 */
+  }
 
-.icon {
-  width: 250px;
-  height: 80px;
-  margin-left: 10px;
-  margin-top: 10%;
-  display: flex;
-}
+  .icon {
+    width: 250px;
+    height: 80px;
+    margin-left: 10px;
+    margin-top: 10%;
+    display: flex;
+    cursor: pointer;
+  }
 
+  .reminder-container {
+    position: absolute; /* 绝对定位 */
+    top: 200px;
+    right: 22%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    z-index: 5; /* z-index为5，使其在existing-events-container上方但在nav下方 */
+  }
 
- 
-.reminder-container {
+  .existing-events-container {
+    width: 90%; /* 调整宽度以适应手机屏幕 */
+    margin: 10px auto; /* 居中显示 */
+    position: relative; /* 相对定位 */
+    z-index: 1; /* 确保在最底层 */
+  }
+
+  .menu {
+    display: block; /* 默认隐藏菜单 */
     
+    top: 10px; /* 调整菜单的垂直位置 */
+    left: 0;
+    
+    width: 100%; /* 菜单宽度 */
+    z-index: 11; /* 确保菜单在顶部 */
+    flex-direction: column; /* 垂直排列菜单项 */
+    padding: 10px;
+  }
 
-  position: absolute;
-  top: 200px;
-  right: 22%;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
+  .menu .item {
+    width: 100%; /* 菜单项全宽 */
+    margin-bottom: 10px;
+  }
+
   
-}
-.reminder-container input {
-  background-color: transparent; /* 将输入框背景设置为透明 */
-  color: #fff; /* 将输入框字体颜色设置为白色 */
-  border: 1px solid rgba(255, 255, 255, 0.5); /* 添加一个淡白色边框以便于辨识输入框 */
-  height: 30px;
-}
- 
 }

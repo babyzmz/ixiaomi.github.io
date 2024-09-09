@@ -18,8 +18,9 @@
                 <div class="btn-item"></div>
                 <div class="btn-item"></div>
             </div>
-            <a href="home.html">
-                <div class="icon">
+    
+            <!--  <a href="home.html">-->
+                <div class="icon" onclick="toggleNav()"> <!-- 添加 onclick 事件 -->
                     <div class="icon-img">
                         <img src="img/miku1.png" alt="">
                     </div>
@@ -28,9 +29,9 @@
                         <h2>MikuMiku</h2>
                     </div>
                 </div>
-            </a>
+            <!--</a>-->
             <div class="title"></div>
-            <div class="menu">
+            <div class="menu" id="nav-menu"> <!-- 为菜单添加ID以便控制 -->
                  <!-- <a href="heart.html">
                     <div class="item">
                         <div class="light"></div>
@@ -120,25 +121,6 @@
             </div>
         </div>
 
-        <div class="existing-events-container">
-            <h3>已有事件</h3>
-            <!-- 显示已有事件的区域 -->
-            <div id="existing-events"></div>
-
-            <a href="index.html">
-                <div class="item">
-                    <div class="light"></div>
-                    <div class="licon">
-                        <span class="iconfonticon-user">
-                            <img src="/icon/calendar.png" alt="" class="icon-heart">
-                        </span>
-                    </div>
-                    <div class="existing-eventsfont">前往日历事件页</div>
-                    <div class="ricon"></div>
-                </div>
-            </a>
-        </div>
-        
         
           
         <div class="reminder-container">
@@ -157,6 +139,26 @@
             </div>
         </div>
     </div>
+    <div class="existing-events-container">
+        <h3>已有事件</h3>
+        <!-- 显示已有事件的区域 -->
+        <div id="existing-events"></div>
+
+        <a href="index.html">
+            <div class="item">
+                <div class="light"></div>
+                <div class="licon">
+                    <span class="iconfonticon-user">
+                        <img src="/icon/calendar.png" alt="" class="icon-heart">
+                    </span>
+                </div>
+                <div class="existing-eventsfont">前往日历事件页</div>
+                <div class="ricon"></div>
+            </div>
+        </a>
+    </div>
+    
+    
     
     <script>
         // 获取表单和事件列表的元素
