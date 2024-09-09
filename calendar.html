@@ -257,7 +257,23 @@
                 updateEventList(); // 更新eventlist显示
             }
         }
-        
+        document.addEventListener('DOMContentLoaded', function() {
+        const nav = document.querySelector('.nav');
+        const icon = document.querySelector('.icon'); // 假设这是触发展开的元素
+
+        // 点击图标展开导航栏
+        icon.addEventListener('click', function(event) {
+            event.stopPropagation(); // 阻止事件冒泡
+            nav.classList.toggle('expanded');
+        });
+
+        // 点击空白处关闭导航栏
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && nav.classList.contains('expanded')) {
+            nav.classList.remove('expanded');
+            }
+        });
+        });
         // 初始化时显示已有事件和eventlist
         displayExistingEvents();
         updateEventList();

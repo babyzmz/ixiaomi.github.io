@@ -394,14 +394,14 @@ opacity: 1;
 .reminder-container input,
 .reminder-container button {
     
-    display: inline-block; /* 将按钮设置为内联块元素 */
+    display: inline-block; /* 将按钮设置为���联块元素 */
     margin-right: 10px; /* 设置按钮之间的右侧间距 */
     margin-bottom: 10px;
 }
 
 .reminder-container input {
     background-color: transparent; /* 将输入框背景设置为透明 */
-    color: #fff; /* 将输入框字体颜色设置为白色 */
+    color: #fff; /* 将输��框字体颜色设置为白色 */
     border: 1px solid rgba(255, 255, 255, 0.5); /* 添加一个淡白色边框以便于辨识输入框 */
 }
 
@@ -432,16 +432,14 @@ opacity: 1;
 /* .existing-events-container 设置为与 .reminder-container 相同的样式 */
 .existing-events-container {
   position: absolute; /* 使用绝对定位 */
-  top: 100px; /* 设置顶部距离 */
-  left: 50%; /* 居中对齐 */
-  transform: translateX(-50%); /* 水平居中 */
+  top: 250px; /* 设置顶部距离 */
+  right: 20px; /* 设置右侧距离 */
   background-color: rgba(255, 255, 255, 0.1); /* 设置透明的背景色 */
   backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
   -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
   padding: 20px;
   border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
+  width: 300px;
   border: 1px solid rgba(255, 255, 255, 0.2); /* 添加一个淡白色边框 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 添加阴影效果，增加对比度 */
   z-index: 1000; /* 确保层级在其他元素之上 */
