@@ -1,0 +1,30 @@
+.grid {
+  @include grid;
+}
+
+.grid2 {
+  @include grid2;
+}
+
+
+.BR-col-VAL {
+  $col-and-width: ();
+  @for $i from 1 through $grid-columns-num {
+    $col-and-width: map-merge($col-and-width, ($i: percentage($i / $grid-columns-num)));
+  }
+
+  @include windmill((
+    max-width: $col-and-width,
+    flex: 0 0 $col-and-width
+  )) {
+    min-width: 0;
+    word-wrap: break-word;
+  }
+}
+
+.BR-col-auto {
+  @include windmill() {
+    @include col(auto);
+  }
+}
+

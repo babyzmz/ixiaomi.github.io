@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>嘟嘟嘟</title>
+    <meta name="description" content="虹ヶ咲学園購買部は、『ラブライブ！虹ヶ咲スクールアイドル同好会』のスペシャルなアイテムをお届けする公式通販サイトです！">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link href="calendar.css?v0" rel="stylesheet">
+  
+</head>
+
+
+<body class="bg-school fixedBefore" id="body" ontouchstart="">
+
+    <div class="mobilePhoneLikeFrame">
+        <div class="mobilePhoneLikeFrame__gloss"></div>
+                <div class="mobilePhoneLikeFrame__bevelAndEmboss1"></div>
+                <div class="mobilePhoneLikeFrame__bevelAndEmboss2"></div>
+                <div class="mobilePhoneLikeFrame__lens">
+                    
+
+                <img src="assets/img/deco-lens.png" alt="" width="27">
+
+                </div>
+
+                <div class="mobilePhoneLikeFrame__inner">
+                    <div class="mobilePhoneLikeFrame__wifiAndBattery">
+                        
+
+                <img src="assets/img/deco-wifi-and-battery.png" alt="" width="81">
+
+                    </div>
+                    <div id="container">
+                        <div id="time"></div>
+                        <div id="date"></div>
+                    </div>
+            
+            <div class="logo-container">
+                        <img class="logo" src="assets/img/大LOGO.jpg" alt="Logo">
+            </div>       
+            <h2 class="subhead subhead--small u-mb-s u-pc-mb-m">
+                预订和发售日
+            </h2>
+            
+            <div class="calendar-header">
+                <button class="calendar-button" onclick="previousMonth()"><img src="assets/img/left-arrow.png"></button>
+                <button class="calendar-button" onclick="nextMonth()"><img src="assets/img/right-arrow.png"></button>
+
+
+              </div>
+
+            <table class="calendar">
+                <caption id="monthYear" class="calendar-caption"></caption>
+                <tr>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                    <th>星期六</th>
+                    <th>星期日</th>
+                </tr>
+                
+                <tr id="week1"></tr>
+                <tr id="week2"></tr>
+                <tr id="week3"></tr>
+                <tr id="week4"></tr>
+                <tr id="week5"></tr>
+                <tr id="week6"></tr>
+            </table>
+                <br>
+            <ul class="nav grid u-jc-c u-nm-xs u-pc-nm-s">
+                <li class="col-auto u-p-xs u-pc-p-s">
+                    <a href="archive/anime/index.html"><img src="assets/img/icon-archive.svg" alt="">これまでの商品</a>
+                </li>
+                <li class="col-auto u-p-xs u-pc-p-s">
+                    <a href="#" id="openModalBtn"><img src="assets/img/icon-caution.svg" alt="">购入前请注意</a>
+                </li>
+                <li class="col-auto u-p-xs u-pc-p-s">
+                    <a href="https://t.asczwa.com/taobao?backurl=https://shop571617864.taobao.com/?spm=a230r.7195193.1997079397.2.43af583bpckjoO"><img src="assets/img/icon-guide.svg" alt="">淘宝店入口</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="u-d-n modal" id="myModal">
+        <div class="modal-content" id="readme">
+            <div class="inline">
+                <p class="inline__title">必ずお読みください</p>
+
+                <div class="u-mb-l">
+                    <p class="inline__head">●ご注⽂・お⽀払いについて</p>
+                    <ul class="u-bullets">
+                        <li>※他の商品との合わせ買いはできません。</li>
+                        <li>※決済方法は「クレジットカード」または「オンライン決済(コンビニ決済)」、「Pay-easy(ペイジー)」のみとなります。「代金引換」は出来ませんのでご注意ください。</li>
+                        <li>※期日までに購入・決済手続きが行われなかった場合は、キャンセル扱いとして手続きを致します。</li>
+                    </ul>
+                </div>
+
+                <hr class="u-mb-l">
+
+                <div class="u-mb-l">
+                    <p class="inline__subhead">■A-on STORE</p>
+
+                    <div class="u-mb-m">
+                        <p class="inline__subhead">①クレジットカードによるお支払い</p>
+                        <p class="u-bullet">・VISA、American Express、Master Card、JCB、DCがご利用いただけます。</p>
+                        <p class="u-bullet">・受注生産のため、決済は注文締切日の翌日に行われます。</p>
+                        <p class="u-bullet">※クレジットカードの有効期限にはご注意ください。</p>
+                    </div>
+
+                    <div class="u-mb-m">
+                        <p class="inline__subhead">②コンビニ決済によるお支払い</p>
+                        <p class="u-bullet">・コンビニエンスストアでお支払頂く決済方法です。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日翌日までに、お支払いに関するご案内メールをお送りいたします。メールをご確認後、メール受信日を含め、3日以内にお支払いください。</p>
+                    </div>
+
+                    <div>
+                        <p class="inline__subhead">③Pay-easy(ペイジー)によるお支払い</p>
+                        <p class="u-bullet">・金融機関の窓口や、コンビニのレジに並ぶことなく、パソコンやスマートフォン、携帯電話(インターネットバンキング利用)から、支払うことができるサービスです。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日翌日までに、お支払いに関するご案内メールをお送りいたします。メールをご確認後、メール受信日を含め、3日以内にお支払いください。</p>
+                    </div>
+                </div>
+
+                <div class="u-mb-l">
+                    <p class="inline__subhead">■プレミアムバンダイ</p>
+
+                    <div class="u-mb-m">
+                        <p class="inline__subhead">①クレジットカードによるお支払い</p>
+                        <p class="u-bullet">・VISA、American Express、Master Card、JCB、Diners Clubがご利用頂けます。</p>
+                        <p class="u-bullet">・決済は、注文時に前払い決済となります。</p>
+                        <p class="u-bullet">※クレジットカードの有効期限にはご注意ください。</p>
+                        <p class="u-bullet">※クレジットカードを選択した場合には、プレミアムバンダイからは即時でカード会社への請求となりますが、お客様への請求タイミングはご利用のカード会社によって異なります。<br>そのため、請求タイミングを確認される場合には、登録された各クレジットカード会社へお問い合わせください。</p>
+                    </div>
+
+                 
+                  
+                </div>
+
+                <ul class="u-mb-l u-bullets">
+                    <li>※お支払期限を過ぎますと、ご注文はキャンセルとなります。いかなる理由でも、決済期間の延長は対応出来かねます。</li>
+                    <li>※お客様都合による決済後のキャンセルは出来かねます。</li>
+                    <li>※状況により、お支払方法は変更になる可能性がございます。</li>
+                </ul>
+
+                <hr class="u-mb-l">
+
+                <div class="u-mb-l">
+                    <p class="inline__head">●配送について</p>
+
+                    <ul class="u-bullets">
+                        <li>※虹ヶ咲学園購買部は、全て受注生産の商品(締切後に生産を開始する予約商品)になりますので、お届けまでにお時間がかかります。<br>お届け予定時期につきましては、各商品詳細ページをご確認ください。</li>
+                        <li>※配送地域や決済方法、天候の状況等によって、お届け日が異なりますので、あらかじめご了承ください。</li>
+                        <li>※配送地域は日本国内に限らせて頂きます。なお、A-on STOREの配送会社は佐川急便。プレミアムバンダイの配送会社は、佐川急便もしくはヤマト運輸となります。(プレミアムバンダイでは、配送会社を選択することはできません。)</li>
+                        <li>※局留め(営業所受け取りサービス等)の対応はできかねます。<br>虹ヶ咲学園購買部に関するお問い合わせにつきましては、下記までお願いします。</li>
+                    </ul>
+                </div>
+
+                <hr class="u-mb-l">
+
+                <div class="u-mb-l">
+                    <p>＜バンダイナムコフィルムワークス お客様センター＞</p>
+                    <p class="u-hanging"><span>Eメール：</span><a href="mailto:a-onstore@bnfw.co.jp">a-onstore@bnfw.co.jp</a></p>
+                    <p class="u-hanging"><span>営業時間：</span>月曜日～金曜日10：00～17：00(祝日・年末年始を除く)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+<script>
+     function formatTime(time) {
+            return time < 10 ? "0" + time : time; // 将时间小于10的数字前面加上0
+        }
+        
+        function updateTime() {
+            var now = new Date();
+            var timeElement = document.getElementById("time");
+            var dateElement = document.getElementById("date");
+            
+            var hours = formatTime(now.getHours());
+            var minutes = formatTime(now.getMinutes());
+            var seconds = formatTime(now.getSeconds());
+            var timeString = hours + ":" + minutes + ":" + seconds;
+            
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1; // 月份从0开始，所以要加1
+            var day = now.getDate();
+            var dateString = year + "-" + month + "-" + day;
+            
+            timeElement.innerHTML = timeString;
+            dateElement.innerHTML = dateString;
+        }
+        
+        updateTime(); // 初始化加载当前时间
+        setInterval(updateTime, 1000); // 每秒更新一次时间
+        const date = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const schedule = JSON.parse(localStorage.getItem('schedule')) || {};
+
+   
+    function drawCalendar() {
+    // 中文月份名字
+    const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+    // Clear the calendar
+    for (let i = 0; i < 6; i++) {
+        document.getElementById("week" + (i + 1)).innerHTML = "";
+    }
+
+    // Get the first day of the current month
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    let dayOfWeek = firstDay.getDay();  // Determine which day of the week the month begins on
+
+    // If dayOfWeek is 0 (Sunday), change it to 7 (make week start from Monday)
+    dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
+    // Reduce dayOfWeek by 1 as our calendar grid starts from Monday (index 1)
+    dayOfWeek--;
+
+    // Get the last day of the current month
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    // Calculate the total number of days in the month
+    let totalDays = lastDay.getDate();
+
+    // Calculate which week the first day of the month is in
+    let currentWeek = 1;
+
+    // Fill the initial days of the first week as empty
+    for(let i = 0; i < dayOfWeek; i++){
+        const weekRow = document.getElementById("week" + currentWeek);
+        const emptyCell = document.createElement("td");
+        weekRow.appendChild(emptyCell);
+    }
+
+    // Fill the calendar with dates
+    for (let currentDay = 1; currentDay <= totalDays; currentDay++) {
+        // Create a new cell with the current day
+        const cell = document.createElement("td");
+        cell.innerText = currentDay;
+
+        // Highlight today's date
+        if (new Date(date.getFullYear(), date.getMonth(), currentDay).toDateString() === new Date().toDateString()) {
+            cell.className = "today";
+        }
+
+        // Check if there are events for the current date
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDay.toString().padStart(2, '0');
+        const eventDate = `${date.getFullYear()}-${month}-${day}`;
+
+        if (schedule.hasOwnProperty(eventDate)) {
+            const events = schedule[eventDate];
+            for (const event of events) {
+                const eventElement = document.createElement("div");
+                eventElement.className = "event";
+                const maxLength = 15;
+                const truncatedEvent = event.length > maxLength ? event.substring(0, maxLength) + "..." : event;
+                eventElement.innerText = truncatedEvent;
+                cell.appendChild(eventElement);
+            }
+        }
+
+        // Add the cell to the correct week row
+        const weekRow = document.getElementById("week" + currentWeek);
+        weekRow.appendChild(cell);
+
+        // Move to the next day
+        dayOfWeek++;
+        if (dayOfWeek >= 7) {
+            dayOfWeek = 0;  // Reset to Monday
+            currentWeek++;  // Move to next week
+        }
+    }
+
+    // Update the calendar caption
+    const caption = document.getElementById("monthYear");
+    caption.innerText = monthNames[date.getMonth()] + " " + date.getFullYear();
+}
+
+    function previousMonth() {
+        date.setMonth(date.getMonth() - 1);
+        drawCalendar();
+    }
+
+    function nextMonth() {
+        date.setMonth(date.getMonth() + 1);
+        drawCalendar();
+    }
+
+    // Draw the initial calendar
+    drawCalendar();
+
+    
+    document.getElementById('openModalBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById('overlay').style.display = "block";
+    document.body.classList.add('no-scroll'); // 在打开模态窗口时添加'no-scroll'样式类
+});
+
+document.getElementById('overlay').addEventListener('click', function() {
+    document.getElementById('myModal').style.display = "none";
+    this.style.display = "none";
+    document.body.classList.remove('no-scroll'); // 在关闭模态窗口时移除'no-scroll'样式类
+});
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+// `(名前: (画面サイズ: フォントサイズ))` のマップ
+$_fontsize-map: () !default;
+
+@function fontsize-get() {
+  @return $_fontsize-map;
+}
+
+@mixin fontsize-set($fontsize-map) {
+  $_fontsize-map: map-merge($_fontsize-map, $fontsize-map) !global;
+}
+
+@mixin fontsize-output($fontsize, $breakpoint) {
+  @if $breakpoint <= 0 {
+    font-size: $fontsize;
+  } @else {
+    @include mq($breakpoint) {
+      font-size: $fontsize;
+    }
+  }
+}
+
+// フォントサイズを適用する
+// メディアクエリには `sass-mq` を利用する
+//
+// Example:
+// @include fontsize-set((
+//   base: (0: 1.2rem, 769px: 1.4rem)
+// ));
+// body { @include fontsize(base); }
+//
+// Compiles to:
+// body { font-size: 1.2rem; }
+// @media (min-width: 56.25em) {
+//   body { font-size: 1.4rem; }
+// }
+@mixin fontsize($name) {
+  @if map-has-key($_fontsize-map, $name) {
+    @each $breakpoint, $fontsize in map-get($_fontsize-map, $name) {
+      @include fontsize-output($fontsize, $breakpoint);
+    }
+  } @else {
+    @warn "Fontsize `#{$name}` wasn't found in $fontsize.";
+  }
+}

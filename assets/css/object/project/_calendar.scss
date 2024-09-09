@@ -1,0 +1,84 @@
+.calendar {
+  position: relative;
+
+  // simple-calendar
+  .simple-calendar-table-outer {
+    position: relative;
+    height: 300px;
+    padding-right: 1em;
+
+    @include mq(pc) {
+      padding-right: 0;
+      height: auto;
+    }
+  }
+
+  .simple-calendar-title {
+    margin-bottom: 5em;
+  }
+
+  .simple-calendar-desc {
+    @include bullet;
+    line-height: 1.6;
+
+    &::before {
+      content: '・';
+    }
+  }
+
+  &__arrows {
+    position: absolute;
+    top: 1.4rem;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    margin: auto;
+
+    @include mq(pc) {
+      top: 1.55rem;
+      width: 350px;
+    }
+  }
+
+  // slick
+  .slick-slider {
+    padding: 0;
+  }
+
+  .slick-dots {
+    position: absolute;
+    top: 4.5rem;
+    width: 100%;
+  }
+
+  .slick-arrow,
+  .slick-active button {
+    color: $_simple-calendar-color;
+  }
+
+  .slick-prev {
+    left: -0.5rem;
+
+    @include mq(pc) {
+      left: 0;
+    }
+  }
+
+  .slick-next {
+    right: -0.5rem;
+
+    @include mq(pc) {
+      right: 0;
+    }
+  }
+
+  // perfect-scrollbar
+  .ps__thumb-y {
+    background-color: $_simple-calendar-color;
+  }
+
+  .ps__rail-y {
+    background-color: #c7c7c7;
+  }
+}

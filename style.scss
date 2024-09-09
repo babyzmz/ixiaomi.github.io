@@ -1,0 +1,43 @@
+
+.box {
+    width: 100vw;
+    height: 100vh;
+    background-color: clear;
+    .content {
+        width: 70vw;
+        height: 70vh;
+        background-color: clear;
+        display: flex;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        padding: 20px 20px 20px 50px;
+        
+        .content-right {
+            flex: 1;
+            .right-box {
+                width: 100%;
+                height: 100%;
+                background-color: clear;
+                border-radius: 20px;
+                position: relative;
+                #canvas3d {
+                    border-radius: 20px;
+                    opacity: 0;
+                    background-color: transparent;
+                }
+                .loadding {
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    
+                    
+                }
+            }
+        }
+    }
+}

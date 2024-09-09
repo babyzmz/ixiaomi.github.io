@@ -1,0 +1,74 @@
+@function _svg-replace($string, $substring, $new-substring) {
+  $index: str-index($string, $substring);
+  @if $index == null {
+    @return $string;
+  }
+
+  $back: str-slice($string, 1, $index - 1);
+  $forward: str-slice($string, $index + str-length($substring));
+  @return $back + $new-substring + _svg-replace($forward, $substring, $new-substring);
+}
+
+@function _svg-encode($string) {
+  $map: (
+    '%': '%25',
+    '<': '%3C',
+    '>': '%3E',
+    ' ': '%20',
+    '!': '%21',
+    '*': '%2A',
+    '\'': '%27',
+    '"': '%22',
+    '(': '%28',
+    ')': '%29',
+    ';': '%3B',
+    ':': '%3A',
+    '@': '%40',
+    '&': '%26',
+    '=': '%3D',
+    '+': '%2B',
+    '$': '%24',
+    ',': '%2C',
+    '/': '%2F',
+    '?': '%3F',
+    '#': '%23',
+    '[': '%5B',
+    ']': '%5D'
+  );
+  @each $search, $replacement in $map {
+    $string: _svg-replace($string, $search, $replacement);
+  }
+  @return $string;
+}
+
+// _svg-make-attr('fill');         => ''
+// _svg-make-attr('fill', '#000'); => ' fill="#000"'
+@function _svg-make-attr($name, $value) {
+  @if not $value {
+    @return '';
+  }
+  @return ' #{$name}="#{$value}"';
+}
+
+@mixin _svg-background-image($view-box, $tag, $color) {
+  background-image: url('data:image/svg+xml;charset=utf8,' + _svg-encode('<svg xmlns="http://www.w3.org/2000/svg"#{_svg-make-attr('viewBox', $view-box)}#{_svg-make-attr('fill', $color)}>#{$tag}</svg>'));
+}
+
+$_svg-maps: () !default;
+
+@mixin svg-set($svg-maps) {
+  $_svg-maps: map-merge($_svg-maps, $svg-maps) !global;
+}
+
+@mixin svg($name, $color: null) {
+  @if not map-has-key($_svg-maps, $name) {
+    @error 'SVG `#{$name}` does not exist';
+  }
+
+  $svg-map: map-get($_svg-maps, $name);
+  $view-box: map-get($svg-map, 'view-box');
+  $tag: map-get($svg-map, 'tag');
+  @include _svg-background-image($view-box, $tag, $color);
+  background-repeat: no-repeat;
+}
+

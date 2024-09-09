@@ -1,0 +1,69 @@
+.arrowAnimationButton {
+  $this: &;
+  position: relative;
+  display: table;
+  z-index: 0;
+  padding: 0.75rem $l 1.25rem;
+  box-shadow: 0 13px 10px 0 rgba(0, 0, 0, 0.13);
+  background-color: $color-orange;
+  border-radius: 100px;
+  transition: 0.3s;
+  overflow: hidden;
+
+  @include interaction($hover: false) {
+    transform: scale(0.95);
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    display: block;
+    content: '';
+  }
+
+  // アニメーション時に表示するアイコンの下敷き
+  &::before {
+    top: 0;
+    right: -100%;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 100px;
+    transition: 0.3s 0.1s;
+
+    @include interaction($this, '::before', false) {
+      transform: translateX(-40px);
+    }
+  }
+
+  // アニメーション時に表示するアイコン
+  &::after {
+    z-index: 2;
+    @include svg(link-arrow, $color-orange);
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: 0.3s;
+
+    @include interaction($this, '::after', false) {
+      opacity: 1;
+      transform: translateX(0);
+      transition: 0.3s 0.2s;
+    }
+  }
+
+  img {
+    transition: 0.3s 0.2s;
+
+    @include interaction($this, ' img', false) {
+      transform: translateX(-15px);
+      transition: 0.3s;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+// round2(1.111, 0); => 1
+// round2(1.111, 1); => 1.1
+// round2(1.111, 2); => 1.11
+@function round2($num, $max-place: 0) {
+  @if $max-place <= -1 {
+    @return $num;
+  }
+  @if $max-place == 0 {
+    @return round($num);
+  }
+
+  $base: 1;
+  @for $i from 1 through $max-place {
+    $base: $base * 10;
+  }
+  @return round($num * $base) / $base;
+}
+
+// div(4, 3, 0); => 1.33333
+// div(4, 3, 1); => 1.3
+// div(4, 3, 2); => 1.33
+@function div($a, $b, $round: 2) {
+  @if $round <= 0 {
+    @return ($a / $b);
+  }
+
+  $base: 1;
+  @for $i from 1 through $round {
+    $base: $base * 10;
+  }
+
+  @return round($a / $b * $base) / $base;
+}
+
+@function aspect($width, $height) {
+  @return $height / $width * 100%;
+}
+
+// 比率を返す
+// ratio(4, 3); => 75%
+@function ratio($a, $b) {
+  @return ($b / $a) * 100%;
+}
+
+// Repeats the given string n times.
+//
+// repeat('*', 3);        => '***'
+// repeat('abc', 2, '-'); => 'abc-abc'
+// repeat('abc', 0);      => ''
+@function repeat($string, $n, $separator: '') {
+  @if $n <= 0 {
+    @return '';
+  }
+
+  $result: '';
+  @for $i from 0 to $n {
+    $result: $result + $string + $separator;
+  }
+
+  // Remove trailing separator
+  $result: str-slice($result, 1, str-length($result) - str-length($separator));
+  @return $result;
+}
+
+// remove-unit(10px); => 10
+@function remove-unit($num) {
+  @if (type-of($num) == number) and (not unitless($num)) {
+    @return $num / ($num * 0 + 1);
+  }
+  @return $num;
+}

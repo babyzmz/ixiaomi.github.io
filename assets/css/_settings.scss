@@ -1,0 +1,191 @@
+// `sass-mq` の初期設定
+$mq-breakpoints: (pc: 769px);
+
+// `sass-windmill` の初期設定
+$wm-breakpoints: (all: 0, pc: 769px);
+
+@mixin wm-override-mq($from) {
+  @if wm-remove-unit($from) <= 0 {
+    @content;
+  } @else {
+    @include mq($from) {
+      @content;
+    }
+  }
+}
+
+// フォント読み込み
+@font-face {
+  font-family: 'Noto Sans CJK JP Subset';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NotoSansCJKjp-Regular'),
+  local('NotoSansJP-Regular'),
+  url('../fonts/NotoSansCJKjp-Regular.woff2') format('woff2'),
+  url('../fonts/NotoSansCJKjp-Regular.woff') format('woff'),
+  url('../fonts/NotoSansCJKjp-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK JP Subset';
+  font-style: normal;
+  font-weight: 500;
+  src: local('NotoSansCJKjp-Medium'),
+  local('NotoSansJP-Medium'),
+  url('../fonts/NotoSansCJKjp-Medium.woff2') format('woff2'),
+  url('../fonts/NotoSansCJKjp-Medium.woff') format('woff'),
+  url('../fonts/NotoSansCJKjp-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK JP Subset';
+  font-style: normal;
+  font-weight: 700;
+  src: local('NotoSansCJKjp-Bold'),
+  local('NotoSansJP-Bold'),
+  url('../fonts/NotoSansCJKjp-Bold.woff2') format('woff2'),
+  url('../fonts/NotoSansCJKjp-Bold.woff') format('woff'),
+  url('../fonts/NotoSansCJKjp-Bold.ttf') format('truetype');
+}
+
+// カラムの数
+$grid-columns-num: 12;
+
+// コンテナの横幅
+$container-width: 94%;
+$container-max-width: 1024px;
+
+// 余白
+$xxs: 0.5rem;
+$xs: 1rem;
+$s: 1.5rem;
+$m: 2.5rem;
+$l: 4rem;
+$xl: 6.5rem;
+$xxl: 10.5rem;
+
+// ループで使用するためにマップにする
+$space-map: (
+  xxs: $xxs,
+  xs: $xs,
+  s: $s,
+  m: $m,
+  l: $l,
+  xl: $xl,
+  xxl: $xxl
+);
+
+// 色
+$color-text: #262626;
+$color-link: #226FFF;
+$color-red: #ff0000;
+$color-orange: #ffc000;
+$color-orange-dark: #ffa904;
+$color-yellow: #fff36e;
+$color-yellow-dark: #fff04a;
+$color-pink: #ff6873;
+$color-lovelive: #e40080;
+$color-sub: null;
+
+// ループで使用するためにマップにする
+$color-map: (
+  text: $color-text,
+  link: $color-link,
+  yellow: $color-yellow,
+  pink: $color-lovelive,
+  red: $color-red
+);
+
+$color-map: map-merge($color-map, (
+  white: #fff
+));
+
+// フォントファミリー
+$family-sans-serif: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK JP Subset', -apple-system, BlinkMacSystemFont, Arial, YuGothic, "Yu Gothic", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Osaka, Meiryo, メイリオ, sans-serif;
+$family-serif: null;
+$family-base: $family-sans-serif;
+$family-special: null;
+
+// ループで使用するためにマップにする
+$family-map: (
+  sans-serif: $family-sans-serif,
+  serif: $family-serif,
+  base: $family-base,
+  special: $family-special
+);
+
+// フォントサイズ
+@include fontsize-set((
+  base: (0: 1.2rem, 769px: 1.4rem)
+));
+
+// フォントウェイト
+$weight-s: normal;
+$weight-m: 500;
+$weight-l: bold;
+$weight-base: $weight-s;
+
+// ループで使用するためにマップにする
+$weight-map: (
+  s: $weight-s,
+  m: $weight-m,
+  l: $weight-l,
+  base: $weight-base
+);
+
+// 文字間
+$letter-xs: 0.025em;
+$letter-s: 0.05em;
+$letter-m: 0.075em;
+$letter-l: 0.125em;
+$letter-xl: 0.2em;
+$letter-base: 0;
+
+// ループで使用するためにマップにする
+$letter-map: (
+  xs: $letter-xs,
+  s: $letter-s,
+  m: $letter-m,
+  l: $letter-l,
+  xl: $letter-xl,
+  base: $letter-base
+);
+
+// 行間
+$line-base: 1.75;
+
+// 角丸
+$radius-base: 24px;
+
+// ループで使用するためにマップにする
+$radius-map: (
+  base: $radius-base
+);
+
+// SVG
+@include svg-set((
+  link-arrow: (
+    view-box: '0 0 24 24',
+    tag: '<path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>'
+  ),
+  right-arrow: (
+    viewBox: '0 0 24 24',
+    tag: '<path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z"/>'
+  ),
+  left-arrow: (
+    viewBox: '0 0 24 24',
+    tag: '<path d="M 8.122 0 L 4 4 L 12 12 L 4 20 L 8.122 24 L 20 12 Z" transform="matrix(-1, 0, 0, -1, 24, 24)"></path>'
+  ),
+  bottom-arrow: (
+    view-box: '0 0 24 24',
+    tag: '<path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/>'
+  ),
+  question: (
+    view-box: '0 0 132 132',
+    tag: '<path d="M66,.46A65.5,65.5,0,1,0,131.46,66,65.57,65.57,0,0,0,66,.46Zm0,121A55.5,55.5,0,1,1,121.46,66,55.57,55.57,0,0,1,66,121.46Z"/><path d="M65.32,93.27a8.75,8.75,0,1,0,8.8,8.8A8.71,8.71,0,0,0,65.32,93.27Z"/><path d="M65.84,24.8c-5.91,0-10.88,1-18.54,5.7-3.63,2.17-6.63,4.76-6.63,7.87,0,3.94,2.48,6.73,5.9,6.73,2.07,0,2.9-.62,5.49-2.9a20.29,20.29,0,0,1,13-4.76c7.56,0,13.67,4.24,13.67,11.29,0,5.07-1.13,6.11-11.49,14.81-2.38,2-8.81,7.35-8.81,16.88,0,2.69.73,6.22,7.05,6.22,5.69,0,6.42-2.9,6.83-5.08.94-5.28,1.25-6.94,7.87-12.53S92.56,58.67,92.56,48.31C92.56,35.57,82.51,24.8,65.84,24.8Z"/>'
+  ),
+  play: (
+    view-box: 0 0 24 24,
+    tag: '<path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z"/>'
+  )
+));

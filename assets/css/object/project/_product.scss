@@ -1,0 +1,249 @@
+.product {
+  position: relative;
+  padding: 8px 8px 0;
+  box-shadow: 0 13px 43px 0 rgba(0, 0, 0, 0.43);
+  background: linear-gradient(to bottom, #4f4f4f 0%, #393939 100%);
+  overflow: hidden;
+
+  @include mq(pc) {
+    padding: 22px 22px 0;
+  }
+
+  // 光沢
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(0deg, #424242 0%, #606060 100%);
+    transform: skew(25deg);
+    transform-origin: 100% 0;
+    content: '';
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $m;
+
+    @include mq(pc) {
+      margin-bottom: $xl;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    padding: $s $s $m + 1;
+    background: linear-gradient(45deg, #e9e9e9 0%, #fff 37.5%, #fff 100%);
+    border: 5px solid #000;
+
+    @include mq(pc) {
+      padding: $l $l $l + 1;
+      border-width: 18px;
+    }
+  }
+
+  &__title {
+    padding-left: 1em;
+    margin-bottom: 1.5em;
+    border-left: 12px solid $color-orange;
+    line-height: 1.5;
+    letter-spacing: $letter-m;
+
+    @include mq(pc) {
+      margin-bottom: 2em;
+      border-width: 20px;
+    }
+  }
+
+  &__subTitle {
+    display: block;
+    font-size: 1.1rem;
+
+    @include mq(pc) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__mainTitle {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: $weight-l;
+
+    @include mq(pc) {
+      font-size: 2.6rem;
+    }
+  }
+
+  &__imageOuter {
+    position: relative;
+    padding-bottom: 1.5rem;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+  }
+
+  &__imageLink {
+    outline: none;
+  }
+
+  &__period {
+    padding: 1em 0.5em;
+    color: $color-orange-dark;
+    text-align: center;
+    font-weight: $weight-l;
+    line-height: 1.5;
+    letter-spacing: $letter-s;
+    @include stripe(transparent, #fff4d4, 2px, 45deg);
+    margin-bottom: 1em;
+    font-size: 1.05rem;
+
+    @include mq(pc) {
+      font-size: 1.4rem;
+      letter-spacing: $letter-m;
+    }
+
+    b {
+      vertical-align: -0.05em;
+      margin: 0 0.05em;
+      font-size: 1.7em;
+      line-height: 1;
+      letter-spacing: 0;
+
+      @include mq(pc) {
+        font-size: 2em;
+      }
+    }
+
+    img {
+      vertical-align: -0.5em;
+      width: 2em;
+      height: 2em;
+      margin-right: 0.5em;
+    }
+  }
+
+  &__release {
+    margin-bottom: 1em;
+  }
+
+  &__releaseLabel {
+    padding: 0.5em;
+    margin-right: 0.5em;
+    color: $color-orange-dark;
+    font-weight: $weight-l;
+    line-height: 1.5;
+    letter-spacing: $letter-s;
+    @include stripe(transparent, #fff4d4, 2px, 45deg);
+  }
+
+  &__releaseDate {
+    font-size: 1.05em;
+    font-weight: $weight-m;
+    letter-spacing: $letter-xs;
+  }
+
+  &__price {
+    margin-bottom: 0.1em;
+    font-size: div(18em, 14, 2);
+    font-weight: $weight-m;
+    letter-spacing: $letter-s;
+  }
+
+  &__desc {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    font-weight: $weight-m;
+    line-height: 1.8;
+    letter-spacing: $letter-xs;
+  }
+
+  &__scene {
+    display: table;
+    @include margin-x();
+    width: 80%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__movie {
+    position: relative;
+    display: block;
+    transition: 0.3s;
+
+    &::before,
+    &::after {
+      position: absolute;
+      @include pos-center;
+      content: '';
+    }
+
+    // オーバーレイ
+    &::before {
+      z-index: 1;
+      background-color: rgba(#fff, 0.4);
+      @include stripe(rgba(#fff, 0.1), transparent, 10px);
+    }
+
+    // 再生アイコン
+    &::after {
+      @include svg(play, $color-orange);
+      z-index: 2;
+      width: 5em;
+      height: 5em;
+    }
+
+    @include interaction($active: false) {
+      opacity: 0.7;
+    }
+
+    @include interaction($hover: false) {
+      transform: scale(0.95);
+    }
+  }
+
+  &__detailButton {
+    width: 90%;
+    @include margin-x();
+
+    @include mq(pc) {
+      width: auto;
+    }
+  }
+
+  &__frameText {
+    position: relative;
+    width: 50%;
+    @include margin-x();
+    padding: $s 0;
+
+    @include mq(pc) {
+      width: 181px;
+    }
+
+    &::before {
+      display: block;
+      // 画像サイズの変更に合わせて修正する
+      padding-top: round2(ratio(362, 30), 2);
+      background-image: url(../img/frame-text.png);
+      background-size: cover;
+      content: '';
+    }
+  }
+
+  // slick
+  .slick-arrow {
+    top: auto;
+    bottom: 1rem;
+  }
+
+  .slick-prev {
+    left: 1rem;
+  }
+
+  .slick-next {
+    right: 1rem;
+  }
+}

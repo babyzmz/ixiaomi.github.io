@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./home.css">
+    <title>❤️</title>
+      <!-- Add to your <head> -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+
+</head>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<body>
+   
+
+    <div class="wrap">
+       
+        <div class="nav" onclick="toggleNav()">
+           
+            
+                <div class="icon">
+                  <div class="icon-img">
+                    <img src="img/miku1.png" alt="">
+                  </div>
+                  <a href="home.html">
+                  <div class="icon-con">
+                    <p>Miku</p>
+                    <h2>MikuMiku</h2>
+                  </div>
+                </div>
+              </a>              
+            <div class="title">
+               
+               
+            </div>
+            <div class="menu">
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="">
+                            <img src="/Icon/heart.png" alt="Heart Icon" class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="heart.html">心心纪念日</a></div>
+                    <div class="ricon"></div>
+                </div>
+
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/calendar.png" alt=""class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="calendar.html">日历提醒</a></div>
+                    <div class="ricon"></div>
+                </div>
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/checklist.png" alt=""class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="order.html">订单统计</a></div>
+                    <div class="ricon"></div>
+                </div>
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/store.png" alt=""class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="store.html">库存统计</a></div>
+                    <div class="ricon"></div>
+                </div>
+                
+            </div>
+            <div class="line"></div>
+            <div class="title">
+                <p>Sever6</p>
+            </div>
+            <div class="serve">
+                <div class="menu">
+                    <div class="item">
+                        <div class="light"></div>
+                        <div class="licon">
+                            <span class="iconfonticon-wenjian1"></span>
+                        </div>
+                        <div class="con">Payouts</div>
+                        <div class="ricon"></div>
+                    </div>
+                    <div class="item">
+                        <div class="light"></div>
+                        <div class="licon">
+                            <span class="iconfonticon-user"></span>
+                        </div>
+                        <div class="con">Profile</div>
+                        <div class="ricon"></div>
+                    </div>
+                    <div class="item">
+                        <div class="light"></div>
+                        <div class="licon">
+                            <span class="iconfonticon-settings"></span>
+                        </div>
+                        <div class="con">Settings</div>
+                        <div class="ricon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+          
+        <div class="reminder-container">
+            <h3>添加提醒</h3>
+            <form id="reminder-form">
+                <label for="event-name">事件名称：</label>
+                <input type="text" id="event-name" required>
+                <br>
+                <label for="event-date">事件日期：</label>
+                <input type="date" id="event-date" required>
+                <br>
+                <div class="button-container">
+                    <button type="submit">添加提醒</button>
+                    <button id="edit-events-button" type="button">编辑事件</button>
+                </div>
+            </form>
+            <div id="event-list">
+                <h3>即将到来的事件：</h3>
+            </div>
+        </div>
+
+      
+      <!-- Create the editor container -->
+    <div class="edit-container">
+        <h3>编辑 README</h3>
+        <form id="edit-readme-form" action="update_content.php" method="POST">
+        <label for="readme-content">README 内容：</label>
+        <div id="editor" style="height: 200px;"></div>
+        <input type="hidden" id="readme-content" name="readme-content">
+        <br>
+        <button type="submit">保存编辑</button>
+        </form>
+    </div>
+    
+    
+
+   <!-- The modal -->
+<div id="edit-events-modal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h2>编辑事件</h2>
+      <div id="edit-events-container">
+          <!-- The event editing options will be added here by JavaScript. -->
+      </div>
+    </div>
+  </div>
+  
+    
+    
+    <script>
+        let schedule = JSON.parse(localStorage.getItem('schedule')) || {};
+    
+        function displayUpcomingEvents() {
+            const today = new Date();
+            const upcomingEndDate = new Date();
+            upcomingEndDate.setDate(today.getDate() + 15);
+    
+            let upcomingEvents = [];
+    
+            for (let day = today; day <= upcomingEndDate; day.setDate(day.getDate() + 1)) {
+                const month = (day.getMonth() + 1).toString().padStart(2, '0');
+                const date = day.getDate().toString().padStart(2, '0');
+                const formattedDate = `${day.getFullYear()}-${month}-${date}`;
+    
+                if (schedule[formattedDate]) {
+                    for (const event of schedule[formattedDate]) {
+                        upcomingEvents.push({ date: formattedDate, event });
+                    }
+                }
+            }
+    
+            const eventListContainer = document.getElementById('event-list');
+            eventListContainer.innerHTML = '<h3>即将到来的事件：</h3>';
+            upcomingEvents.slice(0, 15).forEach(event => {
+                eventListContainer.innerHTML += `<p>${event.date}: ${event.event}</p>`;
+            });
+        }
+    
+        displayUpcomingEvents();
+    
+        document.getElementById('reminder-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const eventName = document.getElementById('event-name').value;
+            const eventDate = document.getElementById('event-date').value;
+    
+            if (!schedule[eventDate]) {
+                schedule[eventDate] = [];
+            }
+            schedule[eventDate].push(eventName);
+    
+            localStorage.setItem('schedule', JSON.stringify(schedule));
+    
+            document.getElementById('event-name').value = '';
+            document.getElementById('event-date').value = '';
+    
+            alert("Event added successfully.");
+            displayUpcomingEvents();
+        });
+        document.getElementById('edit-events-button').addEventListener('click', function() {
+    const editEventsModal = document.getElementById('edit-events-modal');
+    const editEventsContainer = document.getElementById('edit-events-container');
+
+    // Clear the container and then add the current events.
+    editEventsContainer.innerHTML = '';
+    for (let date in schedule) {
+        for (let i = 0; i < schedule[date].length; i++) {
+            const eventElement = document.createElement('div');
+            eventElement.innerHTML = `
+                <span>${date}: ${schedule[date][i]}</span>
+                <button class="edit-event-button">编辑</button>
+                <button class="delete-event-button">删除</button>
+            `;
+
+            // Add an event listener to the edit button.
+            eventElement.querySelector('.edit-event-button').addEventListener('click', function() {
+                const newEventName = prompt('请输入新的事件名称：', schedule[date][i]);
+                if (newEventName) {
+                    schedule[date][i] = newEventName;
+                    localStorage.setItem('schedule', JSON.stringify(schedule));
+                    displayUpcomingEvents();
+                }
+            });
+
+            // Add an event listener to the delete button.
+            eventElement.querySelector('.delete-event-button').addEventListener('click', function() {
+                schedule[date].splice(i, 1);
+                if (schedule[date].length === 0) {
+                    delete schedule[date];
+                }
+                localStorage.setItem('schedule', JSON.stringify(schedule));
+                displayUpcomingEvents();
+            });
+
+            editEventsContainer.appendChild(eventElement);
+        }
+    }
+
+    // Show the modal.
+    editEventsModal.style.display = 'block';
+});
+// Get the modal
+var modal = document.getElementById("edit-events-modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("edit-events-button");
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+function toggleNav() {
+  var nav = document.querySelector('.nav');
+  nav.classList.toggle('expanded');
+}
+
+
+var quill = new Quill('#editor', {
+  theme: 'snow'
+});
+
+document.querySelector('#edit-readme-form').addEventListener('submit', function() {
+  // When the form is submitted, put the html content of the Quill editor into the hidden input field
+  document.querySelector('#readme-content').value = quill.root.innerHTML;
+});
+
+
+
+    </script>
+    
+    
+    
+    
+
+</body>
+</html>

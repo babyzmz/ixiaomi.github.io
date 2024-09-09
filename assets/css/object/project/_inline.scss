@@ -1,0 +1,58 @@
+.inline {
+  $main-color: $color-orange-dark;
+  $link-color: $color-link;
+  $line-color: #dfdfdf;
+  padding: 3rem 2rem 4rem;
+  background-color: #fff;
+  border: 8px solid $main-color;
+
+  @include mq(pc) {
+    padding: 4rem;
+  }
+
+  &--maintenance {
+    display: table;
+    max-width: $container-max-width;
+    @include margin-x();
+    border: none;
+  }
+
+  &__title {
+    margin-bottom: 1em;
+    color: $main-color;
+    text-align: center;
+    font-size: div(22em, 14, 2);
+    font-weight: $weight-m;
+    letter-spacing: $letter-xs;
+  }
+
+  &__head {
+    color: $main-color;
+    font-size: div(18em, 14, 2);
+    font-weight: $weight-m;
+  }
+
+  &__subhead {
+    font-size: div(18em, 16, 2);
+    font-weight: $weight-m;
+  }
+
+  .lv1 {
+    margin-left: 1em;
+  }
+
+  .lv2 {
+    margin-left: 2em;
+  }
+
+  a {
+    color: $link-color;
+    text-decoration: underline;
+  }
+
+  hr {
+    height: 1px;
+    background: $line-color;
+    border: none;
+  }
+}

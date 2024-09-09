@@ -1,0 +1,26 @@
+.fixedBefore {
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: -1;
+    width: 100%; // fallback
+    width: 100vw;
+    height: 100%; // fallback
+    height: 100vh;
+    content: '';
+    pointer-events: none;
+    backface-visibility: hidden;
+
+    // @formatter:off
+    // `backface-visibility: hidden`のフォールバック
+    // https://stackoverflow.com/questions/42744573/backface-visibility-not-working-in-safari/45145977
+    perspective: 0;
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+}

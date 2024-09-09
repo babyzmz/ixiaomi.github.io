@@ -1,0 +1,226 @@
+// ------------------------------
+// 必要に応じてスタイルを上書きする
+// ------------------------------
+
+// Modaal
+
+.modaal-container {
+  width: auto;
+  box-shadow: none;
+  background-color: transparent;
+  color: inherit;
+}
+
+.modaal-content-container {
+  padding: 0;
+}
+
+.modaal-gallery-control {
+  &:focus,
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+    outline: none;
+
+    @include mq(pc) {
+      background: #fff;
+      outline: none;
+    }
+  }
+
+  &:focus:before,
+  &:focus:after,
+  &:hover:before,
+  &:hover:after {
+    background: #fff;
+
+    @include mq(pc) {
+      background: #afb7bc;
+    }
+  }
+}
+
+.modaal-video-wrap {
+  margin: 0 auto;
+
+  @include mq(pc) {
+    display: table;
+  }
+}
+
+.modaal-video-container {
+  @include mq(pc) {
+    display: table;
+    width: 900px;
+    height: 900px * 0.5625;
+    max-width: none;
+    max-height: none;
+  }
+}
+
+// Slick
+
+$slick-color: $color-orange;
+$slick-arrow-size: 3rem;
+
+.slick-slider {
+  padding: 0 $slick-arrow-size;
+}
+
+.slick-arrow,
+.slick-dots button {
+  position: relative;
+  z-index: 1;
+  outline: none;
+  font-size: 0;
+  touch-action: manipulation;
+
+  // タッチポイントの拡張
+  &::before {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    left: -0.5rem;
+    content: '';
+  }
+}
+
+.slick-arrow {
+  $this: &;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  width: $slick-arrow-size;
+  height: $slick-arrow-size;
+  margin: auto;
+  color: $slick-color;
+
+  &.slick-disabled {
+    opacity: 0.5;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(230, 230, 230);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1);
+    transition: 0.2s;
+    content: '';
+
+    @at-root #{$this}:hover::after {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+}
+
+.slick-prev {
+  left: 0;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev-icon,
+.slick-next-icon {
+  position: absolute;
+  top: 0.5rem;
+  display: block;
+  width: $slick-arrow-size - 1rem;
+  height: $slick-arrow-size - 1rem;
+
+  &::before,
+  &::after {
+    position: absolute;
+    background-color: currentColor;
+    border-radius: 50px;
+    content: '';
+  }
+
+  &::before {
+    top: 0;
+    width: 100%;
+    height: 6px;
+  }
+
+  &::after {
+    top: 0;
+    width: 6px;
+    height: 100%;
+  }
+}
+
+.slick-prev-icon {
+  right: 0.225rem;
+  transform: rotate(-45deg);
+
+  &::before,
+  &::after {
+    left: 0
+  }
+}
+
+.slick-next-icon {
+  left: 0.225rem;
+  transform: rotate(45deg);
+
+  &::before,
+  &::after {
+    right: 0;
+  }
+}
+
+.slick-dots {
+  margin: -0.5rem;
+  text-align: center;
+  pointer-events: none;
+
+  li {
+    display: inline-block;
+    margin: 0.5rem;
+  }
+
+  button {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #bcbcbc;
+    border-radius: 50%;
+    pointer-events: all;
+    color: $slick-color;
+
+    @at-root .slick-active button {
+      background-color: currentColor;
+    }
+  }
+}
+
+// Perfect Scrollbar
+
+.ps__rail-y {
+  width: 6px;
+  opacity: 1;
+
+  .ps--active-y:hover & {
+    opacity: 1;
+  }
+}
+
+.ps__thumb-y {
+  right: 0;
+  width: 6px;
+  background-color: currentColor !important;
+  border-radius: 0;
+}
+
+.ps__thumb-y:hover {
+  background-color: currentColor;
+}

@@ -1,0 +1,30 @@
+// SDキャラクターを個別画像から一枚画像に変えたため
+// 使用していない
+.sdCharacters {
+  padding: 1.5% 0;
+
+  &__item {
+    display: block;
+    margin: -1.5% -0.1rem;
+
+    @include mq(pc) {
+      width: auto !important;
+    }
+
+    &--ai,
+    &--ayumu {
+      margin-left: -2%;
+    }
+
+    &--setsuna {
+      margin-left: -6%;
+    }
+  }
+
+  &__block {
+    &:nth-of-type(1) {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}

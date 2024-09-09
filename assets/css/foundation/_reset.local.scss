@@ -1,0 +1,89 @@
+html {
+  background-color: #fff;
+  box-sizing: border-box;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit; // inherit html
+}
+
+header {
+  position: relative;
+  z-index: 2;
+}
+
+body, main, footer, aside {
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ul, ol, li, dd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p, dl {
+  margin: 0;
+}
+
+dt {
+  display: inline;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+strong {
+  font-size: 1.15em;
+}
+
+hr {
+  margin: 0;
+  border: none;
+}
+
+iframe {
+  border: none;
+}
+
+button {
+  font-weight: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  color: inherit;
+  border-width: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}

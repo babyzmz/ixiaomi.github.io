@@ -1,0 +1,722 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: rgba(255,255,255,0.6 );
+}
+:root {
+    font-size: 15px;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #e493d0;
+    background-image:
+    radial-gradient(closest-side,rgba(235,105,78,1),
+    rgba(235,105,78,0)),
+    radial-gradient(closest-side,rgba(243,11,164,1),
+    rgba(243,11,164,0)),
+    radial-gradient(closest-side,rgba(254,234,131,1),
+    rgba(254,234,131,0)),
+    radial-gradient(closest-side,rgba(170,142,245,1),
+    rgba(170,142,245,0)),
+    radial-gradient(closest-side,rgba(248,192,147,1),
+    rgba(248,192,147,0));
+    background-size: 130vmax 130vmax,
+    80vmax 80vmax,
+    90vmax 90vmax,
+    110vmax 110vmax,
+    90vmax 90vmax;
+    background-position: -80vmax -80vmax,
+    60vmax -30vmax,
+    10vmax 10vmax,
+    -30vmax -30vmax,
+    50vmax 50vmax;
+    background-repeat: no-repeat;
+    animation: 10s movement linear infinite;
+
+}
+
+body::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    position: relative;
+    padding: 20px 0; 
+  }
+.container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    
+}
+
+
+.container nav {
+    width: 420px;
+    height:320px;
+    background: rgba(0, 0, 0, 8);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.5s;
+    padding: 16px;
+    border-radius: 12px;
+    backdrop-filter: blur(18px);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(230, 235, 240, 0.7);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    margin-left: 10px; /* Adjust the value as needed */
+    display: flex; /* Add this line to make the icons display side by side */
+    justify-content: space-around; /* Add this line to evenly distribute space between and around the icons */
+    align-items: center; 
+    
+}
+.h1{
+    position: absolute;
+    top: 20px;
+    right: 950px;
+   
+}
+
+.excel-container {
+    position: absolute;
+    top: 90px;
+    right: 350px;
+    width: 70%;/* Full width to align with the navigation bar */
+    height: 100%;
+    margin: 0 auto; /* Center the container */
+    overflow-x: auto; /* Horizontal scrollbar */
+  }
+  
+  #excel-data {
+   border: #000; /* Border around the table */
+    width: 100%; /* Full width */
+  }
+  
+  #excel-data td, #excel-data th {
+    border: 1px solid #ddd; /* Border around the table data */
+    padding: 8px; /* Padding for table data */
+  }
+  
+.nav {
+    width: 121px;
+    height: 860px;
+   
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.5s;
+    padding: 16px;
+    border-radius: 12px;
+    backdrop-filter: blur(18px);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(230, 235, 240, 0.7);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    margin-left: 20px; /* Adjust the value as needed */
+}
+
+.nav:hover {
+    width: 300px;
+    
+}
+.btn {
+    width: 60px;
+    height: 10px;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10px;
+    margin-top: 25px;
+}
+.btn-item {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.btn-item:nth-child(1){
+    background: #eb5a56;
+}
+.btn-item:nth-child(2){
+    background: #f8bc33;
+}
+.btn-item:nth-child(3){
+    background: #62cb44;
+}
+.icon {
+    width: 250px;
+    height: 60px;
+    margin-left: 15px;
+    margin-top: 20%;
+    display: flex;
+}
+.icon-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid rgba(65, 150, 235, 0.7);
+    overflow: hidden;
+}
+.icon-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.icon-con {
+    height: 60px;
+    margin-left: 25px;
+}
+.icon-con p {
+    padding-top: 5px;
+}
+.icon-con h2 {
+    font-weight: 400;
+}
+
+.icon-heart {
+    width: 25px; /* Set your desired width */
+    height: 25px; /* Set your desired height */
+    
+}
+a {
+    text-decoration: none;
+  }
+.line {
+    width: 60px;
+    height: 1px;
+    background:rgba(230, 235, 240, 0.7);
+    margin: 20px 25px;
+    transition: 0.5s;
+}
+.nav:hover .line {
+    width: 230px;
+}
+.title{
+    width: 60px;
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+.title p {
+    font-size: 14px;
+}
+.menu {
+    width: 230px;
+    margin-left: 25px;
+}
+.item {
+    display: flex;
+    position: relative;
+    transition: 0.5s;
+    border-radius: 6px;
+}
+.item:hover {
+    background:rgba(214, 141, 195, 0.7);
+   
+}
+.licon {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.con {
+    width: 0;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    overflow: hidden;
+    position: relative;
+    left: -20px;
+    opacity: 0;
+}
+
+.nav:hover .con {
+    width: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+.ricon {
+    width: 0;
+    height: 50px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+}
+.nav:hover .ricon {
+width: 60px;
+display: flex;
+justify-content: center;
+align-items: center;
+opacity: 1;
+}
+.iconfont {
+    font-size: 26px;
+}
+.ricon .iconfont {
+    font-size: 20px;
+    color: #62cb44;
+}
+.light {
+    width: 6px;
+    height: 50px;
+    background: #eb5a56;
+    position: absolute;
+    left: -25px;
+    transition: 0.5s;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    opacity: 0;
+}
+.item:hover .light {
+    opacity: 1;
+}
+.serve{
+    width: 60px;
+    background:clear;
+    margin-left: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.nav:hover .serve {
+    width: 230px;
+
+}
+
+.calendar-container {
+    position: absolute;
+    top: 20px;
+    right: 350px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .calendar-header h3 {
+    color: #fff;
+    margin: 0;
+  }
+  
+  .calendar-header button {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .calendar-header button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+  }
+  
+  .calendar-table th,
+  .calendar-table td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .calendar-table td.event {
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+  
+.edit-container{
+  position: absolute;
+  top: 20px;
+  right: 420px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  height: auto;
+}
+.reminder-container {
+    
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    
+}
+
+.reminder-container h3,
+.reminder-container label {
+    color: #fff; /* 将字体颜色改为白色 */
+}
+
+.reminder-container input,
+.reminder-container button {
+    
+    display: inline-block; /* 将按钮设置为内联块元素 */
+    margin-right: 10px; /* 设置按钮之间的右侧间距 */
+    margin-bottom: 10px;
+}
+
+.reminder-container input {
+    background-color: transparent; /* 将输入框背景设置为透明 */
+    color: #fff; /* 将输入框字体颜色设置为白色 */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* 添加一个淡白色边框以便于辨识输入框 */
+}
+
+.reminder-container button {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.reminder-container button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.event-item {
+    background-color: rgba(245, 245, 245, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.event-item p {
+    color: #000;
+}
+
+  .box {
+    width: 100vw;
+    height: 100vh;
+   
+  }
+  .box .content {
+    width: 70vw;
+    height: 70vh;
+   
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    padding: 20px 20px 20px 50px;
+  }
+  
+  .box .content .content-right {
+    flex: 1;
+  }
+  .box .content .content-right .right-box {
+    width: 46%;  /* Change the width to 46% */
+    height: 90%;
+    border-radius: 20px;
+    position: relative;
+    margin-left: auto;  /* Align it to the right */
+}
+
+  .box .content .content-right .right-box #canvas3d {
+    border-radius: 20px;
+    opacity: 0;
+    background-color: transparent;
+  }
+  .box .content .content-right .right-box .loadding {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  
+  }
+  
+  @keyframes rotate {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    25% {
+      -webkit-transform: rotate(90deg);
+    }
+    50% {
+      -webkit-transform: rotate(180deg);
+    }
+    75% {
+      -webkit-transform: rotate(270deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }/*# sourceMappingURL=style.css.map */
+
+@keyframes movement {
+    0%,100%{
+        background-size: 130vmax 130vmax,
+    80vmax 80vmax,
+    90vmax 90vmax,
+    110vmax 110vmax,
+    90vmax 90vmax;
+    background-position: -80vmax -80vmax,
+    60vmax -30vmax,
+    10vmax 10vmax,
+    -30vmax -30vmax,
+    50vmax 50vmax;
+    }
+    25%{
+        background-size: 100vmax 100vmax,
+    90vmax 90vmax,
+   100vmax 100vmax,
+    90vmax 90vmax,
+    60vmax 60vmax;
+    background-position: -60vmax -90vmax,
+    50vmax -40vmax,
+    0vmax -20vmax,
+    -40vmax -20vmax,
+    40vmax 60vmax;
+    }
+    50%{
+        background-size: 80vmax 80vmax,
+    110vmax 110vmax,
+   80vmax 80vmax,
+    60vmax 60vmax,
+    80vmax 80vmax;
+    background-position: -50vmax -70vmax,
+    40vmax -30vmax,
+    10vmax -0vmax,
+    20vmax 10vmax,
+    30vmax 70vmax;
+    }
+    75%{
+        background-size: 
+    90vmax 90vmax,
+    90vmax 90vmax,
+    100vmax 100vmax,
+    90vmax 90vmax,
+    70vmax 70vmax;
+    background-position: 
+    -50vmax -40vmax,
+    50vmax -40vmax,
+    0vmax -30vmax,
+    -10vmax -10vmax,
+    40vmax 60vmax;
+    }
+    
+}
+
+/*loadding*/
+
+.spinner {
+  background-image: linear-gradient(rgb(186, 66, 255) 35%,rgb(0, 225, 255));
+  width: 100px;
+  height: 100px;
+  animation: spinning82341 1.7s linear infinite;
+  text-align: center;
+  border-radius: 50px;
+  filter: blur(1px);
+  box-shadow: 0px -5px 20px 0px rgb(186, 66, 255), 0px 5px 20px 0px rgb(0, 225, 255);
+}
+
+.spinner1 {
+  background-color: rgb(238, 180, 228);
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  filter: blur(10px);
+}
+
+@keyframes spinning82341 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  backdrop-filter: blur(4px);
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #ff96e5;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Adjust width */
+  max-height: 70%; /* Adjust max-height to avoid overflow */
+  overflow-y: auto; /* Add scroll if needed */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+#edit-events-container button {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+#edit-events-container {
+  line-height: 2.6; /* 设置行距，可以根据需要调整值 */
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+/*手机效果*/
+@media (max-width: 1170px) {
+  .nav {
+    
+    width: 96px;
+    height: 572px;
+    background: rgba(0, 0, 0, 8);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: 0.5s;
+    padding: 0px;
+    border-radius: 12px;
+    backdrop-filter: blur(18px);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(230, 235, 240, 0.7);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    margin-left: 20px; /* Adjust the value as needed */
+}
+.nav:hover{
+   
+    width: 230px;
+    height: 572px;
+    background: rgba(0, 0, 0, 8);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: 0.5s;
+    padding: 0px;
+    border-radius: 12px;
+    backdrop-filter: blur(18px);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(230, 235, 240, 0.7);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    margin-left: 20px; /* Adjust the value as needed */
+    z-index: 4;
+}
+.nav.expanded {
+  width: 450px;
+  height: 1050px;
+  background: rgba(0, 0, 0, 8);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: 0.5s;
+  padding: 1px;
+  border-radius: 12px;
+  backdrop-filter: blur(18px);
+  background-color: rgb(41, 18, 18);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 235, 240, 0.7);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  margin-left: 20px; /* Adjust the value as needed */
+  z-index: 4;
+}
+
+.icon {
+  width: 250px;
+  height: 80px;
+  margin-left: 10px;
+  margin-top: 10%;
+  display: flex;
+}
+
+
+ 
+.reminder-container {
+    
+
+  position: absolute;
+  top: 200px;
+  right: 22%;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  
+}
+.reminder-container input {
+  background-color: transparent; /* 将输入框背景设置为透明 */
+  color: #fff; /* 将输入框字体颜色设置为白色 */
+  border: 1px solid rgba(255, 255, 255, 0.5); /* 添加一个淡白色边框以便于辨识输入框 */
+  height: 30px;
+}
+ 
+}

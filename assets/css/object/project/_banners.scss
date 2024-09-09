@@ -1,0 +1,38 @@
+.banners {
+  margin: -0.5em;
+  @include clearfix;
+
+  @include mq(pc) {
+    display: table;
+    margin-left: auto;
+  }
+
+  &__item {
+    float: left;
+    width: 50%;
+    padding: 0.5em;
+
+    @include mq(pc) {
+      width: auto;
+    }
+
+    &:nth-of-type(4n) {
+      @include mq(pc) {
+        clear: both;
+      }
+    }
+
+    a {
+      display: block;
+      transition: 0.3s;
+
+      @include interaction($hover: false) {
+        transform: scale(0.95);
+      }
+
+      @include interaction($active: false) {
+        opacity: 0.7;
+      }
+    }
+  }
+}

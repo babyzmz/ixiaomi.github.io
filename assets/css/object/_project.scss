@@ -1,0 +1,366 @@
+.hero {
+  &__header {
+    padding: $s;
+    background-color: #fff;
+
+    @include mq(pc) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__logos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    text-align: center;
+
+    @include mq(pc) {
+      margin-bottom: 0;
+    }
+
+    > * {
+      img {
+        width: 100%;
+      }
+
+      &:nth-of-type(1) {
+        width: 36%;
+        padding-right: 1rem;
+
+        @include mq(pc) {
+          width: auto;
+          padding-right: 0;
+          margin-right: 2.2rem;
+        }
+
+        img {
+          @include mq(pc) {
+            width: (318px / 2);
+          }
+        }
+      }
+
+      &:nth-of-type(2) {
+        width: 35%;
+        padding-right: 0.6rem;
+
+        @include mq(pc) {
+          width: auto;
+          padding-right: 0;
+          margin-right: 1.8rem;
+        }
+
+        img {
+          @include mq(pc) {
+            width: (314px / 2);
+          }
+        }
+      }
+
+      &:nth-of-type(3) {
+        width: 28%;
+
+        @include mq(pc) {
+          width: auto;
+        }
+
+        img {
+          @include mq(pc) {
+            width: (218px / 2);
+          }
+        }
+      }
+    }
+  }
+
+  &__mainVisual {
+    opacity: 0;
+    transition: 0.3s;
+
+    // 初期化完了
+    &.slick-initialized {
+      opacity: 1;
+      background-color: #fff; // fade 用
+    }
+
+    .slick-dots {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+
+      @include mq(pc) {
+        top: 2rem;
+        right: auto;
+        bottom: auto;
+        left: 2rem;
+      }
+
+      button {
+        display: table;
+        width: 2rem;
+        height: 2rem;
+        background: rgba(65, 65, 65, 0.5);
+      }
+
+      .slick-active button {
+        background-color: rgba(227, 0, 122, 0.5);
+      }
+    }
+  }
+}
+
+.frameButton {
+  position: relative;
+  display: inline-block;
+  padding: 0.45em 0.8em;
+  border: 3px solid $color-lovelive;
+  border-radius: 8px;
+  color: $color-lovelive;
+  font-size: 2rem;
+  font-weight: $weight-l;
+  line-height: 1;
+  letter-spacing: $letter-m;
+  transition: 0.3s;
+  outline: none;
+
+  &:hover {
+    @include is-hover {
+      background-color: $color-lovelive;
+      color: #fff;
+    }
+  }
+
+  &:active {
+    background-color: $color-lovelive;
+    color: #fff;
+  }
+
+  @include mq(pc) {
+    font-size: 2.2rem;
+  }
+
+  &__icon {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    display: inline-block !important;
+    width: 0.7em !important;
+    height: 0.7em !important;
+    margin-top: -1px;
+    margin-left: 0.4em;
+
+    &::before {
+      height: 4px !important;
+    }
+
+    &::after {
+      width: 4px !important;
+    }
+  }
+}
+
+//.arrow-right-radius {
+//  width: 1em;
+//  height: 1em;
+//  position: relative;
+//
+//  &::before {
+//    
+//    content: '';
+//  }
+//}
+
+.bg-school {
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    background: url(../img/bg-school.jpg) no-repeat center top;
+    background-size: cover;
+  }
+
+  &::after {
+    @include dot(#d5d9e0, 4px, 25%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#fff, 0.72);
+    content: '';
+    pointer-events: none;
+  }
+}
+
+.header {
+  padding: $xxs;
+  background-color: rgba($color-yellow-dark, 0.8);
+
+  @include mq(pc) {
+    padding: $xxs $m;
+  }
+
+  &__logo {
+    width: 55%;
+
+    @include mq(pc) {
+      width: auto;
+    }
+  }
+}
+
+.footer {
+  padding-top: $m;
+  background-color: rgba($color-yellow-dark, 0.8);
+  font-size: 1.1rem;
+  line-height: 2.1;
+
+  @include mq(pc) {
+    padding-top: $xl;
+    font-size: 1.2rem;
+  }
+
+  &__bottom {
+    margin-top: 3.5em;
+
+    @include mq(pc) {
+      @include padding-x(1em);
+    }
+  }
+
+  &__bottomInner {
+    border-top: 1px solid #7b7b7b;
+    @include padding-y(2.2em);
+  }
+}
+
+.mainHead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #454545;
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: $weight-l;
+  line-height: 1.2;
+  letter-spacing: $letter-s;
+
+  @include mq(pc) {
+    font-size: 4rem;
+  }
+
+  > img {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.3em;
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.19));
+  }
+}
+
+.subhead {
+  padding-left: 0.4em;
+  border-left: 12px solid $color-orange;
+  font-size: 2rem;
+  font-weight: $weight-l;
+  line-height: 1.4;
+  letter-spacing: $letter-s;
+
+  @include mq(pc) {
+    border-width: 20px;
+    font-size: 3.2rem;
+  }
+
+  &--small {
+    color: #454545;
+    font-size: 1.6rem;
+
+    @include mq(pc) {
+      font-size: 2.8rem;
+    }
+  }
+}
+
+.clock {
+  color: #454545;
+  text-align: center;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: $letter-s;
+
+  @include mq(pc) {
+    font-size: 7.2rem;
+  }
+}
+
+.today {
+  text-align: center;
+  line-height: 1.4;
+  letter-spacing: $letter-s;
+
+  @include mq(pc) {
+    font-size: 2.4rem;
+  }
+}
+
+.nav {
+  text-align: center;
+  letter-spacing: $letter-xs;
+
+  a {
+    display: block;
+    transition: 0.3s;
+
+    @include interaction() {
+      color: $color-orange-dark;
+    }
+
+    @include interaction($addition: ' img', $active: false) {
+      transform: scale(0.95);
+    }
+  }
+
+  img {
+    display: block;
+    width: 50px;
+    margin: 0 auto 0.6em;
+    transition: 0.3s;
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.19));
+
+    @include mq(pc) {
+      width: 85px;
+    }
+  }
+}
+
+.customers {
+  @include margin-x();
+
+  @include mq(pc) {
+    width: 600px;
+  }
+
+  &__header {
+    padding: 0.5em;
+    background-color: #425396;
+    color: #fff;
+    text-align: center;
+    font-size: div(24em, 14, 2);
+    font-weight: $weight-m;
+    line-height: 1.25;
+    letter-spacing: $letter-xs;
+  }
+
+  &__content {
+    padding: 1.5em;
+    background-color: #fff;
+  }
+
+  a {
+    color: #ff8100;
+    text-decoration: underline;
+  }
+}

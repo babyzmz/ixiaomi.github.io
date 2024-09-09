@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./home.css">
+  
+
+    <title>❤️</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="nav">
+            <div class="btn">
+                <div class="btn-item"></div>
+                <div class="btn-item"></div>
+                <div class="btn-item"></div>
+            </div>
+            <a href="home.html">
+                <div class="icon">
+                  <div class="icon-img">
+                    <img src="img/miku1.png" alt="">
+                  </div>
+                  <div class="icon-con">
+                    <p>Miku</p>
+                    <h2>MikuMiku</h2>
+                  </div>
+                </div>
+              </a>              
+            <div class="title">
+               
+               
+            </div>
+            <div class="menu">
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="">
+                            <img src="/Icon/heart.png" alt="Heart Icon" class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="heart.html">心心纪念日</a></div>
+                    <div class="ricon"></div>
+                </div>
+
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/calendar.png" alt=""class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="calendar.html">日历提醒</a></div>
+                    <div class="ricon"></div>
+                </div>
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/checklist.png" alt=""class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="order.html">订单统计</a></div>
+                    <div class="ricon"></div>
+                </div>
+                <div class="item">
+                    <div class="light"></div>
+                    <div class="licon">
+                        <span class="iconfonticon-user">
+                            <img src="/icon/store.png" alt=""class="icon-heart">
+                        </span>
+                    </div>
+                    <div class="con"><a href="store.html">库存统计</a></div>
+                    <div class="ricon"></div>
+                </div>
+                
+            </div>
+            <div class="line"></div>
+            <div class="title">
+                <p>Sever6</p>
+            </div>
+            <div class="serve">
+                <div class="menu">
+                    <div class="item">
+                        <div class="light"></div>
+                        <div class="licon">
+                            <span class="iconfonticon-wenjian1"></span>
+                        </div>
+                        <div class="con">Payouts</div>
+                        <div class="ricon"></div>
+                    </div>
+                    <div class="item">
+                        <div class="light"></div>
+                        <div class="licon">
+                            <span class="iconfonticon-user"></span>
+                        </div>
+                        <div class="con">Profile</div>
+                        <div class="ricon"></div>
+                    </div>
+                    <div class="item">
+                        <div class="light"></div>
+                        <div class="licon">
+                            <span class="iconfonticon-settings"></span>
+                        </div>
+                        <div class="con">Settings</div>
+                        <div class="ricon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="h1">
+        <h1>订单统计</h1>
+       </div>
+        
+        <div class="excel-container">
+            <input type="file" id="excel-file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <table id="excel-data"></table>
+        </div>
+        
+        <script src="order.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+        
+          
+        <div class="reminder-container">
+            <h3>添加提醒</h3>
+            <form id="reminder-form">
+                <label for="event-name">事件名称：</label>
+                <input type="text" id="event-name" required>
+                <br>
+                <label for="event-date">事件日期：</label>
+                <input type="date" id="event-date" required>
+                <br>
+                <button type="submit">添加提醒</button>
+            </form>
+            <div id="event-list">
+                <h3>即将到来的事件：</h3>
+            </div>
+        </div>
+    </div>
+   
+
+    
+    <script src="home.js"></script>
+    
+
+
+</body>
+</html>
+
+
+
+
+<div class="u-d-n">
+    <div id="readme">
+        <div class="inline">
+            <p class="inline__title">必ずお読みください</p>
+
+            <div class="u-mb-l">
+                <p class="inline__head">●ご注⽂・お⽀払いについて</p>
+                <ul class="u-bullets">
+                    <li>※他の商品との合わせ買いはできません。</li>
+                    <li>※決済方法は「クレジットカード」または「オンライン決済(コンビニ決済)」、「Pay-easy(ペイジー)」のみとなります。「代金引換」は出来ませんのでご注意ください。</li>
+                    <li>※期日までに購入・決済手続きが行われなかった場合は、キャンセル扱いとして手続きを致します。</li>
+                </ul>
+            </div>
+
+            <hr class="u-mb-l">
+
+            <div class="u-mb-l">
+                <p class="inline__subhead">■A-on STORE</p>
+
+                <div class="u-mb-m">
+                    <p class="inline__subhead">①クレジットカードによるお支払い</p>
+                    <p class="u-bullet">・VISA、American Express、Master Card、JCB、DCがご利用いただけます。</p>
+                    <p class="u-bullet">・受注生産のため、決済は注文締切日の翌日に行われます。</p>
+                    <p class="u-bullet">※クレジットカードの有効期限にはご注意ください。</p>
+                </div>
+
+                <div class="u-mb-m">
+                    <p class="inline__subhead">②コンビニ決済によるお支払い</p>
+                    <p class="u-bullet">・コンビニエンスストアでお支払頂く決済方法です。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日翌日までに、お支払いに関するご案内メールをお送りいたします。メールをご確認後、メール受信日を含め、3日以内にお支払いください。</p>
+                </div>
+
+                <div>
+                    <p class="inline__subhead">③Pay-easy(ペイジー)によるお支払い</p>
+                    <p class="u-bullet">・金融機関の窓口や、コンビニのレジに並ぶことなく、パソコンやスマートフォン、携帯電話(インターネットバンキング利用)から、支払うことができるサービスです。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日翌日までに、お支払いに関するご案内メールをお送りいたします。メールをご確認後、メール受信日を含め、3日以内にお支払いください。</p>
+                </div>
+            </div>
+
+            <div class="u-mb-l">
+                <p class="inline__subhead">■プレミアムバンダイ</p>
+
+                <div class="u-mb-m">
+                    <p class="inline__subhead">①クレジットカードによるお支払い</p>
+                    <p class="u-bullet">・VISA、American Express、Master Card、JCB、Diners Clubがご利用頂けます。</p>
+                    <p class="u-bullet">・決済は、注文時に前払い決済となります。</p>
+                    <p class="u-bullet">※クレジットカードの有効期限にはご注意ください。</p>
+                    <p class="u-bullet">※クレジットカードを選択した場合には、プレミアムバンダイからは即時でカード会社への請求となりますが、お客様への請求タイミングはご利用のカード会社によって異なります。<br>そのため、請求タイミングを確認される場合には、登録された各クレジットカード会社へお問い合わせください。</p>
+                </div>
+
+                <div class="u-mb-m">
+                    <p class="inline__subhead">②コンビニ決済によるお支払い</p>
+                    <p class="u-bullet">・あらかじめご指定いただいたコンビニエンスストアでお支払頂く決済方法です。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日に、お支払いに関するご案内メールをお送りいたします。<br>メールをご確認後、注文日を含め、4日以内にお支払いください。</p>
+                </div>
+
+                <div class="u-mb-m">
+                    <p class="inline__subhead">③PayPay(オンライン決済)によるお支払い</p>
+                    <p class="u-bullet">・お客様がご利用のPayPayアカウントを用いて行う前払い決済方法です。<br>決済手続き時にはPayPay残高もしくはPayPayアプリ内に登録しているクレジットカードを選択の上、お手続きをお願いします。</p>
+                    <p class="u-bullet">※手数料は無料となります。<br>なお、PayPay残高での決済を選択された場合には、決済完了とともに即時で決済金額が引き落としされます。</p>
+                </div>
+
+                <div class="u-mb-m">
+                    <p class="inline__subhead">④プレバンPay</p>
+                    <p class="u-bullet">・【プレバンPay】とは、プレミアムバンダイが提供している決済方法となります。<br>決済手続き時にはプレバンPay残高をご確認のうえお手続きをお願いします。</p>
+                    <p class="u-bullet">※手数料は無料となります。<br>なお、プレバンPay残高での決済を選択された場合には、決済完了とともに即時で決済金額が引き落としされます。</p>
+                    <p class="u-bullet">※クーポンは注文時にご利用ください。注文後にはご利用できませんのでご注意ください。</p>
+                    <p class="u-bullet">※ご注文後のキャンセルはお受けできません。</p>
+                </div>
+
+                <div>
+                    <p class="inline__subhead">⑤あと払い(ペイディ)</p>
+                    <p class="u-bullet">・「ペイディ」は株式会社Paidyが提供する、クレジットカードや利用登録不要で、メールアドレスと携帯電話番号があれば利用できる決済サービスです。</p>
+                    <p class="u-bullet">・ペイディカードの登録は不要です。</p>
+                    <p class="u-bullet">・メールアドレスと携帯電話番号だけで、今すぐお買い物ができます。</p>
+                    <p class="u-bullet">・1か月に何度お買い物をしても、お支払いは翌月まとめて1回でOK。</p>
+                    <p class="u-bullet">・1か月間のご利用分を、翌月10日までにコンビニ払い・銀行振込・口座振替でお支払いください。</p>
+                    <p class="u-bullet">※分割3回あと払いは、ペイディプラス（無料）にアップグレードすると利用可能です。</p>
+                </div>
+
+            </div>
+
+            <ul class="u-mb-l u-bullets">
+                <li>※お支払期限を過ぎますと、ご注文はキャンセルとなります。いかなる理由でも、決済期間の延長は対応出来かねます。</li>
+                <li>※お客様都合による決済後のキャンセルは出来かねます。</li>
+                <li>※状況により、お支払方法は変更になる可能性がございます。</li>
+            </ul>
+
+            <hr class="u-mb-l">
+
+            <div class="u-mb-l">
+                <p class="inline__head">●配送について</p>
+
+                <ul class="u-bullets">
+                    <li>※虹ヶ咲学園購買部は、全て受注生産の商品(締切後に生産を開始する予約商品)になりますので、お届けまでにお時間がかかります。<br>お届け予定時期につきましては、各商品詳細ページをご確認ください。</li>
+                    <li>※配送地域や決済方法、天候の状況等によって、お届け日が異なりますので、あらかじめご了承ください。</li>
+                    <li>※配送地域は日本国内に限らせて頂きます。なお、A-on STOREの配送会社は佐川急便。プレミアムバンダイの配送会社は、佐川急便もしくはヤマト運輸となります。(プレミアムバンダイでは、配送会社を選択することはできません。)</li>
+                    <li>※局留め(営業所受け取りサービス等)の対応はできかねます。<br>虹ヶ咲学園購買部に関するお問い合わせにつきましては、下記までお願いします。</li>
+                </ul>
+            </div>
+
+            <hr class="u-mb-l">
+
+            <div class="u-mb-l">
+                <p>＜バンダイナムコフィルムワークス お客様センター＞</p>
+                <p class="u-hanging"><span>Eメール：</span><a href="mailto:a-onstore@bnfw.co.jp">a-onstore@bnfw.co.jp</a></p>
+                <p class="u-hanging"><span>営業時間：</span>月曜日～金曜日10：00～17：00(祝日・年末年始を除く)</p>
+            </div>
+        </div>
+    </div>
+</div>

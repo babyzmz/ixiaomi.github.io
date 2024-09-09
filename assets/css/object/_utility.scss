@@ -1,0 +1,445 @@
+// ------------------------------
+// Display
+// ------------------------------
+
+.u-BR-d-VAL {
+  @include windmill((display: (
+    b: block,
+    n: none,
+    i: inline,
+    ib: inline-block,
+    t: table,
+    f: flex
+  )));
+}
+
+// ------------------------------
+// Position
+// ------------------------------
+
+.u-z-VAL {
+  @include windmill((z-index: (
+    n3: -3,
+    n2: -2,
+    n1: -1,
+    1: 1,
+    2: 2,
+    3: 3
+  )));
+}
+
+.u-pos-VAL {
+  @include windmill((position: (
+    a: absolute,
+    r: relative
+  )));
+}
+
+// ------------------------------
+// Flexible Layout
+// ------------------------------
+
+.u-BR-ai-VAL {
+  @include windmill((align-items: (
+    c: center,
+    e: flex-end
+  )));
+}
+
+.u-BR-jc-VAL {
+  @include windmill((justify-content: (
+    c: center,
+    e: flex-end,
+    sb: space-between,
+    sa: space-around
+  )));
+}
+
+.u-BR-fd-VAL {
+  @include windmill((flex-direction: (
+    c: column,
+    cr: column-reverse,
+    r: row,
+    rr: row-reverse
+  )));
+}
+
+.u-BR-fw-VAL {
+  @include windmill((flex-wrap: (
+    w: wrap,
+    nw: nowrap
+  )));
+}
+
+// ------------------------------
+// Color
+// ------------------------------
+
+.u-color-VAL {
+  @include windmill((color: $color-map));
+}
+
+.u-bg-VAL {
+  @include windmill((background-color: $color-map));
+}
+
+// ------------------------------
+// Typography
+// ------------------------------
+
+// Absolute font size
+@each $name, $map in fontsize-get() {
+  .u-fs-#{$name} {
+    @include fontsize($name);
+  }
+}
+
+// Relative font size
+.u-BR-fs-VAL {
+  @include windmill((font-size: (
+    i: inherit,
+    '30': 30%,
+    '40': 40%,
+    '50': 50%,
+    '60': 60%,
+    '70': 70%,
+    '80': 80%,
+    '90': 90%,
+    '100': 100%,
+    '110': 110%,
+    '120': 120%,
+    '130': 130%,
+    '140': 140%,
+    '150': 150%,
+    '160': 160%,
+    '170': 170%,
+    '180': 180%,
+    '200': 200%,
+    '210': 210%,
+    '220': 220%,
+    '230': 230%,
+    '240': 240%,
+    '250': 250%,
+    '300': 300%,
+    '400': 400%
+  ) !important));
+}
+
+// font-weight
+.u-weight-VAL {
+  @include windmill((font-weight: $weight-map));
+}
+
+// font-style
+.u-style-VAL {
+  @include windmill((font-style: (
+    i: italic,
+    n: normal
+  )));
+}
+
+// line-height
+.u-BR-lh-VAL {
+  @include windmill((line-height: (
+    50: 0.5,
+    60: 0.6,
+    70: 0.7,
+    80: 0.8,
+    90: 0.9,
+    100: 1,
+    110: 1.1,
+    120: 1.2,
+    130: 1.3,
+    140: 1.4,
+    150: 1.5,
+    160: 1.6,
+    170: 1.7,
+    180: 1.8,
+    190: 1.9,
+    200: 2
+  ) !important));
+}
+
+// letter-spacing
+.u-letter-VAL {
+  @include windmill((letter-spacing: $letter-map));
+}
+
+// text-align
+.u-BR-ta-VAL {
+  @include windmill((text-align: (
+    r: right,
+    l: left,
+    c: center,
+    j: justify
+  )));
+}
+
+// vertical-align
+.u-vertical-VAL {
+  @include windmill((vertical-align: (
+    tb: text-bottom,
+    m: middle,
+    s: super
+  )));
+}
+
+// text-decoration
+.u-td-VAL {
+  @include windmill((text-decoration: (
+    lt: line-through,
+    ul: underline
+  )));
+}
+
+// font-family
+.u-family-VAL {
+  @include windmill((font-family: $family-map));
+}
+
+// white-space
+.u-white-nw {
+  white-space: nowrap;
+}
+
+// ------------------------------
+// Sizes
+// ------------------------------
+
+$sizes: (
+  10: 10%,
+  20: 20%,
+  30: 30%,
+  40: 40%,
+  50: 50%,
+  60: 60%,
+  70: 70%,
+  80: 80%,
+  90: 90%,
+  100: 100%,
+);
+
+// width
+.u-BR-w-VAL {
+  @include windmill((
+    width: map-merge($sizes, (auto: auto)) !important)
+  );
+}
+
+// max-width
+.u-BR-mw-VAL {
+  @include windmill((
+    max-width: map-merge($sizes, (none: none)) !important)
+  );
+}
+
+// height
+.u-BR-h-VAL {
+  @include windmill((
+    height: map-merge($sizes, (auto: auto)) !important)
+  );
+}
+
+// ------------------------------
+// Negative Margin
+// ------------------------------
+
+$n-margins: $space-map;
+@each $key, $val in $n-margins {
+  $n-margins: map-merge($n-margins, ($key: -#{$val}));
+}
+
+// All direction
+.u-BR-nm-VAL {
+  @include windmill((margin: $n-margins !important));
+}
+
+// top, y
+.u-BR-nmt-VAL, .u-BR-nmy-VAL {
+  @include windmill((margin-top: $n-margins !important));
+}
+
+// bottom, y
+.u-BR-nmb-VAL, .u-BR-nmy-VAL {
+  @include windmill((margin-bottom: $n-margins !important));
+}
+
+// right, x
+.u-BR-nmr-VAL, .u-BR-nmx-VAL {
+  @include windmill((margin-right: $n-margins !important));
+}
+
+// left, x
+.u-BR-nml-VAL, .u-BR-nmx-VAL {
+  @include windmill((margin-left: $n-margins !important));
+}
+
+// ------------------------------
+// Margin
+// ------------------------------
+
+$margins: map-merge($space-map, (0: 0, auto: auto));
+
+// All direction
+.u-BR-m-VAL {
+  @include windmill((margin: $margins !important));
+}
+
+// top, y
+.u-BR-mt-VAL, .u-BR-my-VAL {
+  @include windmill((margin-top: $margins !important));
+}
+
+// bottom, y
+.u-BR-mb-VAL, .u-BR-my-VAL {
+  @include windmill((margin-bottom: $margins !important));
+}
+
+// right, x
+.u-BR-mr-VAL, .u-BR-mx-VAL {
+  @include windmill((
+    margin-right: map-merge($margins, ('1e': 1em)) !important)
+  );
+}
+
+// left, x
+.u-BR-ml-VAL, .u-BR-mx-VAL {
+  @include windmill((
+    margin-left: map-merge($margins, ('1e': 1em)) !important)
+  );
+}
+
+// ------------------------------
+// Child Margin
+// ------------------------------
+
+.u-BR-mrc-VAL > :not(:last-child) {
+  @include windmill((margin-right: $space-map !important));
+}
+
+.u-BR-mbc-VAL > :not(:last-child) {
+  @include windmill((margin-bottom: $space-map !important));
+}
+
+// ------------------------------
+// Padding
+// ------------------------------
+
+$pads: map-merge($space-map, (0: 0));
+
+// All direction
+.u-BR-p-VAL {
+  @include windmill((padding: $pads !important));
+}
+
+// top, y
+.u-BR-pt-VAL, .u-BR-py-VAL {
+  @include windmill((padding-top: $pads !important));
+}
+
+// bottom, y
+.u-BR-pb-VAL, .u-BR-py-VAL {
+  @include windmill((padding-bottom: $pads !important));
+}
+
+// right, x
+.u-BR-pr-VAL, .u-BR-px-VAL {
+  @include windmill((padding-right: $pads !important));
+}
+
+// left, x
+.u-BR-pl-VAL, .u-BR-px-VAL {
+  @include windmill((padding-left: $pads !important));
+}
+
+// ------------------------------
+// Border
+// ------------------------------
+
+.u-radius-VAL {
+  @include windmill((
+    border-radius: $radius-map
+  ));
+}
+
+// ------------------------------
+// Layout
+// ------------------------------
+
+// float
+.u-float-VAL {
+  @include windmill((float: (
+    r: right,
+    l: left,
+    n: none
+  )));
+}
+
+// ------------------------------
+// Other
+// ------------------------------
+
+.u-link {
+  color: $color-link;
+  text-decoration: underline;
+}
+
+.u-disable {
+  cursor: default;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.u-BR-fluid {
+  @include windmill() {
+    @include fluid();
+  }
+}
+
+.u-bullet,
+.u-bullets > * {
+  @include bullet();
+}
+
+.u-bullet-off {
+  padding-left: 0;
+  text-indent: 0;
+}
+
+.u-hanging,
+.u-hangings > * {
+  display: table;
+
+  > * {
+    position: relative;
+    right: -1px; // 1pxの隙間ができるので埋める
+    display: table-cell;
+    white-space: nowrap;
+  }
+}
+
+.u-clearfix {
+  @include clearfix();
+}
+
+.u-BR-visuallyHidden {
+  @include windmill() {
+    @include visually-hidden();
+  }
+}
+
+.u-hover {
+  @include hover();
+}
+
+// text-indent
+.u-ti-1 {
+  text-indent: .05rem;
+}
+.u-ti-2 {
+  text-indent: 1.5rem;
+}
+.u-ti-1s {
+  padding-left: 1em;
+  text-indent: -1em;
+}

@@ -1,0 +1,110 @@
+.guide {
+  $main-color: $color-orange;
+  $link-color: $color-link;
+  padding: $l $m;
+  background-color: #fff;
+  line-height: 1.9;
+
+  @include mq(pc) {
+    padding: $xl $l;
+  }
+
+  &__navLink {
+    position: relative;
+    display: block;
+    padding-bottom: 0.5em;
+    // border-bottom: 2px solid $main-color;
+    font-size: 1.6rem;
+    transition: 0.2s;
+
+    @include mq(pc) {
+      font-size: 2.1rem;
+    }
+
+    @include interaction($addition: '::before') {
+      width: 80%;
+    }
+
+    &::before {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $main-color;
+      transition: 0.2s;
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    font-weight: $weight-l;
+    line-height: 1.5;
+    letter-spacing: $letter-s;
+
+    &::before {
+      flex: 0 0 auto;
+      width: 1.5em;
+      height: 1.5em;
+      margin-right: 1rem;
+      content: '';
+      @include svg(question, $color-text);
+      background-size: 100% auto;
+    }
+  }
+
+  &__mainHead {
+    margin-bottom: 0.8em;
+    font-size: 1.8rem;
+
+    @include mq(pc) {
+      font-size: 2.4rem;
+    }
+  }
+
+  &__subhead {
+    position: relative;
+    display: table;
+    padding: 0 0.5em 0.5em 0;
+    margin-bottom: 0.5em;
+    border-bottom: 1px dashed;
+    font-size: div(16em, 14, 2);
+    font-weight: $weight-m;
+  }
+
+  &__strong {
+    color: #dc0000;
+    font-size: 1.1em;
+    font-weight: $weight-m;
+  }
+
+  &__section {
+    &:not(:last-child) {
+      margin-bottom: $m  + 2;
+
+      @include mq(pc) {
+        margin-bottom: $l + 2;
+      }
+    }
+  }
+
+  &__subsection {
+    &:not(:last-child) {
+      margin-bottom: $m;
+
+      @include mq(pc) {
+        margin-bottom: $l;
+      }
+    }
+  }
+
+  &__link {
+    color: $link-color;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,216 @@
+.info {
+  color: #454545;
+  overflow: hidden;
+
+  &__header {
+    position: relative;
+    padding: 0.9em 0 1em;
+    background-color: rgba(#fff04a, 0.8);
+  }
+
+  &__headerInner {
+    position: relative;
+    pointer-events: none;
+  }
+
+  &__trigger {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+    pointer-events: all;
+
+    @include interaction() {
+      background-color: rgba(#000, 0.07);
+    }
+  }
+
+  &__head {
+    margin-bottom: 0.3em;
+    text-align: center;
+    font-size: div(22em, 14, 2);
+    font-weight: $weight-l;
+    line-height: 1.5;
+    letter-spacing: $letter-s;
+
+    @include mq(pc) {
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    > img {
+      $additional-size: 0.3;
+      width: 1em + $additional-size;
+      height: 1em + $additional-size;
+      margin-top: ($additional-size * -1em / 2);
+      margin-right: 0.2em;
+    }
+  }
+
+  &__more {
+    padding: 0.5em 1em 0 0;
+    margin: 0.5em 0 0;
+    border-top: 1px solid;
+    text-align: right;
+    font-size: div(17em, 14, 2);
+    font-weight: $weight-l;
+    letter-spacing: $letter-s;
+    pointer-events: none;
+
+    @include mq(pc) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0;
+      margin: auto;
+      border: none;
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+    margin-left: 0.4em;
+    @include svg('bottom-arrow', $color-text);
+    transition: 0.2s;
+
+    &.is-active {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__item {
+    padding: 0.25em;
+    font-size: div(16em, 14, 2);
+    font-weight: $weight-l;
+    letter-spacing: $letter-s;
+
+    &--first {
+      padding: 0 0.25rem;
+      pointer-events: all;
+    }
+
+    a {
+      position: relative;
+      display: block;
+      padding: 0.25em;
+      margin: -0.25em;
+      transition: 0.2s 0.1s;
+
+      @include interaction($active: false) {
+        transform: translateX(20px);
+        transition: 0.2s;
+      }
+
+      &::before {
+        @include triangle($color-orange-dark);
+        position: absolute;
+        top: 0.5em;
+        left: 0;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: 0.2s;
+        content: '';
+        pointer-events: none;
+      }
+
+      @include interaction($addition: '::before', $active: false) {
+        opacity: 1;
+        transform: translateX(-16px);
+        transition: 0.2s 0.1s;
+      }
+    }
+
+    time {
+      display: block;
+      margin-right: 1em;
+      color: #7b7b7b;
+      font-size: div(15em, 16, 2);
+
+      @include mq(pc) {
+        display: inline;
+        float: left;
+      }
+    }
+
+    span {
+      @include mq(pc) {
+        display: table;
+      }
+    }
+
+    a span {
+      &::after {
+        width: 0.8em;
+        height: 0.8em;
+        margin: 0 0 -0.05em 0.5em;
+        @include svg(link-arrow);
+        content: '';
+        display: inline-block;
+
+
+        @include mq(pc) {
+          content: none;
+        }
+      }
+    }
+  }
+
+  &__content {
+    max-height: 0;
+    background-color: rgba(#fff8ab, 0.8);
+    pointer-events: none;
+    //opacity: 0;
+    // transform: translate(0, 50%);
+    transition: 0.2s ease-in-out;
+
+    &.is-active {
+      max-height: 210px;
+      pointer-events: all;
+      // opacity: 1;
+      // transform: translate(0, 0);
+    }
+
+    > * {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: 0.2s ease-in-out 0.05s;
+    }
+
+    &.is-active > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__contentInner {
+    padding: 15px 0;
+
+    @include mq(pc) {
+      padding-left: 24rem;
+    }
+  }
+
+  &__scroll {
+    position: relative;
+    max-height: 180px;
+    // バーの幅 + バーとの隙間
+    padding-right: 10px + 8px;
+  }
+
+  // perfect-scrollbar
+  .ps__thumb-y,
+  .ps__rail-y {
+    width: 10px;
+  }
+
+  .ps__rail-y {
+    background-color: #fff;
+  }
+}

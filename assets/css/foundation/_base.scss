@@ -1,0 +1,48 @@
+html {
+  color: $color-text;
+  font-family: $family-base;
+  font-size: 62.5%;
+  font-weight: $weight-base;
+  line-height: $line-base;
+  letter-spacing: $letter-base;
+  word-wrap: break-word;
+  overflow-x: hidden;
+}
+
+body {
+  @include fontsize(base);
+  overflow-x: hidden;
+
+  @include mq(pc) {
+    overflow-x: initial;
+  }
+}
+
+img, svg {
+  vertical-align: middle;
+  height: auto;
+  max-width: 100%;
+}
+
+// インライン要素にルビを振る
+// <p><span data-ruby="かんじ">漢字</span></p>
+//
+// `position: absolute` でルビを配置するため行間に注意
+// 文字とルビの間が広い場合は `data-ruby` を付与している
+// インライン要素に `display: inline-block` を与え、
+// `line-height` で調節する
+[data-ruby] {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: -1em;
+    left: -100%;
+    width: 300%;
+    text-align: center;
+    font-size: 0.5em;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    content: attr(data-ruby);
+  }
+}
