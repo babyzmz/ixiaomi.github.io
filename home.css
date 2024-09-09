@@ -753,7 +753,7 @@ opacity: 1;
 
   .reminder-container {
     position: absolute; /* 绝对定位 */
-    top: 10px;
+    top: 160px;
     right: 12%;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
@@ -765,7 +765,7 @@ opacity: 1;
 
   .existing-events-container {
     width: 90%; /* 调整宽度以适应手机屏幕 */
-    top: 160px;
+    top: 320px;
     margin: 10px auto; /* 居中显示 */
     position: relative; /* 相对定位 */
     z-index: 1; /* 确保在最底层 */
