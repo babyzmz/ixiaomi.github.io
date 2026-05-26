@@ -302,26 +302,26 @@ a{
 }
 
 .weather-tab {
-    border: 1px solid rgba(255, 255, 255, 0.58);
-    border-radius: 999px;
-    padding: 10px 16px;
-    background: rgba(255, 255, 255, 0.24);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 8px 24px rgba(174, 56, 126, 0.16);
+    width: 100%;
+    border: 0;
+    border-radius: 18px;
+    padding: 0 0 10px;
+    background: transparent;
+    box-shadow: none;
     color: rgba(240, 78, 138, 0.94);
     cursor: pointer;
     font-family: inherit;
-    transition: transform 0.22s ease, background-color 0.22s ease;
+    text-align: left;
+    transition: color 0.22s ease, transform 0.22s ease;
 }
 
 .weather-tab:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.32);
+    color: rgba(240, 78, 138, 1);
+    transform: translateY(-1px);
 }
 
 .weather-card {
-    margin-top: 10px;
+    margin-top: 0;
     padding: 16px;
     border: 1px solid rgba(255, 255, 255, 0.58);
     border-radius: 24px;
@@ -331,10 +331,37 @@ a{
     box-shadow:
         0 8px 28px rgba(30, 20, 40, 0.16),
         inset 1px 1px 0 rgba(255, 255, 255, 0.48);
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-    pointer-events: none;
-    transition: opacity 0.28s ease, transform 0.28s ease;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    transition:
+        opacity 0.28s ease,
+        transform 0.28s ease,
+        padding 0.28s ease,
+        border-radius 0.28s ease,
+        background-color 0.28s ease;
+}
+
+.love-weather:not(.is-open) .weather-card {
+    padding: 0;
+    border-radius: 999px;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.love-weather:not(.is-open) .weather-tab {
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.24);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(174, 56, 126, 0.16);
+}
+
+.love-weather:not(.is-open) .weather-card > :not(.weather-tab) {
+    display: none;
 }
 
 .love-weather.is-open .weather-card {

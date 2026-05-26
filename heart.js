@@ -1029,8 +1029,12 @@ function createPointFlowers() {
     pointFlower.offset = new Float32Array([0.0, 0.0, 0.0]);
     pointFlower.fader = Vector3.create(0.0, 10.0, 0.0);
     
-    // paramerters: velocity[3], rotate[3]
-    pointFlower.numFlowers = pointFlower.layerRole === 'front' ? 520 : 1600;
+    // Mobile Safari renders high-DPR WebGL petals brighter and denser; use a
+    // separate density profile so the visual weight matches desktop.
+    var mobileSakura = window.innerWidth <= 720 || window.matchMedia("(pointer: coarse)").matches;
+    pointFlower.numFlowers = pointFlower.layerRole === 'front'
+        ? (mobileSakura ? 260 : 520)
+        : (mobileSakura ? 850 : 1600);
     if (pointFlower.layerRole === 'front') {
         pointFlower.depthMin = 7.0;
         pointFlower.depthMax = 18.0;
@@ -1517,7 +1521,8 @@ function animate() {
 }
 
 function makeCanvasFullScreen(canvas) {
-    var dpr = window.devicePixelRatio || 1;
+    var mobileSakura = window.innerWidth <= 720 || window.matchMedia("(pointer: coarse)").matches;
+    var dpr = Math.min(window.devicePixelRatio || 1, mobileSakura ? 1.75 : 2.5);
     var fullw = Math.max(1, Math.floor(window.innerWidth * dpr));
     var fullh = Math.max(1, Math.floor(window.innerHeight * dpr));
     canvas.width = fullw;
@@ -1528,6 +1533,9 @@ function makeCanvasFullScreen(canvas) {
     canvas.style.width = "100vw";
     canvas.style.height = "100vh";
     canvas.style.zIndex = canvas.id === "sakura-front" ? "30" : "0";
+    canvas.style.opacity = mobileSakura
+        ? (canvas.id === "sakura-front" ? "0.68" : "0.82")
+        : "1";
     canvas.style.pointerEvents = "none";
     canvas.style.display = "block";
 }
