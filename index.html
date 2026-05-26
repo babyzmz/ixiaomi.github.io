@@ -1,332 +1,437 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="format-detection" content="telephone=no">
-    <title>嘟嘟嘟</title>
-    <meta name="description" content="晚安通贩的事件提示页">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./heart.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="./heart.js"></script>
+    <title>♥</title>
 
-    <!-- CSS -->
-    <link href="calendar.css?v0" rel="stylesheet">
-  
 </head>
 
+<body>
 
-<body class="bg-school fixedBefore" id="body" ontouchstart="">
+    <div class="text love-note" >
+        <img class="mood-face" src="./ss.png" alt="smell">
+        <p class="text1 love-line">
+            <span>&#20170;&#22825;&#20063;&#26159;&#26356;&#29233;&#32769;&#23110;&#30340;&#19968;&#22825;&#21602;&#65281;</span>
+            <i aria-hidden="true">&#9829;</i>
+        </p>
+  </div>
+  
+ 
+  <label class="box">
+  
+    <audio src="just.mp3" controls="controls" preload id="music"   hidden> </audio>
+    <input id="a" type="checkbox" onclick="sl();heartTap()">
+  
 
-    <div class="mobilePhoneLikeFrame">
-        <div class="mobilePhoneLikeFrame__gloss"></div>
-                <div class="mobilePhoneLikeFrame__bevelAndEmboss1"></div>
-                <div class="mobilePhoneLikeFrame__bevelAndEmboss2"></div>
-                <div class="mobilePhoneLikeFrame__lens">
-                    
-
-                <img src="assets/img/deco-lens.png" alt="" width="27">
-
-                </div>
-
-                <div class="mobilePhoneLikeFrame__inner">
-                    <div class="mobilePhoneLikeFrame__wifiAndBattery">
-                        
-
-                <img src="assets/img/deco-wifi-and-battery.png" alt="" width="81">
-
-                    </div>
-                    <div id="container">
-                        <div id="time"></div>
-                        <div id="date"></div>
-                    </div>
-            
-            <div class="logo-container">
-                        <img class="logo" src="assets/img/大LOGO.jpg" alt="Logo">
-            </div>       
-            <h2 class="subhead subhead--small u-mb-s u-pc-mb-m">
-                预订和发售日
-            </h2>
-            
-            <div class="calendar-header">
-                <button class="calendar-button" onclick="previousMonth()"><img src="assets/img/left-arrow.png"></button>
-                <button class="calendar-button" onclick="nextMonth()"><img src="assets/img/right-arrow.png"></button>
-
-
-              </div>
-
-            <table class="calendar">
-                <caption id="monthYear" class="calendar-caption"></caption>
-                <tr>
-                    <th>星期一</th>
-                    <th>星期二</th>
-                    <th>星期三</th>
-                    <th>星期四</th>
-                    <th>星期五</th>
-                    <th>星期六</th>
-                    <th>星期日</th>
-                </tr>
-                
-                <tr id="week1"></tr>
-                <tr id="week2"></tr>
-                <tr id="week3"></tr>
-                <tr id="week4"></tr>
-                <tr id="week5"></tr>
-                <tr id="week6"></tr>
-            </table>
-                <br>
-            <ul class="nav grid u-jc-c u-nm-xs u-pc-nm-s">
-                <li class="col-auto u-p-xs u-pc-p-s">
-                    <a href="archive/anime/index.html"><img src="assets/img/icon-archive.svg" alt="">これまでの商品</a>
-                </li>
-                <li class="col-auto u-p-xs u-pc-p-s">
-                    <a href="#" id="openModalBtn"><img src="assets/img/icon-caution.svg" alt="">购入前请注意</a>
-                </li>
-                <li class="col-auto u-p-xs u-pc-p-s">
-                    <a href="https://t.asczwa.com/taobao?backurl=https://shop571617864.taobao.com/?spm=a230r.7195193.1997079397.2.43af583bpckjoO"><img src="assets/img/icon-guide.svg" alt="">淘宝店入口</a>
-                </li>
-            </ul>
+    <svg viewbox="0 0 33 23" fill="pink">
+        <path
+            d="M23.5,0.5 C28.4705627,0.5 32.5,4.52943725 32.5,9.5 C32.5,16.9484448 21.46672,22.5 16.5,22.5 C11.53328,22.5 0.5,16.9484448 0.5,9.5 C0.5,4.52952206 4.52943725,0.5 9.5,0.5 C12.3277083,0.5 14.8508336,1.80407476 16.5007741,3.84362242 C18.1491664,1.80407476 20.6722917,0.5 23.5,0.5 Z">
+        </path> 
+    </svg>
+    </label>
+    <div class="content timer-panel">
+        <h2>&#25105;&#20204;&#24050;&#32463;&#22312;&#19968;&#36215;</h2>
+        <div class="timer" aria-label="&#25105;&#20204;&#24050;&#32463;&#22312;&#19968;&#36215;&#30340;&#26102;&#38388;">
+            <span class="time-unit"><b id="d"></b><small>Days</small></span>
+            <span class="time-unit"><b id="h"></b><small>Hours</small></span>
+            <span class="time-unit"><b id="m"></b><small>Minutes</small></span>
+            <span class="time-unit"><b id="s"></b><small>Seconds</small></span>
+            <span class="timer-suffix">&#21862;&#65281;</span>
         </div>
     </div>
-    <div class="u-d-n modal" id="myModal">
-        <div class="modal-content" id="readme">
-            <div class="inline">
-                <p class="inline__title">必ずお読みください</p>
 
-                <div class="u-mb-l">
-                    <p class="inline__head">●ご注⽂・お⽀払いについて</p>
-                    <ul class="u-bullets">
-                        <li>※他の商品との合わせ買いはできません。</li>
-                        <li>※決済方法は「クレジットカード」または「オンライン決済(コンビニ決済)」、「Pay-easy(ペイジー)」のみとなります。「代金引換」は出来ませんのでご注意ください。</li>
-                        <li>※期日までに購入・決済手続きが行われなかった場合は、キャンセル扱いとして手続きを致します。</li>
-                    </ul>
-                </div>
+    <div class="love-weather" id="loveWeather">
+        <button class="weather-tab" id="weatherTab" type="button">
+            &#20170;&#26085;&#24651;&#29233;&#22825;&#27668; &#9829;
+        </button>
+        <div class="weather-card">
+            <span class="weather-kicker">Love Weather</span>
+            <h3 id="weatherTitle">&#31881;&#33394;&#22810;&#20113;</h3>
+            <p id="weatherDesc">&#36866;&#21512;&#36148;&#36148;&#65292;&#20063;&#36866;&#21512;&#34987;&#22840;&#12290;</p>
+            <div class="love-index">
+                <span>&#24819;&#20320;&#25351;&#25968;</span>
+                <strong id="loveIndex">99%</strong>
+            </div>
+            <p class="daily-note" id="dailyNote">
+                &#20170;&#22825;&#20063;&#35201;&#20599;&#20599;&#21916;&#27426;&#32769;&#23110;&#19968;&#19979;&#12290;
+            </p>
+            <button class="note-refresh" id="noteRefresh" type="button">
+                &#25442;&#19968;&#24352;&#23567;&#32440;&#26465;
+            </button>
+        </div>
+    </div>
 
-                <hr class="u-mb-l">
-
-                <div class="u-mb-l">
-                    <p class="inline__subhead">■A-on STORE</p>
-
-                    <div class="u-mb-m">
-                        <p class="inline__subhead">①クレジットカードによるお支払い</p>
-                        <p class="u-bullet">・VISA、American Express、Master Card、JCB、DCがご利用いただけます。</p>
-                        <p class="u-bullet">・受注生産のため、決済は注文締切日の翌日に行われます。</p>
-                        <p class="u-bullet">※クレジットカードの有効期限にはご注意ください。</p>
-                    </div>
-
-                    <div class="u-mb-m">
-                        <p class="inline__subhead">②コンビニ決済によるお支払い</p>
-                        <p class="u-bullet">・コンビニエンスストアでお支払頂く決済方法です。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日翌日までに、お支払いに関するご案内メールをお送りいたします。メールをご確認後、メール受信日を含め、3日以内にお支払いください。</p>
-                    </div>
-
-                    <div>
-                        <p class="inline__subhead">③Pay-easy(ペイジー)によるお支払い</p>
-                        <p class="u-bullet">・金融機関の窓口や、コンビニのレジに並ぶことなく、パソコンやスマートフォン、携帯電話(インターネットバンキング利用)から、支払うことができるサービスです。<br>商品代金・送料以外に、決済手数料として330円(税込)をご負担頂きます。注文日翌日までに、お支払いに関するご案内メールをお送りいたします。メールをご確認後、メール受信日を含め、3日以内にお支払いください。</p>
-                    </div>
-                </div>
-
-                <div class="u-mb-l">
-                    <p class="inline__subhead">■プレミアムバンダイ</p>
-
-                    <div class="u-mb-m">
-                        <p class="inline__subhead">①クレジットカードによるお支払い</p>
-                        <p class="u-bullet">・VISA、American Express、Master Card、JCB、Diners Clubがご利用頂けます。</p>
-                        <p class="u-bullet">・決済は、注文時に前払い決済となります。</p>
-                        <p class="u-bullet">※クレジットカードの有効期限にはご注意ください。</p>
-                        <p class="u-bullet">※クレジットカードを選択した場合には、プレミアムバンダイからは即時でカード会社への請求となりますが、お客様への請求タイミングはご利用のカード会社によって異なります。<br>そのため、請求タイミングを確認される場合には、登録された各クレジットカード会社へお問い合わせください。</p>
-                    </div>
-
-                 
-                  
-                </div>
-
-                <ul class="u-mb-l u-bullets">
-                    <li>※お支払期限を過ぎますと、ご注文はキャンセルとなります。いかなる理由でも、決済期間の延長は対応出来かねます。</li>
-                    <li>※お客様都合による決済後のキャンセルは出来かねます。</li>
-                    <li>※状況により、お支払方法は変更になる可能性がございます。</li>
-                </ul>
-
-                <hr class="u-mb-l">
-
-                <div class="u-mb-l">
-                    <p class="inline__head">●配送について</p>
-
-                    <ul class="u-bullets">
-                        <li>※虹ヶ咲学園購買部は、全て受注生産の商品(締切後に生産を開始する予約商品)になりますので、お届けまでにお時間がかかります。<br>お届け予定時期につきましては、各商品詳細ページをご確認ください。</li>
-                        <li>※配送地域や決済方法、天候の状況等によって、お届け日が異なりますので、あらかじめご了承ください。</li>
-                        <li>※配送地域は日本国内に限らせて頂きます。なお、A-on STOREの配送会社は佐川急便。プレミアムバンダイの配送会社は、佐川急便もしくはヤマト運輸となります。(プレミアムバンダイでは、配送会社を選択することはできません。)</li>
-                        <li>※局留め(営業所受け取りサービス等)の対応はできかねます。<br>虹ヶ咲学園購買部に関するお問い合わせにつきましては、下記までお願いします。</li>
-                    </ul>
-                </div>
-
-                <hr class="u-mb-l">
-
-                <div class="u-mb-l">
-                    <p>＜バンダイナムコフィルムワークス お客様センター＞</p>
-                    <p class="u-hanging"><span>Eメール：</span><a href="mailto:a-onstore@bnfw.co.jp">a-onstore@bnfw.co.jp</a></p>
-                    <p class="u-hanging"><span>営業時間：</span>月曜日～金曜日10：00～17：00(祝日・年末年始を除く)</p>
-                </div>
+    <div class="music-player" id="miniPlayer">
+        <div class="music-glass-filter"></div>
+        <div class="music-glass-overlay"></div>
+        <div class="music-glass-specular"></div>
+        <button class="music-orb" id="playerToggle" type="button" aria-label="播放或暂停">
+            <span class="orb-icon">♪</span>
+        </button>
+        <div class="music-strip" aria-label="音乐播放器">
+            <div class="track-meta">
+                <span class="track-kicker">Now playing</span>
+                <strong id="trackName">Just the 2 of Us</strong>
+            </div>
+            <div class="player-actions">
+                <button id="playPauseBtn" type="button" aria-label="播放或暂停">▶</button>
+                <button id="nextTrackBtn" type="button" aria-label="下一首">›</button>
+                <button id="playModeBtn" type="button" aria-label="循环或随机">↻</button>
+                <button id="playlistBtn" type="button" aria-label="歌曲列表">☰</button>
+                <label class="volume-control" aria-label="音量">
+                    <span id="volumeIcon">◕</span>
+                    <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.4">
+                </label>
             </div>
         </div>
+        <div class="playlist-popover" id="playlistPopover" aria-label="歌曲列表"></div>
     </div>
-    <div class="overlay" id="overlay"></div>
-<script>
-     function formatTime(time) {
-            return time < 10 ? "0" + time : time; // 将时间小于10的数字前面加上0
+    <svg class="music-glass-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <filter id="musicLensFilter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feComponentTransfer in="SourceAlpha" result="alpha">
+                <feFuncA type="identity" />
+            </feComponentTransfer>
+            <feGaussianBlur in="alpha" stdDeviation="28" result="blur" />
+            <feDisplacementMap in="SourceGraphic" in2="blur" scale="34" xChannelSelector="A" yChannelSelector="A" />
+        </filter>
+    </svg>
+    <script>
+        function timer() {
+            var start = new Date(2022, 10, 11); // 2015.7.2
+            var t = new Date() - start;
+            var h = ~~(t / 1000 / 60 / 60 % 24);
+            if (h < 10) {
+                h = "0" + h;
+            }
+            var m = ~~(t / 1000 / 60 % 60);
+            if (m < 10) {
+                m = "0" + m;
+            }
+
+            var s = ~~(t / 1000 % 60);
+            if (s < 10) {
+                s = "0" + s;
+            }
+            setTimerValue('d', ~~(t / 1000 / 60 / 60 / 24));
+            setTimerValue('h', h);
+            setTimerValue('m', m);
+            setTimerValue('s', s);
         }
-        
-        function updateTime() {
-            var now = new Date();
-            var timeElement = document.getElementById("time");
-            var dateElement = document.getElementById("date");
-            
-            var hours = formatTime(now.getHours());
-            var minutes = formatTime(now.getMinutes());
-            var seconds = formatTime(now.getSeconds());
-            var timeString = hours + ":" + minutes + ":" + seconds;
-            
-            var year = now.getFullYear();
-            var month = now.getMonth() + 1; // 月份从0开始，所以要加1
-            var day = now.getDate();
-            var dateString = year + "-" + month + "-" + day;
-            
-            timeElement.innerHTML = timeString;
-            dateElement.innerHTML = dateString;
-        }
-        
-        updateTime(); // 初始化加载当前时间
-        setInterval(updateTime, 1000); // 每秒更新一次时间
-        const date = new Date();
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    
-    // 示例数据
-    const exampleData = {
-        "2024-09-09": ["Meeting with team at 10:00 AM", "Lunch with Sarah at 1:00 PM"],
-        "2024-09-10": ["Doctor's appointment at 3:00 PM"],
-        "2024-09-15": ["Project deadline", "Dinner with friends at 7:00 PM"]
-    };
-
-    // 将示例数据保存到 localStorage 中
-    localStorage.setItem('schedule', JSON.stringify(exampleData));
-
-    // 从 localStorage 获取事件数据
-    
-    const schedule = JSON.parse(localStorage.getItem('schedule')) || {};
-
-
-   
-    function drawCalendar() {
-    // 获取更新后的事件数据
-    const schedule = JSON.parse(localStorage.getItem('schedule')) || {};
-
-    // 中文月份名字
-    const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
-    
-    // 清空日历
-    for (let i = 0; i < 6; i++) {
-        document.getElementById("week" + (i + 1)).innerHTML = "";
-    }
-
-    // 获取当前月的第一天
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    let dayOfWeek = firstDay.getDay();  // 确定月初是星期几
-
-    // 如果 dayOfWeek 为 0（星期日），将其改为 7（使周从星期一开始）
-    dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
-    // 将 dayOfWeek 减去 1，因为我们的日历网格从星期一（索引 1）开始
-    dayOfWeek--;
-
-    // 获取当前月的最后一天
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-    // 计算当前月的总天数
-    let totalDays = lastDay.getDate();
-
-    // 计算月初所在的周
-    let currentWeek = 1;
-
-    // 填充第一周的初始空白天
-    for (let i = 0; i < dayOfWeek; i++) {
-        const weekRow = document.getElementById("week" + currentWeek);
-        const emptyCell = document.createElement("td");
-        weekRow.appendChild(emptyCell);
-    }
-
-    // 填充日历的日期
-    for (let currentDay = 1; currentDay <= totalDays; currentDay++) {
-        // 创建一个新的单元格并添加当前日期
-        const cell = document.createElement("td");
-        cell.innerText = currentDay;
-
-        // 高亮显示今天的日期
-        if (new Date(date.getFullYear(), date.getMonth(), currentDay).toDateString() === new Date().toDateString()) {
-            cell.className = "today";
-        }
-
-        // 检查当前日期是否有事件
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = currentDay.toString().padStart(2, '0');
-        const eventDate = `${date.getFullYear()}-${month}-${day}`;
-
-        if (schedule.hasOwnProperty(eventDate)) {
-            const events = schedule[eventDate];
-            for (const event of events) {
-                const eventElement = document.createElement("div");
-                eventElement.className = "event";
-                const maxLength = 15;
-                const truncatedEvent = event.length > maxLength ? event.substring(0, maxLength) + "..." : event;
-                eventElement.innerText = truncatedEvent;
-                cell.appendChild(eventElement);
+        function setTimerValue(id, value) {
+            var el = document.getElementById(id);
+            var text = String(value);
+            if (el.textContent !== text) {
+                el.textContent = text;
+                if (window.animateTimerDigit) {
+                    window.animateTimerDigit(el);
+                }
             }
         }
+        timer();
+        setInterval(timer, 1000);
+    </script>
 
-        // 将单元格添加到相应的周
-        const weekRow = document.getElementById("week" + currentWeek);
-        weekRow.appendChild(cell);
-
-        // 移动到下一天
-        dayOfWeek++;
-        if (dayOfWeek >= 7) {
-            dayOfWeek = 0;  // 重置为星期一
-            currentWeek++;  // 移动到下一周
-        }
-    }
-
-    // 更新日历标题
-    const caption = document.getElementById("monthYear");
-    caption.innerText = monthNames[date.getMonth()] + " " + date.getFullYear();
-}
-
-
-    function previousMonth() {
-        date.setMonth(date.getMonth() - 1);
-        drawCalendar();
-    }
-
-    function nextMonth() {
-        date.setMonth(date.getMonth() + 1);
-        drawCalendar();
-    }
-
-    // Draw the initial calendar
-    drawCalendar();
-
+    <!-- partial:index.partial.html -->
+    <canvas id="sakura"></canvas>
+    <canvas id="sakura-front" aria-hidden="true"></canvas>
+  
+    <!-- sakura shader -->
+    <script id="sakura_point_vsh" type="x-shader/x_vertex">
+    uniform mat4 uProjection;
+    uniform mat4 uModelview;
+    uniform vec3 uResolution;
+    uniform vec3 uOffset;
+    uniform vec3 uDOF;  //x:focus distance, y:focus radius, z:max radius
+    uniform vec3 uFade; //x:start distance, y:half distance, z:near fade start
     
-    document.getElementById('openModalBtn').addEventListener('click', function(event) {
-    event.preventDefault();
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById('overlay').style.display = "block";
-    document.body.classList.add('no-scroll'); // 在打开模态窗口时添加'no-scroll'样式类
-});
+    attribute vec3 aPosition;
+    attribute vec3 aEuler;
+    attribute vec2 aMisc; //x:size, y:fade
+    
+    varying vec3 pposition;
+    varying float psize;
+    varying float palpha;
+    varying float pdist;
+    
+    //varying mat3 rotMat;
+    varying vec3 normX;
+    varying vec3 normY;
+    varying vec3 normZ;
+    varying vec3 normal;
+    
+    varying float diffuse;
+    varying float specular;
+    varying float rstop;
+    varying float distancefade;
+    
+    void main(void) {
+        // Projection is based on vertical angle
+        vec4 pos = uModelview * vec4(aPosition + uOffset, 1.0);
+        gl_Position = uProjection * pos;
+        gl_PointSize = aMisc.x * uProjection[1][1] / -pos.z * uResolution.y * 0.5;
+        
+        pposition = pos.xyz;
+        psize = aMisc.x;
+        pdist = length(pos.xyz);
+        palpha = smoothstep(0.0, 1.0, (pdist - 0.1) / uFade.z);
+        
+        vec3 elrsn = sin(aEuler);
+        vec3 elrcs = cos(aEuler);
+        mat3 rotx = mat3(
+            1.0, 0.0, 0.0,
+            0.0, elrcs.x, elrsn.x,
+            0.0, -elrsn.x, elrcs.x
+        );
+        mat3 roty = mat3(
+            elrcs.y, 0.0, -elrsn.y,
+            0.0, 1.0, 0.0,
+            elrsn.y, 0.0, elrcs.y
+        );
+        mat3 rotz = mat3(
+            elrcs.z, elrsn.z, 0.0, 
+            -elrsn.z, elrcs.z, 0.0,
+            0.0, 0.0, 1.0
+        );
+        mat3 rotmat = rotx * roty * rotz;
+        normal = rotmat[2];
+        
+        mat3 trrotm = mat3(
+            rotmat[0][0], rotmat[1][0], rotmat[2][0],
+            rotmat[0][1], rotmat[1][1], rotmat[2][1],
+            rotmat[0][2], rotmat[1][2], rotmat[2][2]
+        );
+        normX = trrotm[0];
+        normY = trrotm[1];
+        normZ = trrotm[2];
+        
+        const vec3 lit = vec3(0.6917144638660746, 0.6917144638660746, -0.20751433915982237);
+        
+        float tmpdfs = dot(lit, normal);
+        if(tmpdfs < 0.0) {
+            normal = -normal;
+            tmpdfs = dot(lit, normal);
+        }
+        diffuse = 0.4 + tmpdfs;
+        
+        vec3 eyev = normalize(-pos.xyz);
+        if(dot(eyev, normal) > 0.0) {
+            vec3 hv = normalize(eyev + lit);
+            specular = pow(max(dot(hv, normal), 0.0), 20.0);
+        }
+        else {
+            specular = 0.0;
+        }
+        
+        rstop = clamp((abs(pdist - uDOF.x) - uDOF.y) / uDOF.z, 0.0, 1.0);
+        rstop = pow(rstop, 0.5);
+        //-0.69315 = ln(0.5)
+        distancefade = min(1.0, exp((uFade.x - pdist) * 0.69315 / uFade.y));
+    }
+    </script>
+    <script id="sakura_point_fsh" type="x-shader/x_fragment">
+    #ifdef GL_ES
+    //precision mediump float;
+    precision highp float;
+    #endif
+    
+    uniform vec3 uDOF;  //x:focus distance, y:focus radius, z:max radius
+    uniform vec3 uFade; //x:start distance, y:half distance, z:near fade start
+    
+    const vec3 fadeCol = vec3(0.08, 0.03, 0.06);
+    
+    varying vec3 pposition;
+    varying float psize;
+    varying float palpha;
+    varying float pdist;
+    
+    //varying mat3 rotMat;
+    varying vec3 normX;
+    varying vec3 normY;
+    varying vec3 normZ;
+    varying vec3 normal;
+    
+    varying float diffuse;
+    varying float specular;
+    varying float rstop;
+    varying float distancefade;
+    
+    float ellipse(vec2 p, vec2 o, vec2 r) {
+        vec2 lp = (p - o) / r;
+        return length(lp) - 1.0;
+    }
+    
+    void main(void) {
+        vec3 p = vec3(gl_PointCoord - vec2(0.5, 0.5), 0.0) * 2.0;
+        vec3 d = vec3(0.0, 0.0, -1.0);
+        float nd = normZ.z; //dot(-normZ, d);
+        if(abs(nd) < 0.0001) discard;
+        
+        float np = dot(normZ, p);
+        vec3 tp = p + d * np / nd;
+        vec2 coord = vec2(dot(normX, tp), dot(normY, tp));
+        
+        //angle = 15 degree
+        const float flwrsn = 0.258819045102521;
+        const float flwrcs = 0.965925826289068;
+        mat2 flwrm = mat2(flwrcs, -flwrsn, flwrsn, flwrcs);
+        vec2 flwrp = vec2(abs(coord.x), coord.y) * flwrm;
+        
+        float r;
+        if(flwrp.x < 0.0) {
+            r = ellipse(flwrp, vec2(0.065, 0.024) * 0.5, vec2(0.36, 0.96) * 0.5);
+        }
+        else {
+            r = ellipse(flwrp, vec2(0.065, 0.024) * 0.5, vec2(0.58, 0.96) * 0.5);
+        }
+        
+        if(r > rstop) discard;
+        
+        vec3 col = mix(vec3(1.0, 0.8, 0.75), vec3(1.0, 0.9, 0.87), r);
+        float grady = mix(0.0, 1.0, pow(coord.y * 0.5 + 0.5, 0.35));
+        col *= vec3(1.0, grady, grady);
+        col *= mix(0.8, 1.0, pow(abs(coord.x), 0.3));
+        col = col * diffuse + specular;
+        
+        col = mix(fadeCol, col, distancefade);
+        
+        float alpha = (rstop > 0.001)? (0.5 - r / (rstop * 2.0)) : 1.0;
+        alpha = smoothstep(0.0, 1.0, alpha) * palpha * distancefade;
 
-document.getElementById('overlay').addEventListener('click', function() {
-    document.getElementById('myModal').style.display = "none";
-    this.style.display = "none";
-    document.body.classList.remove('no-scroll'); // 在关闭模态窗口时移除'no-scroll'样式类
-});
-
-
+        gl_FragColor = vec4(col * 0.5, alpha);
+    }
+    </script>
+    <!-- effects -->
+    <script id="fx_common_vsh" type="x-shader/x_vertex">
+    uniform vec3 uResolution;
+    attribute vec2 aPosition;
+    
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    
+    void main(void) {
+        gl_Position = vec4(aPosition, 0.0, 1.0);
+        texCoord = aPosition.xy * 0.5 + vec2(0.5, 0.5);
+        screenCoord = aPosition.xy * vec2(uResolution.z, 1.0);
+    }
+    </script>
+    <script id="bg_fsh" type="x-shader/x_fragment">
+    #ifdef GL_ES
+    //precision mediump float;
+    precision highp float;
+    #endif
+    
+    uniform vec2 uTimes;
+    
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    
+    void main(void) {
+        vec3 col;
+        float c;
+        vec2 tmpv = texCoord * vec2(0.8, 1.0) - vec2(0.95, 1.0);
+        c = exp(-pow(length(tmpv) * 1.8, 2.0));
+        col = mix(vec3(0.02, 0.0, 0.03), vec3(0.96, 0.98, 1.0) * 1.5, c);
+        gl_FragColor = vec4(col * 0.5, 1.0);
+    }
+    </script>
+    <script id="fx_brightbuf_fsh" type="x-shader/x_fragment">
+    #ifdef GL_ES
+    //precision mediump float;
+    precision highp float;
+    #endif
+    uniform sampler2D uSrc;
+    uniform vec2 uDelta;
+    
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    
+    void main(void) {
+        vec4 col = texture2D(uSrc, texCoord);
+        gl_FragColor = vec4(col.rgb * 2.0 - vec3(0.5), 1.0);
+    }
+    </script>
+    <script id="fx_dirblur_r4_fsh" type="x-shader/x_fragment">
+    #ifdef GL_ES
+    //precision mediump float;
+    precision highp float;
+    #endif
+    uniform sampler2D uSrc;
+    uniform vec2 uDelta;
+    uniform vec4 uBlurDir; //dir(x, y), stride(z, w)
+    
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    
+    void main(void) {
+        vec4 col = texture2D(uSrc, texCoord);
+        col = col + texture2D(uSrc, texCoord + uBlurDir.xy * uDelta);
+        col = col + texture2D(uSrc, texCoord - uBlurDir.xy * uDelta);
+        col = col + texture2D(uSrc, texCoord + (uBlurDir.xy + uBlurDir.zw) * uDelta);
+        col = col + texture2D(uSrc, texCoord - (uBlurDir.xy + uBlurDir.zw) * uDelta);
+        gl_FragColor = col / 5.0;
+    }
 </script>
+<!-- effect fragment shader template -->
+<script id="fx_common_fsh" type="x-shader/x_fragment">
+    #ifdef GL_ES
+    //precision mediump float;
+    precision highp float;
+    #endif
+    uniform sampler2D uSrc;
+    uniform vec2 uDelta;
+    
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    
+    void main(void) {
+        gl_FragColor = texture2D(uSrc, texCoord);
+    }
+    </script>
+    <!-- post processing -->
+    <script id="pp_final_vsh" type="x-shader/x_vertex">
+    uniform vec3 uResolution;
+    attribute vec2 aPosition;
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    void main(void) {
+        gl_Position = vec4(aPosition, 0.0, 1.0);
+        texCoord = aPosition.xy * 0.5 + vec2(0.5, 0.5);
+        screenCoord = aPosition.xy * vec2(uResolution.z, 1.0);
+    }
+    </script>
+    <script id="pp_final_fsh" type="x-shader/x_fragment">
+    #ifdef GL_ES
+    //precision mediump float;
+    precision highp float;
+    #endif
+    uniform sampler2D uSrc;
+    uniform sampler2D uBloom;
+    uniform vec2 uDelta;
+    varying vec2 texCoord;
+    varying vec2 screenCoord;
+    void main(void) {
+        vec4 rawSrc = texture2D(uSrc, texCoord);
+        vec4 srccol = rawSrc * 2.0;
+        vec4 bloomcol = texture2D(uBloom, texCoord);
+        vec4 col;
+        col = srccol + bloomcol * (vec4(1.0) + srccol);
+        col *= smoothstep(1.0, 0.0, pow(length((texCoord - vec2(0.5)) * 2.0), 1.2) * 0.5);
+        col = pow(col, vec4(0.45454545454545)); //(1.0 / 2.2)
 
-
+        // Alpha = sharp petal coverage + soft bloom halo; squared to kill the
+        // low-value haze that the gamma curve otherwise lifts off the background.
+        float bloomLum = max(bloomcol.r, max(bloomcol.g, bloomcol.b));
+        float a = clamp(rawSrc.a + bloomLum * 0.9, 0.0, 1.0);
+        a = a * a;
+        gl_FragColor = vec4(col.rgb, a);
+    }
+    </script>
+    <!-- partial -->
 </body>
 </html>
