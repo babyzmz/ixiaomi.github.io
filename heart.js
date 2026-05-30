@@ -132,7 +132,7 @@ function ensureDoodleStylesheet() {
     link = document.createElement("link");
     link.id = "doodleSkinStylesheet";
     link.rel = "stylesheet";
-    link.href = "./heart-doodle.css?v=20260530-17";
+    link.href = "./heart-doodle.css?v=20260530-18";
     link.media = "all";
     document.head.appendChild(link);
     return link;
@@ -980,6 +980,32 @@ function animateSkinElementMorph(beforeRects) {
     );
 }
 
+function refreshHeartRenderLayer() {
+    var nodes = [
+        document.querySelector(".box"),
+        document.querySelector(".box svg")
+    ].filter(Boolean);
+
+    nodes.forEach(function(el) {
+        if (window.gsap) {
+            gsap.killTweensOf(el);
+        }
+        el.style.removeProperty("filter");
+        el.style.removeProperty("-webkit-filter");
+        el.style.removeProperty("backdrop-filter");
+        el.style.removeProperty("-webkit-backdrop-filter");
+    });
+
+    // iOS Safari can keep the old blur compositor cache after a skin morph.
+    // A transient webkit-filter reset forces the SVG layer to repaint.
+    var svg = nodes[1];
+    if (svg) {
+        svg.style.webkitFilter = "none";
+        void svg.getBoundingClientRect().width;
+        svg.style.removeProperty("-webkit-filter");
+    }
+}
+
 function initSkinSwitcher() {
     initSkinMode();
 
@@ -1067,7 +1093,6 @@ async function transitionToOtherSkin(trigger) {
         opacity: 0.001,
         visibility: "visible",
         pointerEvents: "auto",
-        filter: "blur(10px)",
         transformOrigin: "center center",
         overwrite: true
     });
@@ -1115,12 +1140,12 @@ async function transitionToOtherSkin(trigger) {
         gsap.set(realElements, {
             opacity: 1,
             visibility: "visible",
-            filter: "blur(0px)",
             overwrite: true
         });
         gsap.set(realElements, {
             clearProps: "opacity,visibility,pointerEvents,filter,transform,transformOrigin,scale,x,y,scaleX,scaleY,rotation,rotationX,rotationY,z"
         });
+        refreshHeartRenderLayer();
 
         afterNextPaint(function() {
             cleanupSkinFlipPairs(flipPairs, flipStage);
@@ -1132,6 +1157,7 @@ async function transitionToOtherSkin(trigger) {
             document.body.classList.remove("is-skin-transitioning");
             document.documentElement.classList.remove("is-skin-transitioning-root");
             cleanupSkinMorph(morphEntries);
+            refreshHeartRenderLayer();
             skinTransitionLock = false;
         });
     });
