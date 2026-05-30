@@ -91,6 +91,1052 @@ function initUiMotion() {
     );
 }
 
+function getSkinMode() {
+    var body = document.body;
+    if (body) {
+        if (body.classList.contains("skin-doodle")) return "doodle";
+        if (body.classList.contains("skin-classic")) return "classic";
+        if (body.dataset && body.dataset.skin) return body.dataset.skin;
+    }
+    return /heart-doodle\.html/i.test(window.location.pathname) ? "doodle" : "classic";
+}
+
+function getSkinTargetMode() {
+    return getSkinMode() === "doodle" ? "classic" : "doodle";
+}
+
+function getSkinTargetName(mode) {
+    return (mode || getSkinTargetMode()) === "doodle" ? "\u624b\u8d26\u98ce" : "\u67d4\u5149\u98ce";
+}
+
+var skinTransitionLock = false;
+
+function getDoodleStylesheet() {
+    var link = document.getElementById("doodleSkinStylesheet");
+    if (link) return link;
+
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+        if (/heart-doodle\.css/i.test(links[i].getAttribute("href") || "")) {
+            links[i].id = "doodleSkinStylesheet";
+            return links[i];
+        }
+    }
+    return null;
+}
+
+function ensureDoodleStylesheet() {
+    var link = getDoodleStylesheet();
+    if (link) return link;
+
+    link = document.createElement("link");
+    link.id = "doodleSkinStylesheet";
+    link.rel = "stylesheet";
+    link.href = "./heart-doodle.css?v=20260530-17";
+    link.media = "all";
+    document.head.appendChild(link);
+    return link;
+}
+
+function waitForDoodleStylesheet(link) {
+    return new Promise(function(resolve) {
+        if (!link || link.dataset.loaded === "true") {
+            resolve();
+            return;
+        }
+
+        try {
+            if (link.sheet && link.sheet.cssRules) {
+                link.dataset.loaded = "true";
+                resolve();
+                return;
+            }
+        } catch(e) {
+            link.dataset.loaded = "true";
+            resolve();
+            return;
+        }
+
+        var done = function() {
+            link.dataset.loaded = "true";
+            resolve();
+        };
+        link.addEventListener("load", done, {once: true});
+        link.addEventListener("error", done, {once: true});
+        setTimeout(done, 420);
+    });
+}
+
+function updateSkinSwitcherUi() {
+    var switcher = document.getElementById("skinSwitcher");
+    if (!switcher) return;
+
+    var label = switcher.querySelector(".skin-switcher__label");
+    var targetName = getSkinTargetName();
+    if (label) label.textContent = targetName;
+    switcher.setAttribute("aria-label", "\u5207\u6362\u5230" + targetName);
+}
+
+function applySkinMode(mode) {
+    var body = document.body;
+    var root = document.documentElement;
+    var link = ensureDoodleStylesheet();
+    var isDoodle = mode === "doodle";
+
+    if (link) {
+        link.disabled = false;
+    }
+
+    if (root) {
+        root.classList.toggle("skin-doodle-root", isDoodle);
+        root.classList.toggle("skin-classic-root", !isDoodle);
+    }
+
+    if (body) {
+        body.classList.toggle("skin-doodle", isDoodle);
+        body.classList.toggle("skin-classic", !isDoodle);
+        body.dataset.skin = mode;
+    }
+
+    setDoodleBackdropVisible(isDoodle, true);
+    updateSkinSwitcherUi();
+}
+
+function initSkinMode() {
+    var body = document.body;
+    if (!body) return;
+
+    var initialMode = body.dataset.initialSkin || (/heart-doodle\.html/i.test(window.location.pathname) ? "doodle" : "classic");
+    applySkinMode(initialMode === "doodle" ? "doodle" : "classic");
+}
+
+function captureSkinRects() {
+    var selectors = [
+        ".love-note",
+        ".box",
+        ".timer-panel",
+        ".love-weather",
+        ".music-player",
+        ".skin-switcher"
+    ];
+    var entries = [];
+    selectors.forEach(function(selector) {
+        var elements = selector === "body" ? [document.body] : Array.prototype.slice.call(document.querySelectorAll(selector));
+        elements.forEach(function(el) {
+            if (!el) return;
+            var rect = el.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            entries.push({
+                el: el,
+                selector: selector,
+                rect: {
+                    left: rect.left,
+                    top: rect.top,
+                    width: rect.width,
+                    height: rect.height
+                }
+            });
+        });
+    });
+    return entries;
+}
+
+function removeCloneIds(root) {
+    if (!root || !root.querySelectorAll) return;
+    if (root.removeAttribute) root.removeAttribute("id");
+    Array.prototype.forEach.call(root.querySelectorAll("[id]"), function(el) {
+        el.removeAttribute("id");
+    });
+}
+
+function freezeElementStyles(source, clone) {
+    if (!source || !clone || !window.getComputedStyle) return;
+
+    var properties = [
+        "display", "align-items", "justify-content", "gap",
+        "box-sizing", "width", "height", "min-width", "min-height", "max-width", "max-height",
+        "padding", "margin", "border", "border-color", "border-radius", "outline",
+        "background", "background-color", "background-image", "background-size", "background-position",
+        "box-shadow", "color", "font", "font-family", "font-size", "font-weight", "line-height",
+        "letter-spacing", "text-align", "text-shadow", "white-space",
+        "overflow", "overflow-x", "overflow-y",
+        "opacity", "filter", "backdrop-filter", "-webkit-backdrop-filter",
+        "fill", "stroke", "stroke-width"
+    ];
+
+    function freezeNode(src, dst) {
+        if (!src || !dst || !dst.style) return;
+        var styles = getComputedStyle(src);
+        properties.forEach(function(prop) {
+            var value = styles.getPropertyValue(prop);
+            if (value) dst.style.setProperty(prop, value);
+        });
+    }
+
+    freezeNode(source, clone);
+    var sourceChildren = source.querySelectorAll ? source.querySelectorAll("*") : [];
+    var cloneChildren = clone.querySelectorAll ? clone.querySelectorAll("*") : [];
+    var count = Math.min(sourceChildren.length, cloneChildren.length);
+    for (var i = 0; i < count; i++) {
+        freezeNode(sourceChildren[i], cloneChildren[i]);
+    }
+}
+
+function createSkinElementGhosts(entries) {
+    if (!entries || !entries.length) return [];
+    return entries.map(function(entry) {
+        var rect = entry.rect;
+        var clone = entry.el.cloneNode(true);
+        removeCloneIds(clone);
+        freezeElementStyles(entry.el, clone);
+        clone.classList.add("skin-element-ghost");
+        clone.setAttribute("aria-hidden", "true");
+        clone.style.position = "fixed";
+        clone.style.left = rect.left + "px";
+        clone.style.top = rect.top + "px";
+        clone.style.width = rect.width + "px";
+        clone.style.height = rect.height + "px";
+        clone.style.margin = "0";
+        clone.style.transform = "none";
+        clone.style.transformOrigin = "center center";
+        clone.style.pointerEvents = "none";
+        clone.style.zIndex = entry.selector === ".skin-switcher" ? "180" : "150";
+        clone.style.willChange = "opacity, transform, filter";
+        document.body.appendChild(clone);
+        return {
+            entry: entry,
+            ghost: clone
+        };
+    });
+}
+
+function setFixedCloneRect(clone, rect, zIndex) {
+    clone.style.position = "fixed";
+    clone.style.left = rect.left + "px";
+    clone.style.top = rect.top + "px";
+    clone.style.width = rect.width + "px";
+    clone.style.height = rect.height + "px";
+    clone.style.margin = "0";
+    clone.style.pointerEvents = "auto";
+    clone.style.zIndex = zIndex;
+    clone.style.visibility = "visible";
+    clone.style.opacity = "1";
+    clone.style.transform = "none";
+    clone.style.transformOrigin = "center center";
+    clone.style.backfaceVisibility = "hidden";
+    clone.style.transformStyle = "preserve-3d";
+    clone.style.willChange = "opacity, transform, filter";
+}
+
+function forwardSkinCloneClick(selector) {
+    if (!selector || selector === ".skin-switcher") return;
+
+    var target = null;
+    if (selector === ".box") {
+        target = document.querySelector(".box");
+    }
+    else if (selector === ".love-weather") {
+        target = document.getElementById("weatherTab");
+    }
+    else if (selector === ".music-player") {
+        target = document.getElementById("playerToggle");
+    }
+    else {
+        target = document.querySelector(selector);
+    }
+
+    if (target && target.click) {
+        target.click();
+    }
+}
+
+function getSkinCloneZIndex(selector) {
+    if (selector === ".skin-switcher") return "190";
+    if (selector === ".music-player" || selector === ".love-weather") return "175";
+    if (selector === ".box") return "170";
+    return "165";
+}
+
+function createSkinFlipStage() {
+    var oldStage = document.querySelector(".skin-flip-stage");
+    if (oldStage) oldStage.remove();
+
+    var stage = document.createElement("div");
+    stage.className = "skin-flip-stage";
+    stage.setAttribute("aria-hidden", "true");
+    stage.addEventListener("click", function(e) {
+        var clone = e.target && e.target.closest && e.target.closest(".skin-style-flip");
+        if (!clone || !stage.contains(clone)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        forwardSkinCloneClick(clone.dataset.skinSelector);
+    });
+    document.body.appendChild(stage);
+    return stage;
+}
+
+function createSkinFlipSources(entries, stage) {
+    if (!entries || !entries.length) return [];
+    var parent = stage || document.body;
+    var fragment = document.createDocumentFragment();
+
+    var sources = entries.map(function(entry) {
+        var clone = entry.el.cloneNode(true);
+        removeCloneIds(clone);
+        freezeElementStyles(entry.el, clone);
+        clone.classList.add("skin-style-flip", "skin-style-flip--from");
+        clone.dataset.skinSelector = entry.selector;
+        clone.setAttribute("aria-hidden", "true");
+        setFixedCloneRect(clone, entry.rect, getSkinCloneZIndex(entry.selector));
+        fragment.appendChild(clone);
+        return {
+            entry: entry,
+            fromClone: clone
+        };
+    });
+
+    parent.appendChild(fragment);
+    return sources;
+}
+
+function createSkinFlipPairs(sources, stage) {
+    if (!sources || !sources.length) return [];
+    var parent = stage || document.body;
+    var fragment = document.createDocumentFragment();
+
+    var pairs = sources.map(function(item) {
+        var entry = item.entry;
+        var rect = entry.rect;
+        var after = entry.el.getBoundingClientRect();
+
+        if (!after.width || !after.height) {
+            after = rect;
+        }
+
+        var targetRect = {
+            left: after.left,
+            top: after.top,
+            width: after.width,
+            height: after.height
+        };
+        var clone = entry.el.cloneNode(true);
+
+        removeCloneIds(clone);
+        clone.classList.add("skin-style-flip", "skin-style-flip--to");
+        clone.dataset.skinSelector = entry.selector;
+        clone.setAttribute("aria-hidden", "true");
+        setFixedCloneRect(clone, targetRect, getSkinCloneZIndex(entry.selector));
+        fragment.appendChild(clone);
+
+        return {
+            entry: entry,
+            fromClone: item.fromClone,
+            toClone: clone,
+            before: rect,
+            after: targetRect,
+            dx: rect.left - targetRect.left,
+            dy: rect.top - targetRect.top,
+            scaleX: Math.max(0.62, Math.min(1.42, rect.width / targetRect.width)),
+            scaleY: Math.max(0.62, Math.min(1.42, rect.height / targetRect.height))
+        };
+    });
+
+    parent.appendChild(fragment);
+    return pairs;
+}
+
+function cleanupSkinFlipPairs(pairs, stage) {
+    if (stage) {
+        stage.remove();
+        return;
+    }
+
+    (pairs || []).forEach(function(pair) {
+        if (pair.fromClone) pair.fromClone.remove();
+        if (pair.toClone) pair.toClone.remove();
+    });
+}
+
+function animateSkinFlipPairs(pairs) {
+    if (!window.gsap || !pairs || !pairs.length) return null;
+
+    var tl = gsap.timeline({
+        defaults: {
+            ease: "power3.inOut",
+            overwrite: "auto"
+        }
+    });
+
+    pairs.forEach(function(pair, index) {
+        var entryDelay = (pair.entry.delay || 0) * 0.64;
+        var delay = 0.18 + entryDelay + (Math.random() * 0.08);
+        var flipDirection = index % 2 === 0 ? 1 : -1;
+
+        gsap.set(pair.fromClone, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scaleX: 1,
+            scaleY: 1,
+            rotationY: 0,
+            rotationX: 0,
+            z: 0,
+            filter: "blur(0px)",
+            transformPerspective: 900,
+            transformOrigin: "center center",
+            force3D: true
+        });
+        gsap.set(pair.toClone, {
+            autoAlpha: 0,
+            x: pair.dx,
+            y: pair.dy,
+            scaleX: pair.scaleX,
+            scaleY: pair.scaleY,
+            rotationY: 72 * flipDirection,
+            rotationX: -10 * flipDirection,
+            z: -72,
+            filter: "blur(14px)",
+            transformPerspective: 900,
+            transformOrigin: "center center",
+            force3D: true
+        });
+
+        tl.to(pair.fromClone, {
+            autoAlpha: 0,
+            rotationY: -72 * flipDirection,
+            rotationX: 8 * flipDirection,
+            z: -84,
+            scale: 0.975,
+            filter: "blur(12px)",
+            duration: 0.78
+        }, delay);
+
+        tl.to(pair.toClone, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scaleX: 1,
+            scaleY: 1,
+            rotationY: 0,
+            rotationX: 0,
+            z: 0,
+            filter: "blur(0px)",
+            duration: 1.28,
+            ease: "expo.out"
+        }, delay + 0.16);
+    });
+
+    return tl;
+}
+
+function animateSkinElementGhosts(ghosts) {
+    if (!window.gsap || !ghosts || !ghosts.length) {
+        (ghosts || []).forEach(function(item) {
+            if (item.ghost) item.ghost.remove();
+        });
+        return;
+    }
+
+    ghosts.forEach(function(item) {
+        var delay = (item.entry.delay || 0) + 0.18;
+        gsap.to(item.ghost, {
+            opacity: 0,
+            x: Math.random() * 14 - 7,
+            y: Math.random() * 10 - 5,
+            scale: 0.988,
+            filter: "blur(8px)",
+            duration: 0.78,
+            delay: delay,
+            ease: "sine.inOut",
+            onComplete: function() {
+                item.ghost.remove();
+            }
+        });
+    });
+}
+
+function shuffleSkinEntries(entries) {
+    var copy = entries.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = temp;
+    }
+    return copy;
+}
+
+function prepareSkinMorph(entries) {
+    var order = shuffleSkinEntries(entries);
+    order.forEach(function(entry, index) {
+        var delay = Math.min(920, index * 52 + Math.random() * 140);
+        entry.delay = delay / 1000;
+        if (entry.el && entry.el.style) {
+            entry.el.style.setProperty("--skin-delay", Math.round(delay) + "ms");
+        }
+    });
+    return order;
+}
+
+function cleanupSkinMorph(entries) {
+    entries.forEach(function(entry) {
+        if (!entry.el || !entry.el.style) return;
+        entry.el.style.removeProperty("--skin-delay");
+    });
+}
+
+function decorateSkinBackgroundLayer(layer, mode, options) {
+    if (!layer || mode !== "doodle") return;
+    options = options || {};
+
+    var doodles = document.createElement("span");
+    var symbols = [
+        "\u2661", "\u2606", "\u2601", "\u273F", "\u266A", ":3", "+520", "memo",
+        "xoxo", "candy", "\u8d34\u8d34", "\u7cd6", "\u559c\u6b22", "\u2726", "\u2606",
+        "\u2665", "\u82b1\u82b1", "wow", "\u2661", "\u2601", "\u273F", "\u266A"
+    ];
+    doodles.className = "skin-background-morph__doodles";
+    symbols.forEach(function(symbol, index) {
+        var piece = document.createElement("i");
+        piece.className = "skin-background-morph__piece";
+        piece.textContent = symbol;
+        piece.style.left = (4 + ((index * 19) % 88)) + "%";
+        piece.style.top = (12 + ((index * 31) % 72)) + "%";
+        piece.style.setProperty("--skin-piece-tilt", ((index % 7) - 3) * 3 + "deg");
+        piece.style.setProperty("--skin-piece-size", (index % 5 === 0 ? "1.34" : index % 3 === 0 ? "1.12" : "1"));
+        doodles.appendChild(piece);
+    });
+    layer.appendChild(doodles);
+
+    if (options.skipBars) return;
+
+    var topBar = document.createElement("span");
+    topBar.className = "skin-background-morph__bar skin-background-morph__bar--top";
+    topBar.textContent = "\u2661  \u2606  \u273F  \u2601  \u266A    \u8d34\u8d34  +520  candy  memo  \u559c\u6b22  \u2726    \u2661  \u2606  \u273F";
+
+    var bottomBar = document.createElement("span");
+    bottomBar.className = "skin-background-morph__bar skin-background-morph__bar--bottom";
+    bottomBar.textContent = "\u2727  \u2661  \u82b1\u82b1  \u2601  \u751c\u5ea6 +99  \u266A  \u5c0f\u7eb8\u6761  \u273F  \u7cd6\u679c  \u2606  xoxo  \u2661     [ pastel memo ]";
+
+    layer.appendChild(topBar);
+    layer.appendChild(bottomBar);
+}
+
+function ensureDoodleBackdrop() {
+    var layer = document.getElementById("doodleBackdrop");
+    if (layer) return layer;
+
+    layer = document.createElement("div");
+    layer.id = "doodleBackdrop";
+    layer.className = "doodle-backdrop skin-background-morph--doodle";
+    layer.setAttribute("aria-hidden", "true");
+    decorateSkinBackgroundLayer(layer, "doodle", {skipBars: true});
+    document.body.appendChild(layer);
+    return layer;
+}
+
+function setDoodleBackdropVisible(isVisible, immediate) {
+    if (!document.body) return;
+
+    var layer = ensureDoodleBackdrop();
+    document.body.classList.toggle("has-doodle-backdrop", isVisible);
+
+    if (!window.gsap || immediate) {
+        layer.style.opacity = isVisible ? "1" : "0";
+        layer.style.visibility = isVisible ? "visible" : "hidden";
+        return;
+    }
+
+    gsap.to(layer, {
+        autoAlpha: isVisible ? 1 : 0,
+        duration: 0.36,
+        ease: "sine.out",
+        overwrite: "auto"
+    });
+}
+
+function createSkinBackgroundMorph(mode, role) {
+    var layer = document.createElement("div");
+    layer.className = "skin-background-morph skin-background-morph--" + (mode === "doodle" ? "doodle" : "classic");
+    if (role) layer.classList.add("skin-background-morph--" + role);
+
+    layer.setAttribute("aria-hidden", "true");
+    decorateSkinBackgroundLayer(layer, mode);
+    document.body.appendChild(layer);
+    return layer;
+}
+
+function syncDoodleTilesFromPage(layer) {
+    if (!layer || !layer.classList.contains("skin-background-morph--doodle") || !window.getComputedStyle) return;
+
+    var styles = getComputedStyle(document.body, "::after");
+    if (styles.display === "none" || styles.content === "none") return;
+    if (!styles || !styles.backgroundImage || styles.backgroundImage === "none") return;
+
+    layer.classList.add("skin-background-morph--has-tiles");
+
+    var field = document.createElement("span");
+    field.className = "skin-background-morph__tile-field";
+    field.style.backgroundImage = styles.backgroundImage;
+    field.style.backgroundRepeat = styles.backgroundRepeat;
+    field.style.backgroundSize = styles.backgroundSize;
+    field.style.backgroundPosition = styles.backgroundPosition;
+    field.style.opacity = styles.opacity || "0.62";
+    field.style.top = styles.top || "92px";
+    field.style.right = styles.right || "0px";
+    field.style.bottom = styles.bottom || "62px";
+    field.style.left = styles.left || "0px";
+    layer.appendChild(field);
+
+    var viewportWidth = Math.max(320, window.innerWidth || document.documentElement.clientWidth || 1280);
+    var viewportHeight = Math.max(480, window.innerHeight || document.documentElement.clientHeight || 900);
+    var cards = [
+        [0.05, 0.14, 0.2, 0.16], [0.31, 0.1, 0.18, 0.18], [0.58, 0.12, 0.21, 0.16],
+        [0.77, 0.26, 0.16, 0.22], [0.12, 0.36, 0.18, 0.22], [0.43, 0.34, 0.18, 0.18],
+        [0.66, 0.46, 0.22, 0.18], [0.05, 0.62, 0.24, 0.18], [0.34, 0.66, 0.18, 0.18],
+        [0.59, 0.68, 0.18, 0.18], [0.79, 0.7, 0.16, 0.14]
+    ];
+
+    cards.forEach(function(card, index) {
+        var patch = document.createElement("span");
+        patch.className = "skin-background-morph__tile-card";
+        patch.style.backgroundImage = styles.backgroundImage;
+        patch.style.backgroundRepeat = styles.backgroundRepeat;
+        patch.style.backgroundSize = styles.backgroundSize;
+        patch.style.backgroundPosition = styles.backgroundPosition;
+        patch.style.left = Math.round(card[0] * viewportWidth) + "px";
+        patch.style.top = Math.round(card[1] * viewportHeight) + "px";
+        patch.style.width = Math.round(card[2] * viewportWidth) + "px";
+        patch.style.height = Math.round(card[3] * viewportHeight) + "px";
+        patch.style.setProperty("--skin-tile-tilt", ((index % 5) - 2) * 1.4 + "deg");
+        layer.appendChild(patch);
+    });
+}
+
+function clearSkinBackgroundMorphs() {
+    Array.prototype.forEach.call(document.querySelectorAll(".skin-background-morph"), function(layer) {
+        layer.remove();
+    });
+    document.body.classList.remove("is-skin-bg-crossfade");
+}
+
+function getTargetSakuraStyle(mode, isFront) {
+    if (mode === "doodle") {
+        return {
+            opacity: isFront ? 0.62 : 0.48,
+            filter: "saturate(0.95) contrast(1.25) sepia(0.16) drop-shadow(1px 1px 0 rgba(48, 34, 92, 0.26))",
+            mixBlendMode: "multiply"
+        };
+    }
+
+    return {
+        opacity: 1,
+        filter: "none",
+        mixBlendMode: "normal"
+    };
+}
+
+function freezeSakuraLayerStyles() {
+    var layers = ["#sakura", "#sakura-front"].map(function(selector) {
+        var el = document.querySelector(selector);
+        if (!el || !window.getComputedStyle) return null;
+        var styles = getComputedStyle(el);
+        el.style.opacity = styles.opacity;
+        el.style.filter = styles.filter;
+        el.style.mixBlendMode = styles.mixBlendMode;
+        el.style.transition = "none";
+        return el;
+    }).filter(Boolean);
+
+    return layers;
+}
+
+function animateSakuraLayerStyles(layers, targetMode) {
+    if (!window.gsap || !layers || !layers.length) return;
+
+    layers.forEach(function(layer) {
+        var target = getTargetSakuraStyle(targetMode, layer.id === "sakura-front");
+        gsap.to(layer, {
+            opacity: target.opacity,
+            filter: target.filter,
+            mixBlendMode: target.mixBlendMode,
+            duration: 1.6,
+            ease: "sine.inOut",
+            overwrite: "auto",
+            clearProps: "opacity,filter,mixBlendMode,transition"
+        });
+    });
+}
+
+function animateSkinBackgroundMorph(fromLayer, toLayer, targetMode) {
+    if (!window.gsap || !fromLayer || !toLayer) return null;
+
+    gsap.killTweensOf([fromLayer, toLayer]);
+    gsap.set(fromLayer, {
+        autoAlpha: 1,
+        scale: 1,
+        filter: "none",
+        transformOrigin: "center center",
+        transition: "none",
+        force3D: true
+    });
+    gsap.set(toLayer, {
+        autoAlpha: 0,
+        scale: 1,
+        filter: "none",
+        transformOrigin: "center center",
+        transition: "none",
+        force3D: true
+    });
+
+    var tl = gsap.timeline({
+        defaults: {
+            duration: 1.9,
+            ease: "sine.inOut",
+            overwrite: "auto"
+        }
+    });
+
+    tl.addLabel("skinBg", 0)
+        .to(fromLayer, {
+            autoAlpha: 0,
+            scale: 1,
+            filter: "none"
+        }, "skinBg")
+        .to(toLayer, {
+            autoAlpha: 1,
+            scale: 1,
+            filter: "none"
+        }, "skinBg");
+
+    var fromDetails = fromLayer.querySelectorAll(".skin-background-morph__piece, .skin-background-morph__tile-card");
+    var toDetails = toLayer.querySelectorAll(".skin-background-morph__piece, .skin-background-morph__tile-card");
+    var fromBars = fromLayer.querySelectorAll(".skin-background-morph__bar");
+    var toBars = toLayer.querySelectorAll(".skin-background-morph__bar");
+    var fromTileField = fromLayer.querySelector(".skin-background-morph__tile-field");
+    var toTileField = toLayer.querySelector(".skin-background-morph__tile-field");
+
+    if (fromDetails.length) {
+        tl.to(fromDetails, {
+            autoAlpha: 0,
+            rotationY: 64,
+            rotationX: -18,
+            z: -90,
+            y: -10,
+            scale: 0.86,
+            filter: "blur(10px)",
+            duration: 0.95,
+            stagger: {amount: 0.75, from: "random"},
+            ease: "power2.inOut"
+        }, 0.08);
+    }
+
+    if (toDetails.length) {
+        gsap.set(toDetails, {
+            autoAlpha: 0,
+            rotationY: -76,
+            rotationX: 20,
+            z: -120,
+            y: 12,
+            scale: 0.78,
+            filter: "blur(12px)",
+            transformPerspective: 900,
+            transformOrigin: "center center",
+            force3D: true
+        });
+        tl.to(toDetails, {
+            autoAlpha: 1,
+            rotationY: 0,
+            rotationX: 0,
+            z: 0,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 1.22,
+            stagger: {amount: 1.1, from: "random"},
+            ease: "expo.out"
+        }, 0.32);
+    }
+
+    if (fromBars.length) {
+        tl.to(fromBars, {
+            autoAlpha: 0,
+            filter: "blur(8px)",
+            duration: 0.82,
+            stagger: {amount: 0.12, from: "edges"},
+            ease: "sine.inOut"
+        }, 0.06);
+    }
+
+    if (toBars.length) {
+        gsap.set(toBars, {
+            autoAlpha: 0,
+            filter: "blur(10px)"
+        });
+        tl.to(toBars, {
+            autoAlpha: 1,
+            filter: "blur(0px)",
+            duration: 1.2,
+            stagger: {amount: 0.16, from: "start"},
+            ease: "sine.out"
+        }, 0.22);
+    }
+
+    if (fromTileField) {
+        tl.to(fromTileField, {
+            autoAlpha: 0,
+            scale: 1.018,
+            filter: "blur(12px)",
+            duration: 1.25,
+            ease: "sine.inOut"
+        }, 0.05);
+    }
+
+    if (toTileField) {
+        gsap.set(toTileField, {
+            autoAlpha: 0,
+            scale: 0.982,
+            filter: "blur(14px)",
+            transformOrigin: "center center",
+            force3D: true
+        });
+        tl.to(toTileField, {
+            autoAlpha: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 1.55,
+            ease: "sine.inOut"
+        }, 0.18);
+    }
+
+    return tl;
+}
+
+function waitForSkinLayout() {
+    return new Promise(function(resolve) {
+        requestAnimationFrame(function() {
+            requestAnimationFrame(resolve);
+        });
+    });
+}
+
+function afterNextPaint(callback) {
+    requestAnimationFrame(function() {
+        requestAnimationFrame(callback);
+    });
+}
+
+function animateSkinElementMorph(beforeRects) {
+    if (!window.gsap || !beforeRects || !beforeRects.length) return;
+
+    beforeRects.forEach(function(entry) {
+        var el = entry.el;
+        if (!el || el === document.body) return;
+        var after = el.getBoundingClientRect();
+        if (!after.width || !after.height) return;
+
+        var dx = entry.rect.left - after.left;
+        var dy = entry.rect.top - after.top;
+        var scaleX = Math.max(0.72, Math.min(1.28, entry.rect.width / after.width));
+        var scaleY = Math.max(0.72, Math.min(1.28, entry.rect.height / after.height));
+
+        gsap.fromTo(
+            el,
+            {
+                x: dx,
+                y: dy,
+                scaleX: scaleX,
+                scaleY: scaleY,
+                opacity: 0,
+                filter: "blur(12px)",
+                transformOrigin: "center center",
+                force3D: true
+            },
+            {
+                x: 0,
+                y: 0,
+                scaleX: 1,
+                scaleY: 1,
+                opacity: 1,
+                filter: "blur(0px)",
+                duration: 1.28,
+                delay: (entry.delay || 0) + 0.2,
+                ease: "expo.out",
+                clearProps: "transform,opacity,filter,transformOrigin"
+            }
+        );
+
+        gsap.fromTo(
+            el,
+            {rotate: (Math.random() * 3 - 1.5)},
+            {rotate: 0, duration: 1.04, delay: (entry.delay || 0) + 0.28, ease: "elastic.out(1, 0.7)", clearProps: "rotate"}
+        );
+    });
+
+    gsap.fromTo(
+        ".box svg",
+        {scale: 0.96, rotate: getSkinMode() === "doodle" ? -2 : 2},
+        {scale: 1, rotate: 0, duration: 1.28, ease: "elastic.out(1, 0.58)", clearProps: "transform"}
+    );
+}
+
+function initSkinSwitcher() {
+    initSkinMode();
+
+    var switcher = document.getElementById("skinSwitcher");
+    if (!switcher) {
+        return;
+    }
+
+    updateSkinSwitcherUi();
+
+    switcher.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (skinTransitionLock || document.body.classList.contains("is-skin-transitioning")) return;
+        transitionToOtherSkin(switcher);
+    });
+
+    if (window.gsap) {
+        gsap.fromTo(
+            switcher,
+            {scale: 0.9, opacity: 0, y: -8},
+            {scale: 1, opacity: 1, y: 0, duration: 0.44, delay: 0.36, ease: "back.out(1.8)"}
+        );
+        switcher.addEventListener("mouseenter", function() {
+            gsap.to(switcher, {scale: 1.035, y: -1, duration: 0.2, ease: "power2.out"});
+            gsap.to(".skin-switcher__icon", {rotation: 18, scale: 1.08, duration: 0.24, ease: "power2.out"});
+        });
+        switcher.addEventListener("mouseleave", function() {
+            gsap.to(switcher, {scale: 1, y: 0, duration: 0.24, ease: "power2.out"});
+            gsap.to(".skin-switcher__icon", {rotation: 0, scale: 1, duration: 0.28, ease: "power2.out"});
+        });
+    }
+
+}
+
+async function transitionToOtherSkin(trigger) {
+    if (skinTransitionLock) return;
+    skinTransitionLock = true;
+
+    if (window.gsap && trigger) {
+        gsap.to(trigger, {
+            scale: 0.965,
+            duration: 0.12,
+            ease: "sine.out",
+            yoyo: true,
+            repeat: 1,
+            overwrite: "auto"
+        });
+    }
+
+    await new Promise(function(resolve) {
+        requestAnimationFrame(resolve);
+    });
+
+    var currentMode = getSkinMode();
+    var targetMode = getSkinTargetMode();
+    var beforeRects = captureSkinRects();
+    var morphEntries = prepareSkinMorph(beforeRects);
+    clearSkinBackgroundMorphs();
+    var fromBgLayer = createSkinBackgroundMorph(currentMode, "from");
+    var toBgLayer = createSkinBackgroundMorph(targetMode, "to");
+    if (currentMode === "doodle") {
+        syncDoodleTilesFromPage(fromBgLayer);
+    }
+    document.body.classList.add("is-skin-transitioning");
+    document.documentElement.classList.add("is-skin-transitioning-root");
+
+    if (!window.gsap) {
+        applySkinMode(targetMode);
+        clearSkinBackgroundMorphs();
+        document.body.classList.remove("is-skin-transitioning");
+        document.documentElement.classList.remove("is-skin-transitioning-root");
+        cleanupSkinMorph(morphEntries);
+        skinTransitionLock = false;
+        return;
+    }
+
+    var realElements = morphEntries.map(function(entry) { return entry.el; });
+    var flipStage = createSkinFlipStage();
+    var flipSources = createSkinFlipSources(morphEntries, flipStage);
+    var flipPairs = [];
+    var sakuraLayers = freezeSakuraLayerStyles();
+
+    gsap.killTweensOf(realElements);
+    gsap.set(realElements, {
+        opacity: 0.001,
+        visibility: "visible",
+        pointerEvents: "auto",
+        filter: "blur(10px)",
+        transformOrigin: "center center",
+        overwrite: true
+    });
+
+    if (targetMode === "doodle") {
+        var link = ensureDoodleStylesheet();
+        await waitForDoodleStylesheet(link);
+    }
+
+    document.body.classList.add("is-skin-morphing");
+    applySkinMode(targetMode);
+    await waitForSkinLayout();
+    if (targetMode === "doodle") {
+        syncDoodleTilesFromPage(toBgLayer);
+    }
+    flipPairs = createSkinFlipPairs(flipSources, flipStage);
+
+    var backgroundTimeline = animateSkinBackgroundMorph(fromBgLayer, toBgLayer, targetMode);
+    animateSakuraLayerStyles(sakuraLayers, targetMode);
+    var flipTimeline = animateSkinFlipPairs(flipPairs);
+
+    gsap.fromTo(
+        ".skin-style-flip--to .skin-switcher__icon",
+        {rotation: -42, scale: 0.78},
+        {rotation: 0, scale: 1, duration: 1.05, ease: "elastic.out(1, 0.52)", clearProps: "transform"}
+    );
+
+    var cleanupDelay = 2.78;
+    if (backgroundTimeline && backgroundTimeline.duration) {
+        cleanupDelay = Math.max(cleanupDelay, backgroundTimeline.duration() + 0.18);
+    }
+    if (flipTimeline && flipTimeline.duration) {
+        cleanupDelay = Math.max(cleanupDelay, flipTimeline.duration() + 0.18);
+    }
+
+    gsap.delayedCall(cleanupDelay, function() {
+        if (backgroundTimeline && backgroundTimeline.progress) {
+            backgroundTimeline.progress(1).pause();
+        }
+        if (flipTimeline && flipTimeline.progress) {
+            flipTimeline.progress(1).pause();
+        }
+
+        document.body.classList.remove("is-skin-morphing");
+        gsap.set(realElements, {
+            opacity: 1,
+            visibility: "visible",
+            filter: "blur(0px)",
+            overwrite: true
+        });
+        gsap.set(realElements, {
+            clearProps: "opacity,visibility,pointerEvents,filter,transform,transformOrigin,scale,x,y,scaleX,scaleY,rotation,rotationX,rotationY,z"
+        });
+
+        afterNextPaint(function() {
+            cleanupSkinFlipPairs(flipPairs, flipStage);
+            gsap.killTweensOf([fromBgLayer, toBgLayer]);
+            if (targetMode !== "doodle") {
+                setDoodleBackdropVisible(false, true);
+            }
+            clearSkinBackgroundMorphs();
+            document.body.classList.remove("is-skin-transitioning");
+            document.documentElement.classList.remove("is-skin-transitioning-root");
+            cleanupSkinMorph(morphEntries);
+            skinTransitionLock = false;
+        });
+    });
+}
+
 function initHeartInteractionGuards() {
     var heartBox = document.querySelector(".box");
     if (!heartBox) return;
@@ -207,7 +1253,8 @@ function getLoveWeatherItem() {
     return getSpecialLoveDay() || getRandomLoveWeather();
 }
 
-function pickLoveWeather() {
+function pickLoveWeather(options) {
+    options = options || {};
     var item = getLoveWeatherItem();
     var title = document.getElementById("weatherTitle");
     var desc = document.getElementById("weatherDesc");
@@ -221,27 +1268,132 @@ function pickLoveWeather() {
     note.textContent = item.note;
     applySpecialLoveEffect(item);
 
-    if (window.gsap) {
+    if (window.gsap && !options.silent) {
         gsap.fromTo(
-            ".weather-card",
-            {y: 8, opacity: 0.75, scale: 0.98},
-            {y: 0, opacity: 1, scale: 1, duration: 0.32, ease: "power2.out"}
+            ".weather-card > :not(.weather-tab)",
+            {y: 6, opacity: 0.58},
+            {y: 0, opacity: 1, duration: 0.28, stagger: 0.035, ease: "power2.out"}
         );
     }
+}
+
+function clearWeatherCardInlineStyles(card, panel) {
+    if (!card) return;
+    card.style.height = "";
+    card.style.overflow = "";
+    card.style.willChange = "";
+    if (panel) panel.classList.remove("is-weather-animating");
+}
+
+function getWeatherCardContents(card) {
+    if (!card) return [];
+    var children = card.children;
+    var contents = [];
+    for (var i = 0; i < children.length; i++) {
+        if (!children[i].classList.contains("weather-tab")) {
+            contents.push(children[i]);
+        }
+    }
+    return contents;
+}
+
+function measureWeatherCardHeight(panel, isOpen) {
+    if (!panel) return 0;
+    var rect = panel.getBoundingClientRect();
+    var clone = panel.cloneNode(true);
+    clone.classList.toggle("is-open", !!isOpen);
+    clone.classList.remove("is-weather-animating");
+    clone.style.position = "fixed";
+    clone.style.left = "-9999px";
+    clone.style.top = "0";
+    clone.style.bottom = "auto";
+    clone.style.width = rect.width + "px";
+    clone.style.transform = "none";
+    clone.style.visibility = "hidden";
+    clone.style.pointerEvents = "none";
+    clone.style.zIndex = "-1";
+    document.body.appendChild(clone);
+    var cloneCard = clone.querySelector(".weather-card");
+    if (cloneCard) {
+        cloneCard.style.height = "";
+        cloneCard.style.overflow = "";
+        cloneCard.style.willChange = "";
+    }
+    var height = cloneCard ? cloneCard.getBoundingClientRect().height : 0;
+    clone.remove();
+    return height;
+}
+
+function animateLoveWeatherPanel(panel, shouldOpen) {
+    var card = panel && panel.querySelector(".weather-card");
+    if (!panel || !card || !window.gsap) {
+        panel.classList.toggle("is-open", shouldOpen);
+        if (shouldOpen) pickLoveWeather({silent: true});
+        return;
+    }
+
+    gsap.killTweensOf(card);
+    var contents = getWeatherCardContents(card);
+    gsap.killTweensOf(contents);
+
+    var startHeight = card.getBoundingClientRect().height;
+    var endHeight = 0;
+    panel.classList.add("is-weather-animating");
+    card.style.height = startHeight + "px";
+    card.style.overflow = "hidden";
+    card.style.willChange = "height";
+
+    if (shouldOpen) {
+        panel.classList.add("is-open");
+        pickLoveWeather({silent: true});
+        endHeight = measureWeatherCardHeight(panel, true);
+    }
+    else {
+        endHeight = measureWeatherCardHeight(panel, false);
+    }
+
+    requestAnimationFrame(function() {
+        gsap.fromTo(card, {
+            height: startHeight
+        }, {
+            height: endHeight,
+            duration: shouldOpen ? 0.66 : 0.76,
+            ease: shouldOpen ? "power3.out" : "power3.inOut",
+            overwrite: true,
+            onComplete: function() {
+                if (!shouldOpen) {
+                    panel.classList.remove("is-open");
+                }
+                clearWeatherCardInlineStyles(card, panel);
+                gsap.set(contents, {clearProps: "opacity,transform,filter"});
+            }
+        });
+
+        if (shouldOpen) {
+            gsap.fromTo(
+                contents,
+                {opacity: 0, y: 8},
+                {opacity: 1, y: 0, duration: 0.42, delay: 0.18, stagger: 0.04, ease: "power2.out"}
+            );
+        }
+        else {
+            gsap.to(contents, {
+                opacity: 0,
+                y: -4,
+                duration: 0.3,
+                stagger: 0.018,
+                ease: "power2.in"
+            });
+        }
+    });
 }
 
 function toggleLoveWeather(forceOpen) {
     var panel = document.getElementById("loveWeather");
     if (!panel) return;
-    if (forceOpen) {
-        panel.classList.add("is-open");
-    }
-    else {
-        panel.classList.toggle("is-open");
-    }
-    if (panel.classList.contains("is-open")) {
-        pickLoveWeather();
-    }
+    var shouldOpen = forceOpen === true ? true : !panel.classList.contains("is-open");
+    if (panel.classList.contains("is-open") === shouldOpen) return;
+    animateLoveWeatherPanel(panel, shouldOpen);
 }
 
 function initLoveWeather() {
@@ -1585,6 +2737,7 @@ window.addEventListener('load', function(e) {
     timeInfo.prev = timeInfo.start;
     initUiMotion();
     initHeartInteractionGuards();
+    initSkinSwitcher();
     initLoveWeather();
     initMiniPlayer();
     animate();

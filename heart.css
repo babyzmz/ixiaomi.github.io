@@ -1,4 +1,4 @@
-﻿
+
 
 @font-face {
     font-family: "Zaozi Yuanqi Paopao";
@@ -15,12 +15,20 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 body {
     --music-pulse: 0;
     --music-brightness: 1;
     --music-saturation: 1;
     --music-bg-shift: 0vmax;
-    cursor:url(./img/miku1.png),auto;
+    cursor:url("./img/miku1.png"),auto;
     position: relative;
     display: flex;
     justify-content: center;
@@ -156,7 +164,7 @@ body {
 }
 
 a{
-	cursor: url(./img/miku2.png),auto;
+	cursor: url("./img/miku2.png"),auto;
 	}
 
 .content {
@@ -294,7 +302,8 @@ a{
 .love-weather {
     position: fixed;
     left: clamp(18px, 3vw, 34px);
-    bottom: clamp(18px, 3vw, 32px);
+    top: clamp(300px, calc(100vh - 342px), 650px);
+    bottom: auto;
     z-index: 55;
     width: min(76vw, 280px);
     color: rgba(32, 33, 47, 0.9);
@@ -360,7 +369,7 @@ a{
     box-shadow: 0 8px 24px rgba(174, 56, 126, 0.16);
 }
 
-.love-weather:not(.is-open) .weather-card > :not(.weather-tab) {
+.love-weather:not(.is-open):not(.is-weather-animating) .weather-card > :not(.weather-tab) {
     display: none;
 }
 
@@ -519,6 +528,338 @@ body.special-love-snow .weather-card::after {
     top: 14px;
     color: rgba(255, 255, 255, 0.9);
     text-shadow: 0 0 14px rgba(240, 78, 138, 0.28);
+}
+
+.skin-switcher {
+    position: fixed;
+    right: clamp(16px, 2.6vw, 30px);
+    top: clamp(16px, 2.6vw, 30px);
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 14px 9px 11px;
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    border-radius: 999px;
+    background:
+        radial-gradient(circle at 28% 20%, rgba(255, 255, 255, 0.58), transparent 30%),
+        rgba(255, 255, 255, 0.24);
+    color: rgba(240, 78, 138, 0.94);
+    box-shadow:
+        0 8px 26px rgba(174, 56, 126, 0.18),
+        inset 1px 1px 0 rgba(255, 255, 255, 0.48);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1;
+    letter-spacing: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: auto;
+    transform-origin: center;
+}
+
+.skin-switcher__icon {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.94);
+    background: rgba(240, 78, 138, 0.72);
+    box-shadow: 0 0 16px rgba(240, 78, 138, 0.24);
+    font-size: 14px;
+}
+
+.skin-switcher__label {
+    white-space: nowrap;
+}
+
+.skin-background-morph {
+    --skin-morph-bleed: 0px;
+    position: fixed;
+    inset: calc(-1 * var(--skin-morph-bleed));
+    z-index: 4;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 1;
+    transform: translateZ(0);
+    will-change: opacity, transform, filter;
+    transition:
+        opacity 1.85s ease-in-out,
+        transform 1.85s ease-in-out,
+        filter 1.85s ease-in-out;
+}
+
+.skin-flip-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    pointer-events: none;
+    contain: layout paint style;
+}
+
+.skin-background-morph--to {
+    opacity: 0;
+    transform: translateZ(0);
+    filter: none;
+}
+
+body.is-skin-bg-crossfade .skin-background-morph--from {
+    opacity: 0;
+    transform: translateZ(0);
+    filter: none;
+}
+
+body.is-skin-bg-crossfade .skin-background-morph--to {
+    opacity: 1;
+    transform: translateZ(0);
+    filter: none;
+}
+
+.skin-background-morph--classic {
+    background-color: #e493d0;
+    background-image:
+        radial-gradient(closest-side, rgba(235,105,78,0.95), rgba(235,105,78,0)),
+        radial-gradient(closest-side, rgba(243,11,164,0.9), rgba(243,11,164,0)),
+        radial-gradient(closest-side, rgba(254,234,131,0.9), rgba(254,234,131,0)),
+        radial-gradient(closest-side, rgba(170,142,245,0.88), rgba(170,142,245,0)),
+        radial-gradient(closest-side, rgba(248,192,147,0.88), rgba(248,192,147,0));
+    background-size: 132vmax 132vmax, 82vmax 82vmax, 92vmax 92vmax, 112vmax 112vmax, 92vmax 92vmax;
+    background-position: -82vmax -82vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -30vmax, 50vmax 50vmax;
+    background-repeat: no-repeat;
+}
+
+.skin-background-morph--doodle {
+    background-color: #ffe7cb;
+    background-image:
+        radial-gradient(circle at 8% 18%, rgba(255, 105, 168, 0.42), transparent 18%),
+        radial-gradient(circle at 82% 16%, rgba(79, 156, 255, 0.32), transparent 22%),
+        radial-gradient(circle at 70% 78%, rgba(255, 212, 90, 0.36), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(124, 231, 196, 0.28), transparent 24%),
+        radial-gradient(circle, rgba(65, 43, 92, 0.18) 0 0.9px, transparent 1.2px),
+        repeating-linear-gradient(7deg, rgba(255, 92, 155, 0.08) 0 2px, transparent 2px 11px),
+        repeating-linear-gradient(-12deg, rgba(68, 120, 255, 0.08) 0 1px, transparent 1px 13px),
+        linear-gradient(135deg, #ffe6cc 0%, #ffd7ee 36%, #d9edff 66%, #fff0ad 100%);
+    background-size: auto, auto, auto, auto, 9px 9px, auto, auto, auto;
+    background-blend-mode: multiply, multiply, multiply, multiply, multiply, normal, normal, normal;
+}
+
+.skin-background-morph--doodle::before {
+    content:
+        "\2661  \2606  candy  \2601  \273F  \8D34\8D34  +520  \266A  :3  \2665  \2606\A"
+        "   xoxo   \263A   \2726   memo   wow!!   \2661   flower\A"
+        "\273F    \2661    star    \2601 smile cloud    \2606   \5C0F\7EB8\6761";
+    position: absolute;
+    inset: 20px 24px;
+    white-space: pre;
+    color: rgba(50, 38, 108, 0.34);
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    font-size: clamp(20px, 3vw, 48px);
+    line-height: 2.65;
+    word-spacing: 1.2em;
+    text-shadow:
+        2px 1px 0 rgba(255, 100, 170, 0.38),
+        -1px 2px 0 rgba(65, 156, 255, 0.32);
+    transform: rotate(-1.2deg);
+}
+
+.skin-background-morph--doodle.skin-background-morph--has-tiles::before {
+    content: "";
+    display: none;
+}
+
+.skin-background-morph__bar {
+    position: absolute;
+    left: calc(18px + var(--skin-morph-bleed));
+    right: calc(18px + var(--skin-morph-bleed));
+    display: block;
+    pointer-events: none;
+    overflow: hidden;
+    color: rgba(45, 36, 99, 0.72);
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    white-space: nowrap;
+    text-shadow:
+        1px 1px 0 rgba(255, 244, 168, 0.82),
+        -1px 1px 0 rgba(86, 166, 255, 0.42);
+}
+
+.skin-background-morph__tile-field {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    mix-blend-mode: multiply;
+    transform: translateZ(0);
+    transform-origin: center;
+    will-change: opacity, transform, filter;
+}
+
+.skin-background-morph__tile-card {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    border: 2px solid rgba(45, 36, 99, 0.16);
+    border-radius: 18px 12px 22px 14px;
+    opacity: 0.54;
+    mix-blend-mode: multiply;
+    box-shadow:
+        3px 3px 0 rgba(255, 107, 174, 0.14),
+        -2px 2px 0 rgba(79, 156, 255, 0.12);
+    transform: rotate(var(--skin-tile-tilt, 0deg));
+    transform-origin: center;
+    will-change: opacity, transform, filter;
+}
+
+.skin-background-morph__doodles {
+    position: absolute;
+    inset: 26px 18px;
+    pointer-events: none;
+    transform-style: preserve-3d;
+}
+
+.skin-background-morph__piece {
+    position: absolute;
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.55em;
+    min-height: 1.25em;
+    padding: 0.06em 0.2em;
+    border: 2px solid rgba(45, 36, 99, 0.18);
+    border-radius: 44% 52% 45% 55% / 50% 42% 56% 48%;
+    background:
+        linear-gradient(135deg, rgba(255, 247, 174, 0.26), rgba(255, 119, 179, 0.16)),
+        repeating-linear-gradient(-14deg, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 8px);
+    color: rgba(45, 36, 99, 0.55);
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    font-size: calc(clamp(18px, 2.6vw, 42px) * var(--skin-piece-size, 1));
+    font-style: normal;
+    line-height: 1;
+    text-shadow:
+        2px 1px 0 rgba(255, 100, 170, 0.42),
+        -1px 2px 0 rgba(65, 156, 255, 0.34),
+        0 0 0.5px rgba(45, 36, 99, 0.42);
+    transform: rotate(var(--skin-piece-tilt, 0deg));
+    transform-origin: center;
+    will-change: opacity, transform, filter;
+}
+
+.skin-background-morph__bar--top {
+    top: calc(14px + var(--skin-morph-bleed));
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 4px solid rgba(45, 36, 99, 0.52);
+    border-radius: 12px 24px 14px 22px;
+    background:
+        linear-gradient(90deg, rgba(84, 139, 255, 0.42), rgba(255, 108, 174, 0.36), rgba(255, 223, 94, 0.42)),
+        repeating-linear-gradient(-9deg, rgba(255, 255, 255, 0.26) 0 3px, transparent 3px 9px);
+    box-shadow:
+        5px 5px 0 rgba(255, 107, 174, 0.24),
+        -4px 3px 0 rgba(124, 231, 196, 0.24);
+    font-size: clamp(17px, 2vw, 30px);
+    word-spacing: 1em;
+    transform: rotate(-0.45deg);
+}
+
+.skin-background-morph__bar--bottom {
+    bottom: calc(14px + var(--skin-morph-bleed));
+    min-height: 42px;
+    padding: 10px 20px;
+    border: 3px dashed rgba(45, 36, 99, 0.48);
+    border-radius: 22px 16px 26px 18px;
+    background:
+        linear-gradient(90deg, rgba(255, 230, 130, 0.38), rgba(185, 238, 255, 0.42), rgba(255, 190, 226, 0.4)),
+        repeating-linear-gradient(11deg, rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 8px);
+    box-shadow:
+        4px 4px 0 rgba(86, 166, 255, 0.2),
+        -3px 3px 0 rgba(255, 107, 174, 0.24);
+    font-size: clamp(15px, 1.7vw, 24px);
+    transform: rotate(0.55deg);
+}
+
+html.is-skin-transitioning-root::before,
+html.is-skin-transitioning-root::after,
+body.is-skin-transitioning::before,
+body.is-skin-transitioning::after {
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+.skin-element-ghost,
+.skin-element-ghost *,
+.skin-style-flip,
+.skin-style-flip * {
+    animation-play-state: paused !important;
+    transition: none !important;
+}
+
+.skin-element-ghost::before,
+.skin-element-ghost::after,
+.skin-element-ghost *::before,
+.skin-element-ghost *::after,
+.skin-style-flip::before,
+.skin-style-flip::after,
+.skin-style-flip *::before,
+.skin-style-flip *::after {
+    display: none !important;
+}
+
+.skin-style-flip {
+    contain: paint;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    pointer-events: auto;
+}
+
+.skin-style-flip.content,
+.skin-style-flip.love-weather {
+    contain: layout style;
+    overflow: visible !important;
+}
+
+.skin-style-flip.content::before,
+.skin-style-flip.content::after,
+.skin-style-flip.love-weather::before,
+.skin-style-flip.love-weather::after {
+    display: block !important;
+}
+
+body.is-skin-morphing,
+body.is-skin-morphing::before,
+body.is-skin-morphing::after,
+body.is-skin-morphing #sakura,
+body.is-skin-morphing #sakura-front,
+body.is-skin-morphing .love-note,
+body.is-skin-morphing .mood-face,
+body.is-skin-morphing .love-line,
+body.is-skin-morphing .box,
+body.is-skin-morphing .box svg,
+body.is-skin-morphing .timer-panel,
+body.is-skin-morphing .timer-panel h2,
+body.is-skin-morphing .time-unit,
+body.is-skin-morphing .love-weather,
+body.is-skin-morphing .weather-card,
+body.is-skin-morphing .weather-tab,
+body.is-skin-morphing .music-player,
+body.is-skin-morphing .skin-switcher {
+    transition:
+        background-color 1.28s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 1.28s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 1.28s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 1.28s cubic-bezier(0.16, 1, 0.3, 1),
+        color 1.28s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.28s cubic-bezier(0.16, 1, 0.3, 1),
+        text-shadow 1.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--skin-delay, 0ms);
+}
+
+.love-weather.is-weather-animating .weather-card {
+    transition: none !important;
+    overflow: hidden !important;
 }
 
 .music-player {
@@ -1111,6 +1452,20 @@ body.special-love-snow .weather-card::after {
         text-align: center;
     }
 
+    .skin-switcher {
+        top: 12px;
+        right: 12px;
+        min-height: 38px;
+        padding: 8px 10px 8px 9px;
+        font-size: 13px;
+    }
+
+    .skin-switcher__icon {
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+    }
+
     .weather-tab {
         padding: 10px 16px;
         font-size: 16px;
@@ -1258,5 +1613,27 @@ body.special-love-snow .weather-card::after {
     }
 }
 }
-    
 
+html,
+body {
+    overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.weather-card::-webkit-scrollbar,
+.playlist-popover::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.weather-card {
+    overflow: hidden !important;
+    max-height: none !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+    

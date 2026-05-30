@@ -1,0 +1,995 @@
+html.skin-doodle-root {
+    background: #ffe8ca;
+    overflow: hidden !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body.skin-doodle {
+    --doodle-ink: #2d2463;
+    --doodle-pink: #ff69a8;
+    --doodle-blue: #4f9cff;
+    --doodle-purple: #9b6bff;
+    --doodle-yellow: #ffd45a;
+    --doodle-mint: #7ce7c4;
+    background-color: #ffe7cb;
+    background-image:
+        radial-gradient(circle at 8% 18%, rgba(255, 105, 168, 0.42), transparent 18%),
+        radial-gradient(circle at 82% 16%, rgba(79, 156, 255, 0.32), transparent 22%),
+        radial-gradient(circle at 70% 78%, rgba(255, 212, 90, 0.36), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(124, 231, 196, 0.28), transparent 24%),
+        repeating-linear-gradient(7deg, rgba(255, 92, 155, 0.08) 0 2px, transparent 2px 11px),
+        repeating-linear-gradient(-12deg, rgba(68, 120, 255, 0.08) 0 1px, transparent 1px 13px),
+        linear-gradient(135deg, #ffe6cc 0%, #ffd7ee 36%, #d9edff 66%, #fff0ad 100%);
+    background-blend-mode: multiply, multiply, multiply, multiply, normal, normal, normal;
+    filter: none;
+}
+
+body.skin-doodle::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.78;
+    background-image:
+        radial-gradient(circle, rgba(65, 43, 92, 0.22) 0 0.8px, transparent 1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.4px),
+        repeating-linear-gradient(90deg, rgba(76, 48, 92, 0.045) 0 1px, transparent 1px 5px);
+    background-size: 9px 9px, 13px 13px, 100% 7px;
+    mix-blend-mode: multiply;
+}
+
+body.skin-doodle::after {
+    content:
+        "\2661  \2606  candy  \2601  \273F  \8D34\8D34  +520  \266A  :3  \2665  \2606\A"
+        "   xoxo   \263A   \2726   memo   wow!!   \2661   flower\A"
+        "\273F    \2661    star    \2601 smile cloud    \2606   \5C0F\7EB8\6761";
+    white-space: pre;
+    position: fixed;
+    inset: 16px 20px auto 20px;
+    z-index: 2;
+    height: calc(100vh - 32px);
+    pointer-events: none;
+    color: rgba(50, 38, 108, 0.42);
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    font-size: clamp(20px, 3vw, 48px);
+    line-height: 2.7;
+    word-spacing: 1.25em;
+    letter-spacing: 0;
+    text-shadow:
+        2px 1px 0 rgba(255, 100, 170, 0.45),
+        -1px 2px 0 rgba(65, 156, 255, 0.38),
+        0 0 0.6px rgba(40, 30, 85, 0.65);
+    transform: rotate(-1.2deg);
+    opacity: 0.72;
+}
+
+body.skin-doodle #sakura,
+body.skin-doodle #sakura-front {
+    filter:
+        saturate(0.95)
+        contrast(1.25)
+        sepia(0.16)
+        drop-shadow(1px 1px 0 rgba(48, 34, 92, 0.26));
+    mix-blend-mode: multiply;
+}
+
+body.skin-doodle #sakura {
+    opacity: 0.48 !important;
+}
+
+body.skin-doodle #sakura-front {
+    opacity: 0.62 !important;
+}
+
+body.skin-doodle .love-note,
+body.skin-doodle .box,
+body.skin-doodle .content,
+body.skin-doodle .love-weather,
+body.skin-doodle .music-player {
+    z-index: 12;
+}
+
+body.skin-doodle .box,
+body.skin-doodle .timer-panel,
+body.skin-doodle .music-player {
+    z-index: 16;
+}
+
+body.skin-doodle .mood-face {
+    width: clamp(150px, 23vmin, 250px);
+    padding: 8px;
+    border: 4px solid rgba(45, 36, 99, 0.88);
+    border-radius: 38% 45% 42% 48% / 44% 38% 48% 40%;
+    background:
+        radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.72), transparent 26%),
+        linear-gradient(135deg, rgba(255, 172, 209, 0.88), rgba(196, 226, 255, 0.82));
+    box-shadow:
+        5px 5px 0 rgba(255, 105, 168, 0.44),
+        -4px 3px 0 rgba(79, 156, 255, 0.34),
+        0 0 0 3px rgba(255, 230, 112, 0.58);
+    filter:
+        contrast(1.25)
+        saturate(1.35)
+        drop-shadow(0 8px 0 rgba(45, 36, 99, 0.14));
+    image-rendering: auto;
+}
+
+body.skin-doodle .love-note::before {
+    content: "kawaii login sticker  ♡";
+    position: absolute;
+    left: 54%;
+    top: clamp(6px, 1.4vh, 18px);
+    color: rgba(255, 77, 154, 0.72);
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    font-size: clamp(15px, 2.2vmin, 24px);
+    transform: rotate(7deg);
+    text-shadow:
+        1px 1px 0 #fff4b8,
+        -1px 0 0 rgba(79, 156, 255, 0.55);
+}
+
+body.skin-doodle .love-line {
+    display: inline-flex;
+    width: auto;
+    padding: 8px 18px 12px;
+    border: 3px dashed rgba(45, 36, 99, 0.62);
+    border-radius: 24px 18px 28px 20px;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.26), rgba(255, 190, 226, 0.36)),
+        repeating-linear-gradient(-8deg, rgba(255, 255, 255, 0.24) 0 2px, transparent 2px 7px);
+    color: var(--doodle-pink);
+    text-shadow:
+        2px 2px 0 rgba(255, 244, 164, 0.9),
+        -1px 2px 0 rgba(79, 156, 255, 0.56),
+        0 0 0.8px var(--doodle-ink);
+    transform: rotate(-1deg);
+}
+
+body.skin-doodle .love-line::after {
+    height: 6px;
+    left: 6%;
+    right: 6%;
+    bottom: 2px;
+    background:
+        repeating-linear-gradient(90deg, #ff72ad 0 12px, #6eb5ff 12px 20px, #ffe06e 20px 31px);
+    filter: none;
+    opacity: 0.68;
+}
+
+body.skin-doodle .box {
+    transform: rotate(-1.2deg);
+    filter: drop-shadow(1px 1px 0 rgba(45, 36, 99, 0.18));
+}
+
+body.skin-doodle .box svg {
+    fill: #ff78aa;
+    stroke: #2c2464;
+    stroke-width: 1.45;
+    filter:
+        drop-shadow(6px 6px 0 rgba(255, 210, 85, 0.58))
+        drop-shadow(-5px 4px 0 rgba(97, 172, 255, 0.32))
+        drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+}
+
+body.skin-doodle .box svg path {
+    vector-effect: non-scaling-stroke;
+}
+
+body.skin-doodle .box::before,
+body.skin-doodle .box::after {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    color: rgba(45, 36, 99, 0.82);
+    text-shadow: 1px 1px 0 #fff1a8;
+}
+
+body.skin-doodle .box::before {
+    content: "tap!";
+    left: -10%;
+    top: 12%;
+    font-size: clamp(20px, 3.4vmin, 40px);
+    transform: rotate(-18deg);
+}
+
+body.skin-doodle .box::after {
+    content: "♡ ☆";
+    right: -12%;
+    bottom: 12%;
+    font-size: clamp(20px, 3vmin, 36px);
+    transform: rotate(14deg);
+}
+
+body.skin-doodle .box input:checked + svg {
+    fill: #ff6fa6;
+    stroke: #2c2464;
+    filter:
+        drop-shadow(7px 7px 0 rgba(255, 210, 85, 0.68))
+        drop-shadow(-5px 4px 0 rgba(124, 231, 196, 0.46))
+        drop-shadow(0 0 16px rgba(255, 105, 168, 0.42));
+}
+
+body.skin-doodle .timer-panel {
+    color: var(--doodle-ink);
+    transform: translate3d(-50%, -50%, 0) rotate(0.7deg);
+}
+
+body.skin-doodle .timer-panel h2 {
+    display: inline-block;
+    padding: 5px 14px;
+    border: 2px solid rgba(45, 36, 99, 0.72);
+    border-radius: 16px 20px 14px 22px;
+    background: rgba(255, 247, 191, 0.48);
+    color: var(--doodle-ink);
+    text-shadow:
+        1px 1px 0 rgba(255, 255, 255, 0.8),
+        -1px 1px 0 rgba(255, 105, 168, 0.4);
+}
+
+body.skin-doodle .timer {
+    gap: clamp(9px, 1.5vw, 18px);
+    color: var(--doodle-ink);
+    text-shadow:
+        1px 1px 0 #fff4b8,
+        -1px 1px 0 rgba(79, 156, 255, 0.42);
+}
+
+body.skin-doodle .time-unit {
+    padding: 4px 7px;
+    border-radius: 14px 10px 16px 12px;
+    background: rgba(255, 255, 255, 0.22);
+    outline: 2px dashed rgba(45, 36, 99, 0.18);
+}
+
+body.skin-doodle .time-unit b {
+    color: #ff4b9b;
+    text-shadow:
+        2px 2px 0 #ffe370,
+        -1px 1px 0 #76c8ff,
+        0 0 0.8px var(--doodle-ink);
+}
+
+body.skin-doodle .time-unit small,
+body.skin-doodle .timer-suffix {
+    color: var(--doodle-ink);
+}
+
+body.skin-doodle .weather-card,
+body.skin-doodle .music-player {
+    border: 3px solid rgba(45, 36, 99, 0.62);
+    background:
+        linear-gradient(135deg, rgba(255, 246, 207, 0.7), rgba(255, 190, 226, 0.46)),
+        repeating-linear-gradient(-9deg, rgba(255, 255, 255, 0.25) 0 2px, transparent 2px 9px);
+    box-shadow:
+        7px 7px 0 rgba(255, 114, 173, 0.28),
+        -5px 4px 0 rgba(101, 181, 255, 0.22),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.36);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+body.skin-doodle .weather-card {
+    border-radius: 22px 28px 20px 30px;
+    transform: rotate(-0.7deg);
+}
+
+body.skin-doodle .love-weather:not(.is-open) .weather-card {
+    background: transparent;
+    border-color: transparent;
+}
+
+body.skin-doodle .love-weather:not(.is-open) .weather-tab {
+    border: 3px solid rgba(45, 36, 99, 0.62);
+    background:
+        linear-gradient(135deg, rgba(255, 215, 238, 0.7), rgba(192, 230, 255, 0.6));
+    box-shadow:
+        5px 5px 0 rgba(255, 210, 85, 0.42),
+        -3px 2px 0 rgba(124, 231, 196, 0.34);
+}
+
+body.skin-doodle .weather-tab,
+body.skin-doodle .weather-card h3,
+body.skin-doodle .love-index strong {
+    color: #ff4396;
+    text-shadow:
+        1px 1px 0 #fff4a8,
+        -1px 1px 0 rgba(79, 156, 255, 0.48);
+}
+
+body.skin-doodle .weather-kicker,
+body.skin-doodle .weather-card p,
+body.skin-doodle .love-index span,
+body.skin-doodle .daily-note,
+body.skin-doodle .note-refresh,
+body.skin-doodle .track-kicker,
+body.skin-doodle .track-meta strong,
+body.skin-doodle .player-actions button,
+body.skin-doodle .playlist-popover button,
+body.skin-doodle .volume-control {
+    color: var(--doodle-ink);
+}
+
+body.skin-doodle .love-index {
+    border: 2px dashed rgba(45, 36, 99, 0.25);
+    background: rgba(255, 255, 255, 0.26);
+}
+
+body.skin-doodle .note-refresh,
+body.skin-doodle .player-actions button,
+body.skin-doodle .playlist-popover button,
+body.skin-doodle .volume-control {
+    border: 2px solid rgba(45, 36, 99, 0.44);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 2px 2px 0 rgba(255, 208, 91, 0.42);
+}
+
+body.skin-doodle .music-player {
+    border-radius: 999px;
+    clip-path: inset(8px 0 8px calc(100% - 52px) round 999px);
+}
+
+body.skin-doodle .music-player.is-open,
+body.skin-doodle .music-player.list-open {
+    border-radius: 24px 30px 22px 28px;
+    clip-path: inset(0 0 0 0 round 28px);
+}
+
+body.skin-doodle .music-glass-filter {
+    filter: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+body.skin-doodle .music-glass-overlay {
+    background:
+        repeating-linear-gradient(12deg, rgba(255, 255, 255, 0.2) 0 2px, transparent 2px 8px),
+        rgba(255, 220, 240, 0.26);
+}
+
+body.skin-doodle .music-glass-specular {
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.32);
+}
+
+body.skin-doodle .music-orb {
+    color: #ff4396;
+    text-shadow:
+        2px 1px 0 #ffe05a,
+        -1px 1px 0 #78c8ff;
+}
+
+body.skin-doodle .playlist-popover {
+    border: 3px solid rgba(45, 36, 99, 0.62);
+    border-radius: 24px 18px 26px 20px;
+    background:
+        linear-gradient(135deg, rgba(255, 246, 207, 0.8), rgba(203, 239, 255, 0.68)),
+        repeating-linear-gradient(-8deg, rgba(255, 255, 255, 0.24) 0 2px, transparent 2px 8px);
+    box-shadow:
+        6px 6px 0 rgba(255, 114, 173, 0.28),
+        -4px 3px 0 rgba(124, 231, 196, 0.26);
+}
+
+body.skin-doodle .floating-heart,
+body.skin-doodle .love-secret-toast {
+    color: #ff4396;
+    text-shadow:
+        2px 2px 0 #ffe05a,
+        -1px 1px 0 #78c8ff;
+}
+
+@media (min-width: 721px) {
+    body.skin-doodle .love-weather {
+        top: clamp(300px, calc(100vh - 342px), 650px);
+        bottom: auto;
+    }
+}
+
+@media (max-width: 720px) {
+    body.skin-doodle::after {
+        inset: 96px 10px auto 10px;
+        font-size: clamp(18px, 7vw, 34px);
+        line-height: 2.65;
+        word-spacing: 0.75em;
+        opacity: 0.52;
+    }
+
+    body.skin-doodle .content {
+        top: 55vh;
+    }
+
+    body.skin-doodle .love-line {
+        padding: 7px 12px 10px;
+    }
+
+    body.skin-doodle .weather-card {
+        transform: rotate(-0.4deg);
+    }
+}
+
+/* Dense scrapbook doodle layer: CSS-only, keeps the original HTML/JS intact. */
+html.skin-doodle-root::before,
+html.skin-doodle-root::after {
+    position: fixed;
+    left: 18px;
+    right: 18px;
+    z-index: 7;
+    pointer-events: none;
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    color: rgba(45, 36, 99, 0.82);
+    text-shadow:
+        1px 1px 0 rgba(255, 244, 168, 0.92),
+        -1px 1px 0 rgba(86, 166, 255, 0.52),
+        0 0 0.6px rgba(45, 36, 99, 0.8);
+}
+
+html.skin-doodle-root::before {
+    content: "\2661  \2606  \273F  \2601  \266A    \8D34\8D34  +520  candy  memo  \559C\6B22  \2726    \2661  \2606  \273F \A \25CB  \25CB  \25CB    pastel sticker border    \2661  \2727  \2601  \273F";
+    top: 14px;
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 4px solid rgba(45, 36, 99, 0.68);
+    border-radius: 12px 24px 14px 22px;
+    background:
+        linear-gradient(90deg, rgba(84, 139, 255, 0.52), rgba(255, 108, 174, 0.44), rgba(255, 223, 94, 0.5)),
+        repeating-linear-gradient(-9deg, rgba(255, 255, 255, 0.32) 0 3px, transparent 3px 9px);
+    box-shadow:
+        5px 5px 0 rgba(255, 107, 174, 0.35),
+        -4px 3px 0 rgba(124, 231, 196, 0.35),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.34);
+    font-size: clamp(17px, 2vw, 30px);
+    word-spacing: 1em;
+    transform: rotate(-0.45deg);
+    opacity: 0.82;
+}
+
+html.skin-doodle-root::after {
+    content: "\2727  \2661  \82B1\82B1  \2601  \751C\5EA6 +99  \266A  \5C0F\7EB8\6761  \273F  \7CD6\679C  \2606  xoxo  \2661     [ pastel memo ]";
+    bottom: 14px;
+    min-height: 42px;
+    padding: 10px 20px;
+    border: 3px dashed rgba(45, 36, 99, 0.58);
+    border-radius: 22px 16px 26px 18px;
+    background:
+        linear-gradient(90deg, rgba(255, 230, 130, 0.46), rgba(185, 238, 255, 0.5), rgba(255, 190, 226, 0.48)),
+        repeating-linear-gradient(11deg, rgba(255, 255, 255, 0.28) 0 2px, transparent 2px 8px);
+    box-shadow:
+        4px 4px 0 rgba(86, 166, 255, 0.28),
+        -3px 3px 0 rgba(255, 107, 174, 0.32);
+    font-size: clamp(15px, 1.7vw, 24px);
+    transform: rotate(0.55deg);
+    opacity: 0.72;
+}
+
+body.skin-doodle {
+    background-image:
+        radial-gradient(circle at 8% 18%, rgba(255, 105, 168, 0.48), transparent 17%),
+        radial-gradient(circle at 82% 16%, rgba(79, 156, 255, 0.36), transparent 21%),
+        radial-gradient(circle at 70% 78%, rgba(255, 212, 90, 0.42), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(124, 231, 196, 0.36), transparent 22%),
+        radial-gradient(circle at 46% 48%, rgba(171, 105, 255, 0.22), transparent 24%),
+        repeating-linear-gradient(7deg, rgba(255, 92, 155, 0.12) 0 2px, transparent 2px 10px),
+        repeating-linear-gradient(-12deg, rgba(68, 120, 255, 0.11) 0 1px, transparent 1px 11px),
+        repeating-linear-gradient(82deg, rgba(255, 216, 76, 0.12) 0 3px, transparent 3px 17px),
+        linear-gradient(135deg, #ffe6cc 0%, #ffd7ee 36%, #d9edff 66%, #fff0ad 100%);
+}
+
+body.skin-doodle::before {
+    opacity: 0.9;
+    background-image:
+        radial-gradient(circle, rgba(65, 43, 92, 0.24) 0 0.8px, transparent 1.1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.64) 0 1px, transparent 1.5px),
+        repeating-linear-gradient(90deg, rgba(76, 48, 92, 0.052) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(0deg, rgba(255, 111, 173, 0.05) 0 2px, transparent 2px 12px);
+    background-size: 8px 8px, 13px 13px, 100% 7px, 100% 15px;
+}
+
+body.skin-doodle::after {
+    content:
+        "\2661  \2606  candy  \2601  \273F  \8D34\8D34  +520  \266A  :3  \2665  \2606  memo  \2726  \2661 \A"
+        "\559C\6B22  \263A  \2726  sticker  flower  \2661  cloud  \2606  xoxo  \266A  \273F \A"
+        "\273F  \2661  star  \2601 smile cloud  \2606  \5C0F\7EB8\6761  \2665  tape note \A"
+        "\5FC3\52A8 +1  \2726  \2661  pastel mess  \273F  \2606  candy pop  \263A  \2601 \A"
+        "\7CD6\679C  \266A  \2661  \2606  memo  note  sticker  \273F  :P  +1314 \A"
+        "\2606  doodle  \2665  hand note  \2601  \273F  magic  \2726  \5C0F\82B1  \2661 \A"
+        "\4ECA\65E5\751C\5EA6  \266A  \2606  \273F  dream  \2661  mint  pink  blue  yellow \A"
+        "\2661  \2606  candy  \2601  \273F  \8D34\8D34  +520  \266A  :3  \2665  \2606  xoxo";
+    white-space: pre;
+    inset: 82px 22px 72px 22px;
+    height: auto;
+    overflow: hidden;
+    color: rgba(50, 38, 108, 0.48);
+    font-size: clamp(18px, 2.15vw, 36px);
+    line-height: 1.72;
+    word-spacing: 0.72em;
+    opacity: 0.78;
+    transform: rotate(-0.75deg);
+}
+
+body.skin-doodle .love-note::before {
+    content: "Q chibi sticker  \2661  \2726  >w<";
+    left: 60%;
+    top: clamp(2px, 1vh, 14px);
+    padding: 5px 10px;
+    border: 2px dashed rgba(45, 36, 99, 0.48);
+    border-radius: 999px;
+    background: rgba(255, 248, 190, 0.48);
+}
+
+body.skin-doodle .love-note::after {
+    content: "\2606\A\2661";
+    white-space: pre;
+    position: absolute;
+    right: 12%;
+    top: 16%;
+    z-index: -1;
+    width: 86px;
+    height: 86px;
+    display: grid;
+    place-items: center;
+    border: 4px solid rgba(45, 36, 99, 0.66);
+    border-radius: 42% 55% 48% 52% / 52% 42% 58% 46%;
+    background:
+        radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.72), transparent 26%),
+        linear-gradient(135deg, rgba(255, 112, 176, 0.58), rgba(126, 221, 198, 0.5));
+    color: rgba(255, 65, 150, 0.82);
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    font-size: 25px;
+    line-height: 0.95;
+    text-align: center;
+    box-shadow:
+        4px 5px 0 rgba(255, 214, 88, 0.46),
+        -3px 3px 0 rgba(85, 164, 255, 0.32);
+    transform: rotate(12deg);
+    opacity: 0.82;
+}
+
+body.skin-doodle .content::before,
+body.skin-doodle .content::after {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    color: rgba(45, 36, 99, 0.64);
+    text-shadow:
+        1px 1px 0 #fff4a8,
+        -1px 1px 0 rgba(79, 156, 255, 0.42);
+}
+
+body.skin-doodle .content::before {
+    content: "\2661  \4ECA\65E5\751C\5EA6 +99  \2606  memo  \2661  sticker  \273F";
+    left: 50%;
+    top: -46px;
+    width: min(66vw, 560px);
+    padding: 6px 12px;
+    border: 3px solid rgba(45, 36, 99, 0.4);
+    border-radius: 18px 12px 22px 14px;
+    background: rgba(255, 242, 178, 0.38);
+    transform: translateX(-50%) rotate(-1.1deg);
+    font-size: clamp(13px, 1.55vmin, 20px);
+    opacity: 0.58;
+}
+
+body.skin-doodle .content::after {
+    content: "\8D34\8D34\8BA1\5212  \2661   \2606   \5C0F\7EB8\6761   \273F";
+    right: 2%;
+    bottom: -54px;
+    padding: 6px 12px;
+    border: 2px dashed rgba(45, 36, 99, 0.44);
+    border-radius: 999px;
+    background: rgba(255, 185, 222, 0.34);
+    transform: rotate(8deg);
+    font-size: clamp(13px, 1.55vmin, 19px);
+    opacity: 0.56;
+}
+
+body.skin-doodle .love-weather::before,
+body.skin-doodle .love-weather::after {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    font-family: "Comic Sans MS", "Zaozi Yuanqi Paopao", cursive;
+    color: rgba(45, 36, 99, 0.64);
+    text-shadow: 1px 1px 0 rgba(255, 244, 168, 0.88);
+}
+
+body.skin-doodle .love-weather::before {
+    content: "\2601  HI~  \2661";
+    left: -16px;
+    top: -42px;
+    padding: 6px 12px;
+    border: 2px solid rgba(45, 36, 99, 0.4);
+    border-radius: 18px 28px 18px 28px;
+    background: rgba(209, 238, 255, 0.45);
+    transform: rotate(-8deg);
+}
+
+body.skin-doodle .love-weather::after {
+    content: "\273F\A\2661";
+    white-space: pre;
+    right: -20px;
+    bottom: -22px;
+    font-size: 28px;
+    color: rgba(255, 86, 158, 0.72);
+    transform: rotate(13deg);
+}
+
+body.skin-doodle .box::before {
+    content: "tap!  \2661";
+}
+
+body.skin-doodle .box::after {
+    content: "\2606  \2661  \273F";
+}
+
+body.skin-doodle .box svg {
+    stroke-dasharray: 2.8 1.4;
+}
+
+body.skin-doodle .mood-face {
+    border-width: 5px;
+    background:
+        radial-gradient(circle at 25% 24%, rgba(255, 255, 255, 0.78), transparent 24%),
+        radial-gradient(circle at 76% 72%, rgba(255, 212, 90, 0.5), transparent 24%),
+        linear-gradient(135deg, rgba(255, 133, 190, 0.9), rgba(185, 231, 255, 0.84) 52%, rgba(180, 255, 229, 0.74));
+}
+
+body.skin-doodle .weather-card,
+body.skin-doodle .music-player,
+body.skin-doodle .love-line,
+body.skin-doodle .timer-panel h2,
+body.skin-doodle .time-unit,
+body.skin-doodle .mood-face {
+    outline: 2px solid rgba(255, 255, 255, 0.28);
+    background-blend-mode: multiply, normal;
+}
+
+body.skin-doodle .weather-card::before {
+    content: "LOVE  NOTE  \2661  \2606  \273F";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: -18px;
+    z-index: -1;
+    height: 26px;
+    border-radius: 999px;
+    background: repeating-linear-gradient(90deg, rgba(255, 106, 170, 0.36) 0 12px, rgba(255, 224, 94, 0.36) 12px 22px, rgba(124, 231, 196, 0.34) 22px 32px);
+    color: rgba(45, 36, 99, 0.52);
+    font-size: 12px;
+    line-height: 26px;
+    text-align: center;
+    transform: rotate(-2deg);
+}
+
+body.skin-doodle .weather-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at 18% 24%, rgba(255, 98, 166, 0.2), transparent 20%),
+        radial-gradient(circle at 82% 68%, rgba(88, 170, 255, 0.16), transparent 22%),
+        repeating-linear-gradient(-18deg, rgba(45, 36, 99, 0.04) 0 1px, transparent 1px 6px);
+    mix-blend-mode: multiply;
+}
+
+@media (max-width: 720px) {
+    html.skin-doodle-root::before,
+    html.skin-doodle-root::after {
+        left: 10px;
+        right: 10px;
+        font-size: 12px;
+        padding: 7px 10px;
+        min-height: 26px;
+        opacity: 0.62;
+    }
+
+    body.skin-doodle::after {
+        inset: 96px 10px 72px 10px;
+        font-size: clamp(14px, 5.4vw, 26px);
+        line-height: 1.72;
+        word-spacing: 0.42em;
+        opacity: 0.58;
+    }
+
+    body.skin-doodle .content {
+        top: 55vh;
+    }
+
+    body.skin-doodle .weather-card {
+        max-height: min(23vh, 206px);
+        padding: 10px;
+    }
+
+    body.skin-doodle .weather-card h3 {
+        font-size: 21px;
+    }
+
+    body.skin-doodle .weather-card p,
+    body.skin-doodle .note-refresh {
+        font-size: 13px;
+    }
+
+    body.skin-doodle .love-note::after {
+        width: 54px;
+        height: 54px;
+        font-size: 17px;
+        right: 4%;
+    }
+
+    body.skin-doodle .content::before {
+        top: -38px;
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    body.skin-doodle .content::after {
+        display: none;
+    }
+}
+
+/* Replace the old text wall with full-canvas hand-drawn doodle tiles. */
+body.skin-doodle::after {
+    content: none !important;
+    display: none !important;
+    background-image: none !important;
+}
+
+body.skin-doodle .doodle-backdrop {
+    position: fixed;
+    inset: -4vmax;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateZ(0);
+    will-change: opacity, transform, filter;
+}
+
+body.skin-doodle.has-doodle-backdrop .doodle-backdrop {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*
+ * Kept only as historical reference for the earlier full-page SVG texture.
+ * The live doodle background now uses .doodle-backdrop so the final page
+ * matches the transition layer instead of swapping to a wallpaper-like image.
+ */
+body.skin-doodle .unused-doodle-tile-source {
+    background-image:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22360%22%20height%3D%22260%22%20viewBox%3D%220%200%20360%20260%22%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M34%2038c-10-17-36%203%200%2027%2036-24%2010-44%200-27z%22%20fill%3D%22%23ffc0dc%22%20stroke%3D%22%23e9539a%22%20stroke-width%3D%223%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M116%2038l8%2016%2017%203-13%2012%203%2017-15-8-15%208%203-17-13-12%2017-3z%22%20fill%3D%22%23ffe777%22%20stroke%3D%22%234f78d6%22%20stroke-width%3D%222.2%22%20opacity%3D%22.75%22%2F%3E%3Cpath%20d%3D%22M230%2055c8-17%2039-6%2030%2013%2015-4%2025%2014%2011%2024h-57c-17-11%201-31%2016-21-3-6-3-12%200-16z%22%20fill%3D%22%23d9fbff%22%20stroke%3D%22%237560d9%22%20stroke-width%3D%222.3%22%20opacity%3D%22.72%22%2F%3E%3Cpath%20d%3D%22M300%2030c13%208%2020%2021%2010%2030s-26%202-36-11%22%20stroke%3D%22%23ff74b2%22%20stroke-width%3D%225%22%20opacity%3D%22.42%22%2F%3E%3Cpath%20d%3D%22M70%20150c14-14%2042-6%2043%2015%201%2022-30%2030-48%2018-17-11-10-25%205-33z%22%20fill%3D%22%23f7b0c8%22%20stroke%3D%22%23cc6c8f%22%20stroke-width%3D%222%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M158%20166q18-22%2042%200%22%20stroke%3D%22%238a70ef%22%20stroke-width%3D%223%22%20opacity%3D%22.55%22%2F%3E%3Cpath%20d%3D%22M205%20160q-8%2018%2014%2025%22%20stroke%3D%22%23ffe06a%22%20stroke-width%3D%224%22%20opacity%3D%22.55%22%2F%3E%3Ccircle%20cx%3D%22286%22%20cy%3D%22163%22%20r%3D%2217%22%20fill%3D%22%23fff3a8%22%20stroke%3D%22%232f2868%22%20stroke-width%3D%222%22%20opacity%3D%22.58%22%2F%3E%3Cpath%20d%3D%22M278%20160q8%208%2017%200M279%20168q9%207%2018%200%22%20stroke%3D%22%232f2868%22%20stroke-width%3D%221.6%22%20opacity%3D%22.68%22%2F%3E%3Cpath%20d%3D%22M41%20222l30-16M260%20224l44%208M315%20112l26-13%22%20stroke%3D%22%234f78d6%22%20stroke-width%3D%222%22%20opacity%3D%22.44%22%2F%3E%3Cpath%20d%3D%22M125%20222c17-11%2030-12%2039-3%22%20stroke%3D%22%23ff6fa8%22%20stroke-width%3D%223%22%20opacity%3D%22.42%22%2F%3E%3Cpath%20d%3D%22M19%20103q16-12%2035%202M24%20112q12-8%2027%202%22%20stroke%3D%22%237ce7c4%22%20stroke-width%3D%223%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M327%20201l7%2011%2013%202-10%208%202%2013-12-6-12%206%203-13-10-8%2013-2z%22%20fill%3D%22%23c9f7e5%22%20stroke%3D%22%23e9539a%22%20stroke-width%3D%222%22%20opacity%3D%22.68%22%2F%3E%3Ccircle%20cx%3D%22116%22%20cy%3D%22117%22%20r%3D%223%22%20fill%3D%22%2344357d%22%20opacity%3D%22.45%22%2F%3E%3Ccircle%20cx%3D%22142%22%20cy%3D%22119%22%20r%3D%222%22%20fill%3D%22%23ff69a8%22%20opacity%3D%22.55%22%2F%3E%3Ccircle%20cx%3D%22185%22%20cy%3D%2296%22%20r%3D%223%22%20fill%3D%22%234f9cff%22%20opacity%3D%22.45%22%2F%3E%3Ccircle%20cx%3D%22222%22%20cy%3D%22122%22%20r%3D%222%22%20fill%3D%22%23ffd45a%22%20opacity%3D%22.65%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22220%22%20viewBox%3D%220%200%20300%20220%22%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M27%2027c8%2011%2023%2012%2034%202%209%2014%2029%2016%2042%204%22%20stroke%3D%22%23a56cff%22%20stroke-width%3D%223%22%20opacity%3D%22.4%22%2F%3E%3Cpath%20d%3D%22M218%2022c-7-12-25%204%200%2021%2025-17%207-33%200-21z%22%20fill%3D%22%23ffafd1%22%20stroke%3D%22%23ff5aa7%22%20stroke-width%3D%222%22%20opacity%3D%22.62%22%2F%3E%3Cpath%20d%3D%22M253%2060l6%2011%2012%202-9%208%202%2012-11-6-11%206%202-12-9-8%2012-2z%22%20fill%3D%22%23bdf5e4%22%20stroke%3D%22%234f78d6%22%20stroke-width%3D%222%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M58%2083c9-12%2035-8%2037%208%202%2018-26%2024-42%2014-12-8-8-16%205-22z%22%20fill%3D%22%23ffc66f%22%20stroke%3D%22%23e9539a%22%20stroke-width%3D%222%22%20opacity%3D%22.45%22%2F%3E%3Cpath%20d%3D%22M133%2078c7-14%2031-4%2025%2011%2011-2%2020%2012%208%2020h-46c-14-9-1-25%2013-18-3-4-2-9%200-13z%22%20fill%3D%22%23d8f8ff%22%20stroke%3D%22%236d7ee8%22%20stroke-width%3D%222%22%20opacity%3D%22.56%22%2F%3E%3Cpath%20d%3D%22M204%20137q17%2015%2039%200M210%20151q11%208%2027%200%22%20stroke%3D%22%23ff74b2%22%20stroke-width%3D%223%22%20opacity%3D%22.45%22%2F%3E%3Cpath%20d%3D%22M42%20153l26-12M93%20188l34%208M174%20183l23-18M268%20171l-28%2010%22%20stroke%3D%22%232d2463%22%20stroke-width%3D%221.7%22%20opacity%3D%22.35%22%2F%3E%3Cpath%20d%3D%22M29%20202q21-18%2044-4%22%20stroke%3D%22%23ffd45a%22%20stroke-width%3D%225%22%20opacity%3D%22.4%22%2F%3E%3Ccircle%20cx%3D%22139%22%20cy%3D%22150%22%20r%3D%2214%22%20fill%3D%22%23fff2a8%22%20stroke%3D%22%232d2463%22%20stroke-width%3D%221.8%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M133%20149q6%205%2013%200M133%20158q7%205%2014%200%22%20stroke%3D%22%232d2463%22%20stroke-width%3D%221.4%22%20opacity%3D%22.55%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22121%22%20r%3D%223%22%20fill%3D%22%23ff69a8%22%20opacity%3D%22.5%22%2F%3E%3Ccircle%20cx%3D%2284%22%20cy%3D%2240%22%20r%3D%222.5%22%20fill%3D%22%234f9cff%22%20opacity%3D%22.5%22%2F%3E%3Ccircle%20cx%3D%22176%22%20cy%3D%2245%22%20r%3D%223%22%20fill%3D%22%23ffd45a%22%20opacity%3D%22.55%22%2F%3E%3Ccircle%20cx%3D%22283%22%20cy%3D%22122%22%20r%3D%222.5%22%20fill%3D%22%237ce7c4%22%20opacity%3D%22.55%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+        radial-gradient(circle at 12% 18%, rgba(255, 105, 168, 0.26), transparent 13%),
+        radial-gradient(circle at 82% 78%, rgba(124, 231, 196, 0.22), transparent 15%);
+    background-repeat: repeat, repeat, repeat, repeat;
+    background-size: 330px 238px, 248px 182px, 420px 340px, 390px 320px;
+    background-position: 18px 22px, 136px 112px, 0 0, 80px 60px;
+}
+
+body.skin-doodle .skin-switcher {
+    border: 3px solid rgba(45, 36, 99, 0.62);
+    border-radius: 20px 15px 24px 17px;
+    background:
+        linear-gradient(135deg, rgba(255, 239, 166, 0.62), rgba(202, 239, 255, 0.58), rgba(255, 188, 225, 0.52)),
+        repeating-linear-gradient(-9deg, rgba(255, 255, 255, 0.28) 0 2px, transparent 2px 8px);
+    color: rgba(45, 36, 99, 0.86);
+    box-shadow:
+        4px 4px 0 rgba(255, 107, 174, 0.32),
+        -3px 3px 0 rgba(124, 231, 196, 0.32);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    transform: rotate(1.4deg);
+}
+
+body.skin-doodle .skin-switcher__icon {
+    border: 2px dashed rgba(45, 36, 99, 0.42);
+    background: rgba(255, 105, 168, 0.54);
+    color: rgba(255, 246, 190, 0.96);
+    text-shadow: 1px 1px 0 rgba(45, 36, 99, 0.5);
+}
+
+@media (max-width: 720px) {
+    body.skin-doodle::after {
+        inset: 0;
+        opacity: 0.46;
+        background-size: 250px 180px, 205px 150px, 320px 280px, 300px 260px;
+        background-position: 4px 8px, 92px 88px, 0 0, 54px 42px;
+    }
+}
+
+/* Tablet layout: iPad-sized screens should not inherit the desktop spacing. */
+@media (min-width: 721px) and (max-width: 1024px) {
+    html.skin-doodle-root::before {
+        top: 12px;
+        min-height: 34px;
+        padding: 8px 14px;
+        font-size: clamp(13px, 2.1vw, 19px);
+        word-spacing: 0.72em;
+        opacity: 0.72;
+    }
+
+    html.skin-doodle-root::after {
+        bottom: 10px;
+        min-height: 32px;
+        padding: 8px 14px;
+        font-size: clamp(12px, 1.7vw, 17px);
+        opacity: 0.58;
+    }
+
+    body.skin-doodle::after {
+        inset: 0;
+        opacity: 0.46;
+        background-size: 290px 210px, 230px 168px, 360px 300px, 330px 280px;
+        background-position: 8px 10px, 112px 92px, 0 0, 64px 50px;
+    }
+
+    body.skin-doodle .love-note {
+        top: clamp(74px, 7.5vh, 94px);
+        width: min(88vw, 680px);
+    }
+
+    body.skin-doodle .mood-face {
+        width: clamp(132px, 20vw, 178px);
+        max-height: 11vh;
+    }
+
+    body.skin-doodle .love-note::before {
+        display: none;
+    }
+
+    body.skin-doodle .love-line {
+        padding: 7px 15px 10px;
+        font-size: clamp(28px, 4.3vw, 38px);
+        line-height: 1.12;
+    }
+
+    body.skin-doodle .box {
+        top: 37vh;
+    }
+
+    body.skin-doodle .box svg {
+        width: min(50vw, 420px);
+        max-height: 30vh;
+    }
+
+    body.skin-doodle .content {
+        top: 72vh;
+        width: min(88vw, 720px);
+    }
+
+    body.skin-doodle .timer-panel h2 {
+        font-size: clamp(22px, 3.1vw, 30px);
+    }
+
+    body.skin-doodle .timer {
+        gap: 8px 16px;
+    }
+
+    body.skin-doodle .time-unit b {
+        font-size: clamp(31px, 4.5vw, 42px);
+    }
+
+    body.skin-doodle .time-unit small,
+    body.skin-doodle .timer-suffix {
+        font-size: clamp(18px, 2.5vw, 23px);
+    }
+
+    body.skin-doodle .love-weather {
+        left: clamp(20px, 3vw, 30px);
+        top: clamp(318px, calc(100vh - 336px), 640px);
+        bottom: auto;
+        width: 250px;
+    }
+
+    body.skin-doodle .weather-card {
+        max-height: min(27vh, 252px);
+        padding: 12px;
+        overflow: auto;
+    }
+
+    body.skin-doodle .weather-card h3 {
+        font-size: 22px;
+    }
+
+    body.skin-doodle .weather-card p,
+    body.skin-doodle .note-refresh {
+        font-size: 13px;
+    }
+
+    body.skin-doodle .music-player {
+        right: 24px;
+        bottom: 24px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1366px) and (max-height: 900px) {
+    html.skin-doodle-root::before {
+        top: 10px;
+        min-height: 34px;
+        padding: 8px 16px;
+        font-size: clamp(14px, 1.55vw, 20px);
+        word-spacing: 0.82em;
+        opacity: 0.7;
+    }
+
+    html.skin-doodle-root::after {
+        bottom: 10px;
+        min-height: 32px;
+        padding: 8px 16px;
+        font-size: clamp(12px, 1.25vw, 17px);
+        opacity: 0.54;
+    }
+
+    body.skin-doodle::after {
+        inset: 0;
+        opacity: 0.46;
+    }
+
+    body.skin-doodle .love-note {
+        top: clamp(76px, 8vh, 90px);
+        width: min(76vw, 760px);
+    }
+
+    body.skin-doodle .mood-face {
+        width: clamp(138px, 15vw, 176px);
+        max-height: 12vh;
+    }
+
+    body.skin-doodle .love-note::before {
+        display: none;
+    }
+
+    body.skin-doodle .love-line {
+        font-size: clamp(28px, 3.4vw, 39px);
+        padding: 7px 16px 10px;
+    }
+
+    body.skin-doodle .box {
+        top: 37%;
+    }
+
+    body.skin-doodle .box svg {
+        width: min(36vw, 360px);
+        max-height: 30vh;
+    }
+
+    body.skin-doodle .content {
+        top: 73%;
+    }
+
+    body.skin-doodle .love-weather {
+        top: clamp(300px, calc(100vh - 326px), 610px);
+        bottom: auto;
+    }
+
+    body.skin-doodle .weather-card {
+        max-height: min(36vh, 285px);
+        overflow: auto;
+    }
+}
+
+html.skin-doodle-root,
+body.skin-doodle {
+    overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html.skin-doodle-root::-webkit-scrollbar,
+body.skin-doodle::-webkit-scrollbar,
+body.skin-doodle .weather-card::-webkit-scrollbar,
+body.skin-doodle .playlist-popover::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+body.skin-doodle .weather-card {
+    overflow: hidden !important;
+    max-height: none !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
