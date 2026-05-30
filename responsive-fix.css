@@ -1,0 +1,326 @@
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+@supports (height: 100dvh) {
+    html,
+    body {
+        height: 100dvh;
+    }
+}
+
+@media (min-width: 721px) and (max-height: 900px) {
+    .love-note {
+        top: clamp(10px, 2vh, 20px);
+        width: min(72vw, 700px);
+    }
+
+    .mood-face {
+        width: clamp(118px, 17vh, 166px);
+        max-height: 13vh;
+    }
+
+    .love-line {
+        margin-top: clamp(6px, 1vh, 12px);
+        font-size: clamp(23px, 3.6vh, 34px);
+        line-height: 1.08;
+    }
+
+    .box {
+        top: 36vh;
+    }
+
+    .box svg {
+        width: min(36vw, 42vh, 390px);
+        height: auto;
+        max-height: 29vh;
+    }
+
+    .content {
+        top: 69vh;
+        width: min(74vw, 740px);
+    }
+
+    .timer-panel h2 {
+        margin-bottom: clamp(5px, 0.8vh, 10px);
+        font-size: clamp(17px, 2.5vh, 23px);
+    }
+
+    .timer {
+        gap: 6px clamp(10px, 1.4vw, 18px);
+    }
+
+    .time-unit {
+        gap: 0.28em;
+    }
+
+    .time-unit b {
+        font-size: clamp(25px, 4.4vh, 38px);
+    }
+
+    .time-unit small,
+    .timer-suffix {
+        font-size: clamp(15px, 2.7vh, 23px);
+    }
+
+    .love-weather {
+        left: clamp(14px, 2vw, 24px);
+        top: auto;
+        bottom: clamp(12px, 2vh, 22px);
+        width: clamp(214px, 21vw, 260px);
+    }
+
+    .weather-card {
+        padding: clamp(10px, 1.6vh, 13px);
+        border-radius: 20px;
+        max-height: calc(100dvh - 36px) !important;
+        overflow: hidden !important;
+    }
+
+    .weather-tab {
+        padding-bottom: clamp(4px, 0.8vh, 8px);
+        font-size: clamp(13px, 2vh, 16px);
+    }
+
+    .weather-kicker {
+        margin-bottom: 3px;
+        font-size: 10px;
+    }
+
+    .weather-card h3 {
+        margin-bottom: 4px;
+        font-size: clamp(19px, 3vh, 22px);
+    }
+
+    .weather-card p,
+    .note-refresh {
+        font-size: clamp(12px, 1.9vh, 14px);
+        line-height: 1.38;
+    }
+
+    .love-index {
+        margin: clamp(6px, 1vh, 9px) 0;
+        padding: 7px 10px;
+    }
+
+    .love-index span {
+        font-size: 12px;
+    }
+
+    .love-index strong {
+        font-size: clamp(18px, 2.8vh, 21px);
+    }
+
+    .note-refresh {
+        margin-top: clamp(6px, 1vh, 9px);
+        padding: 6px 10px;
+    }
+
+    .skin-switcher {
+        top: clamp(10px, 1.8vh, 18px);
+        right: clamp(12px, 2vw, 22px);
+        min-height: 36px;
+        padding: 7px 12px 7px 9px;
+        font-size: 13px;
+    }
+
+    .skin-switcher__icon {
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+    }
+
+    .music-player {
+        right: clamp(12px, 2vw, 22px);
+        bottom: clamp(12px, 2vh, 22px);
+        height: 60px;
+        width: min(36vw, 300px);
+        clip-path: inset(5px 0 5px calc(100% - 50px) round 999px);
+    }
+
+    .music-player.is-open,
+    .music-player.list-open {
+        border-radius: 22px;
+        clip-path: inset(0 0 0 0 round 22px);
+    }
+
+    .music-strip {
+        height: 60px;
+        padding: 5px 52px 5px 12px;
+    }
+
+    .track-meta strong {
+        max-width: 150px;
+        font-size: 14px;
+    }
+
+    .player-actions button,
+    .volume-control {
+        width: 25px;
+        height: 25px;
+    }
+
+    body.skin-doodle .love-note {
+        top: clamp(52px, 7vh, 72px);
+        width: min(74vw, 680px);
+    }
+
+    body.skin-doodle .mood-face {
+        width: clamp(104px, 16vh, 150px);
+        max-height: 12vh;
+        padding: 5px;
+        border-width: 3px;
+    }
+
+    body.skin-doodle .love-note::before {
+        display: none;
+    }
+
+    body.skin-doodle .love-line {
+        padding: 6px 14px 8px;
+        font-size: clamp(22px, 3.8vh, 32px);
+        line-height: 1.08;
+    }
+
+    body.skin-doodle .box {
+        top: 37vh;
+    }
+
+    body.skin-doodle .box svg {
+        width: min(35vw, 40vh, 360px);
+        max-height: 28vh;
+    }
+
+    body.skin-doodle .content {
+        top: 70vh;
+        width: min(76vw, 720px);
+    }
+
+    body.skin-doodle .timer-panel h2 {
+        margin-bottom: 6px;
+        font-size: clamp(17px, 2.8vh, 23px);
+    }
+
+    body.skin-doodle .timer {
+        gap: 6px clamp(10px, 1.4vw, 16px);
+    }
+
+    body.skin-doodle .time-unit b {
+        font-size: clamp(24px, 4.3vh, 36px);
+    }
+
+    body.skin-doodle .time-unit small,
+    body.skin-doodle .timer-suffix {
+        font-size: clamp(14px, 2.6vh, 21px);
+    }
+
+    body.skin-doodle .love-weather {
+        left: clamp(14px, 2vw, 24px);
+        top: auto;
+        bottom: clamp(12px, 2vh, 22px);
+        width: clamp(206px, 20vw, 250px);
+    }
+
+    body.skin-doodle .weather-card {
+        padding: clamp(9px, 1.5vh, 12px);
+        max-height: calc(100dvh - 34px) !important;
+        overflow: hidden !important;
+    }
+
+    body.skin-doodle .music-player {
+        right: clamp(12px, 2vw, 22px);
+        bottom: clamp(12px, 2vh, 22px);
+        width: min(36vw, 300px);
+        height: 60px;
+    }
+}
+
+@media (min-width: 721px) and (max-height: 720px) {
+    .love-note {
+        top: 8px;
+    }
+
+    .mood-face {
+        width: clamp(96px, 15vh, 126px);
+        max-height: 11vh;
+    }
+
+    .love-line {
+        font-size: clamp(20px, 3.2vh, 28px);
+    }
+
+    .box {
+        top: 35vh;
+    }
+
+    .box svg {
+        width: min(32vw, 39vh, 330px);
+        max-height: 27vh;
+    }
+
+    .content {
+        top: 68vh;
+    }
+
+    .timer-panel h2 {
+        font-size: clamp(15px, 2.4vh, 20px);
+    }
+
+    .time-unit b {
+        font-size: clamp(22px, 4.1vh, 32px);
+    }
+
+    .time-unit small,
+    .timer-suffix {
+        font-size: clamp(13px, 2.5vh, 19px);
+    }
+
+    .love-weather {
+        width: clamp(198px, 19vw, 232px);
+    }
+
+    .weather-card {
+        padding: 9px;
+    }
+
+    .weather-card h3 {
+        font-size: 18px;
+    }
+
+    .weather-card p,
+    .note-refresh {
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    .daily-note {
+        display: none;
+    }
+
+    body.skin-doodle .love-note {
+        top: 44px;
+    }
+
+    body.skin-doodle .mood-face {
+        width: clamp(88px, 14vh, 118px);
+        max-height: 10vh;
+    }
+
+    body.skin-doodle .love-line {
+        font-size: clamp(19px, 3.3vh, 27px);
+    }
+
+    body.skin-doodle .box {
+        top: 36vh;
+    }
+
+    body.skin-doodle .box svg {
+        width: min(31vw, 37vh, 320px);
+        max-height: 26vh;
+    }
+
+    body.skin-doodle .content {
+        top: 68vh;
+    }
+}
